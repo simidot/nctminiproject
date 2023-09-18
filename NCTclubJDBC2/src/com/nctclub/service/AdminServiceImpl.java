@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nctclub.mapper.AdminMapper;
 import com.nctclub.mapper.UserMapper;
+import com.nctclub.model.MemberDTO;
 import com.nctclub.model.UserDTO;
 
 @Service
@@ -23,6 +24,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int deleteUser(String userId) {
 		return mapper.deleteUser(userId);
+	}
+
+	@Override
+	public int memberRegister(MemberDTO dto) {
+		return mapper.insertMember(dto);
 	}
 
 }
