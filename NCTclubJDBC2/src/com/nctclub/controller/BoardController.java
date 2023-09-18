@@ -13,6 +13,9 @@ import com.nctclub.model.BoardDTO;
 @Controller
 public class BoardController {
 
+	  
+	
+	
 
 	
 }
