@@ -25,6 +25,8 @@ public class AdminController {
 		model.addAttribute("memberList", members);
 		
 		return "userListForm";
+		
+		
 	}
 	
 	
