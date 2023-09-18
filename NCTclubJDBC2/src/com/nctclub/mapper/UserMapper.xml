@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+ <mapper namespace="com.nctclub.mapper.UserMapper">
+ 	 <insert id="insert" parameterType="userDTO">
+        INSERT INTO users (id, userId, password, username, nickname, birthdate, phone, email, address, userrole, regdate)
+        VALUES (USERS_SEQ.NEXTVAL, #{userId}, #{password}, #{username}, #{nickname}, #{birthdate}, #{phone}, #{email}, #{address}, #{userrole}, SYSDATE)
+    </insert>
+	
+	<select id="userLogin" parameterType="userDTO" resultType="userDTO">
+  		SELECT * FROM users WHERE userid = #{userId}
+  	</select>
+  	
+  	<select id="selectAllusers" resultType="userDTO">
+  		SELECT * FROM users
+  	</select>
+  	
+   <select id="idCheck" resultType="userDTO">
+		SELECT userId FROM users WHERE userid = #{userId}
+	</select>
+ </mapper>
