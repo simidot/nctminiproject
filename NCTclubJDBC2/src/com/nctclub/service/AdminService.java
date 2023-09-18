@@ -8,4 +8,6 @@ public interface AdminService {
 	
 	List<UserDTO> selectAllUsers();
 	
+	public void deleteUser(String userId);
+	
 }

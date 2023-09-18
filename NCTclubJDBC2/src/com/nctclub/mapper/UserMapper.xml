@@ -14,10 +14,6 @@
   		SELECT * FROM users WHERE userid = #{userId}
   	</select>
   	
-  	<select id="selectAllusers" resultType="userDTO">
-  		SELECT * FROM users
-  	</select>
-  	
    <select id="idCheck" resultType="userDTO">
 		SELECT userId FROM users WHERE userid = #{userId}
 	</select>

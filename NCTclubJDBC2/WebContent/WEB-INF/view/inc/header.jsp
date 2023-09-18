@@ -14,7 +14,13 @@
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    
+    <style>
+    	.navbar {
+    		position: relative;
+    		z-index: 2;  /* 다른 요소보다 위에 표시될 수 있도록 설정 */
+		}
+    	
+    </style>
   
 	  
 </head>
@@ -27,23 +33,19 @@
     </button>
 
     <div class="mx-auto order-0">
-        <a class="navbar-brand mx-auto" href="#">NCTclub</a>
+    	<img alt="nct logo" src="${ctxPath}/resources/img/NCT-logo.jpg" style="width: 50px; height: 50px;">
+        <a class="navbar-brand mx-auto" href="${ctxPath}/user/main">NCTclub</a>
     </div>
 
     <div class="navbar-collapse collapse order-3" id="navbarNav">
         <ul class="navbar-nav ml-auto">
             <li class="nav-item active">
-                <a class="nav-link" href="#">Home</a>
+                <a class="nav-link" href="${ctxPath}/user/loginform">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
+                <a class="nav-link" href="${ctxPath}/user/registerform">Register</a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Pricing</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">About</a>
-            </li>
+           
         </ul>
     </div>
 </nav>

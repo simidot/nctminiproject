@@ -1,0 +1,16 @@
+1. New -> Dynamic Web Project -> SpringBoard
+2. WEB-INF\lib\*.jar 복사
+3. web.xml 수정
+4. applicationContext.xml 작성
+5. spring-servlet.xml
+6. index.html 작성해서 테스트
+
+7. BoardDTO.java
+8. BoardDAO.java : 인터페이스
+9. sqlmap-config.xml
+10. Board.xml : 실직적인 쿼리문 작성
+11. GuestDAOImpl.java
+12. BoardService.java 인터페이스
+13. BoardServiceImpl.java 
+15. BoardController.java
+16. .jsp문서 작성 - 뷰:
