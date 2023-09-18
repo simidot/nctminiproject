@@ -12,7 +12,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 리스트</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
     	/* 추가된 CSS 스타일 */
         .modal {
@@ -142,8 +141,9 @@
         	                    // 삭제가 성공했을 경우 추가 로직을 작성하세요.
         	                    // 예를 들어, 화면에서 해당 행을 삭제하거나 다시 로드할 수 있습니다.
         	                    window.location.href = "${ctxPath}/admin/userlist";
+
         	                    console.log("회원 삭제 성공");
-        	                } else {
+        	                } else if (response == "no"){
         	                    console.error("회원 삭제 실패");
         	                }
         	               // modal.style.display = "none"; // 모달 닫기
@@ -153,17 +153,19 @@
         	                console.error("요청 실패");
         	                //modal.style.display = "none"; // 모달 닫기
         	            }
+	                
+
         	        });
         	    }
         	});
 
 
-        // 모달 외부를 클릭하면 모달을 닫습니다.
+    /*     // 모달 외부를 클릭하면 모달을 닫습니다.
         window.addEventListener("click", function (event) {
             if (event.target === modal) {
                 modal.style.display = "none";
             }
-        });
+        }); */
     });
 </script>
 </body>

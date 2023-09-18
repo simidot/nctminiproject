@@ -11,6 +11,6 @@ public interface AdminMapper {
 	public List<UserDTO> selectAllusers(); 
 			
 	// 회원 삭제
-	public void deleteUser(String userId);
+	public int deleteUser(String userId);
 
 }

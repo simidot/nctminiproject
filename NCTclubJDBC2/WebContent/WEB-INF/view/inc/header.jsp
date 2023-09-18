@@ -32,7 +32,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="mx-auto order-0">
+    <div class="mx-auto order-0" >
     	<img alt="nct logo" src="${ctxPath}/resources/img/NCT-logo.jpg" style="width: 50px; height: 50px;">
         <a class="navbar-brand mx-auto" href="${ctxPath}/user/main">NCTclub</a>
     </div>

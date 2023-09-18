@@ -21,8 +21,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void deleteUser(String userId) {
-		mapper.deleteUser(userId);
+	public int deleteUser(String userId) {
+		return mapper.deleteUser(userId);
 	}
 
 }

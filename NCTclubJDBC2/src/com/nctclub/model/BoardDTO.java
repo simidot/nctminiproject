@@ -2,6 +2,7 @@ package com.nctclub.model;
 
 import java.util.Date;
 
+
 public class BoardDTO {
 		
 	private String name;

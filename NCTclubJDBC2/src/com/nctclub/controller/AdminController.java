@@ -30,9 +30,14 @@ public class AdminController {
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
-		adminService.deleteUser(userId);
+		System.out.println(userId);
+		int result = adminService.deleteUser(userId);
+		if (result ==1) {
+			return "yes";
+		} else {
+			return "no";
+		}
 		
-		return "yes";
 	}
 	
 	
