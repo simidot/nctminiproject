@@ -12,11 +12,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 리스트</title>
-<<<<<<< Upstream, based on branch 'master' of https://github.com/simidot/nctminiproject.git
-=======
-
-    
->>>>>>> 2b7221e feat : 수정
     <style>
     	/* 추가된 CSS 스타일 */
         .modal {
@@ -165,17 +160,13 @@
         	});
 
 
-<<<<<<< Upstream, based on branch 'master' of https://github.com/simidot/nctminiproject.git
-    /*     // 모달 외부를 클릭하면 모달을 닫습니다.
+         // 모달 외부를 클릭하면 모달을 닫습니다.
         window.addEventListener("click", function (event) {
-=======
-       // 모달 외부를 클릭하면 모달을 닫습니다.
-         window.addEventListener("click", function (event) {
->>>>>>> 2b7221e feat : 수정
+
             if (event.target === modal) {
                 modal.style.display = "none";
             }
-        }); */
+        }); 
     });
 </script>
 </body>
