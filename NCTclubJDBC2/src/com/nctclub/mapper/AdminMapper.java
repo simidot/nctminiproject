@@ -2,6 +2,7 @@ package com.nctclub.mapper;
 
 import java.util.List;
 
+import com.nctclub.model.MemberDTO;
 import com.nctclub.model.UserDTO;
 
 public interface AdminMapper {
@@ -12,5 +13,8 @@ public interface AdminMapper {
 			
 	// 회원 삭제
 	public int deleteUser(String userId);
+	
+	// 엔시티 멤버 추가
+	public int insertMember(MemberDTO dto);
 
 }

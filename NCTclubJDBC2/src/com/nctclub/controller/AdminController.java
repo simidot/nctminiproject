@@ -5,11 +5,13 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nctclub.model.MemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.AdminService;
 
@@ -36,9 +38,20 @@ public class AdminController {
 			return "yes";
 		} else {
 			return "no";
-		}
-		
+		}	
 	}
+	
+	@RequestMapping(value = "/nctregisterform", method = RequestMethod.GET)
+	public String registerform() {
+		return "nctregisterform";
+	}
+	
+    @RequestMapping(value="/nctregister", method = RequestMethod.POST)
+    public String userRegister(@ModelAttribute MemberDTO memberDto) {
+    	int result = adminService.memberRegister(memberDto);
+    	System.out.println(result);
+        return "main";
+    }
 	
 	
 

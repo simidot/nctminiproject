@@ -5,5 +5,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type= "com.nctclub.model.UserDTO" alias="userDTO" />
+		<typeAlias type= "com.nctclub.model.MemberDTO" alias="memberDTO" />
+		
 	</typeAliases>
 </configuration>
