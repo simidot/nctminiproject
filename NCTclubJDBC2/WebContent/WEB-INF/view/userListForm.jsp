@@ -12,6 +12,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>회원 리스트</title>
+<<<<<<< Upstream, based on branch 'master' of https://github.com/simidot/nctminiproject.git
+=======
+
+    
+>>>>>>> 2b7221e feat : 수정
     <style>
     	/* 추가된 CSS 스타일 */
         .modal {
@@ -129,8 +134,8 @@
         	// "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
         	    if (userIdToDelete) {
         	        // AJAX 요청을 보낼 URL을 설정합니다.
-        	        const deleteUrl = '<c:url value="/admin/deleteUser?userId="/>'+userIdToDelete;
-
+				const deleteUrl = '<c:url value="/admin/deleteUser"/>' + "?userId=" + userIdToDelete;
+			     console.log(deleteUrl);
         	        $.ajax({
         	            type: "GET", // HTTP 요청 메서드 선택 (GET 또는 POST)
         	            url: deleteUrl, // 요청을 보낼 URL
@@ -160,8 +165,13 @@
         	});
 
 
+<<<<<<< Upstream, based on branch 'master' of https://github.com/simidot/nctminiproject.git
     /*     // 모달 외부를 클릭하면 모달을 닫습니다.
         window.addEventListener("click", function (event) {
+=======
+       // 모달 외부를 클릭하면 모달을 닫습니다.
+         window.addEventListener("click", function (event) {
+>>>>>>> 2b7221e feat : 수정
             if (event.target === modal) {
                 modal.style.display = "none";
             }

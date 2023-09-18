@@ -37,7 +37,6 @@ public class AdminController {
 		} else {
 			return "no";
 		}
-		
 	}
 	
 	

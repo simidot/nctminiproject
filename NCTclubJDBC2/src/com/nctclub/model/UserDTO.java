@@ -25,7 +25,4 @@ public class UserDTO {
        private String address;
        private UserRole userrole;  // Enum for 'USER' and 'ADMIN'
        private Date regdate;
-       
-      
-       
 }
