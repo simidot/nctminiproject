@@ -54,7 +54,7 @@
           <div class="card shadow-sm">
           	<img src = "${ctxPath}/resources/img/2johnny.jpg" alt = "쟈니">
             <div class="card-body">
-              <p class="card-text">쟈니</p>
+              <p class="card-text">솔하</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" class="btn btn-sm btn-outline-secondary">상세보기</button>
