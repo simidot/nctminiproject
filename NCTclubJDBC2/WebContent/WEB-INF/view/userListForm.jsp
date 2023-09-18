@@ -129,8 +129,8 @@
         	// "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
         	    if (userIdToDelete) {
         	        // AJAX 요청을 보낼 URL을 설정합니다.
-        	        const deleteUrl = '<c:url value="/admin/deleteUser?userId="/>'+userIdToDelete;
-
+				const deleteUrl = '<c:url value="/admin/deleteUser"/>' + "?userId=" + userIdToDelete;
+			     console.log(deleteUrl);
         	        $.ajax({
         	            type: "GET", // HTTP 요청 메서드 선택 (GET 또는 POST)
         	            url: deleteUrl, // 요청을 보낼 URL
@@ -160,12 +160,13 @@
         	});
 
 
-    /*     // 모달 외부를 클릭하면 모달을 닫습니다.
+         // 모달 외부를 클릭하면 모달을 닫습니다.
         window.addEventListener("click", function (event) {
+
             if (event.target === modal) {
                 modal.style.display = "none";
             }
-        }); */
+        }); 
     });
 </script>
 </body>

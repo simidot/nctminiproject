@@ -38,7 +38,7 @@ public class AdminController {
 			return "yes";
 		} else {
 			return "no";
-		}	
+		}
 	}
 	
 	@RequestMapping(value = "/nctregisterform", method = RequestMethod.GET)
