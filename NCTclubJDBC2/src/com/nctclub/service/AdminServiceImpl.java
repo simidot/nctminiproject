@@ -52,8 +52,10 @@ public class AdminServiceImpl implements AdminService {
 	@Override
     public File uploadFile(MultipartFile file, String uploadPath) throws Exception {
         String fileName = file.getOriginalFilename();
-        
+        System.out.println("fileExtension before: "+fileName);
         String fileExtension = getFileExtension(fileName);
+        System.out.println("fileExtension after: "+fileExtension);
+
 		// 파일 확장자를 검사하여 허용되지 않는 확장자인 경우 예외를 발생시킨다.
         if (!ALLOWED_EXTENSIONS.contains(fileExtension)) {
             throw new Exception("Invalid file extension. Allowed extensions are: " + ALLOWED_EXTENSIONS);
@@ -62,13 +64,20 @@ public class AdminServiceImpl implements AdminService {
         if (file.getSize() > MAX_FILE_SIZE) {
             throw new Exception("File size exceeds the limit of " + MAX_FILE_SIZE / (1024 * 1024) + "MB.");
         }
+        
+        System.out.println("upload전 : "+ uploadPath);
         // 업로드 디렉토리가 존재하지 않는 경우 디렉토리를 생성한다.
         File uploadDir = new File(uploadPath);
+        System.out.println("upload후 : "+ uploadDir);
+
         if (!uploadDir.exists()) {
             uploadDir.mkdirs();
         }
+
        // 동일한 파일 이름이 존재하는 경우 UUID를 사용하여 파일 이름을 변경한다.
         File uploadFile = new File(uploadPath + File.separator + fileName);
+        System.out.println("uploadFile : "+ uploadFile);
+
         if (uploadFile.exists()) {
             String uuid = UUID.randomUUID().toString(); // UUID 생성
             fileName = uuid + "_" + fileName; // 파일 이름에 UUID 추가

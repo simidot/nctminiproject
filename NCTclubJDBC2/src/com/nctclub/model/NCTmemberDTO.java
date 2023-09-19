@@ -1,6 +1,7 @@
 package com.nctclub.model;
 
 import java.sql.Date;
+import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,4 +22,5 @@ public class NCTmemberDTO {
     private String mbti;
     private String image;
     private Date regdate;
+    private List<String> grouplist;
 }

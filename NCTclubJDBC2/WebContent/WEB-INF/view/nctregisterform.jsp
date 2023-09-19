@@ -65,7 +65,7 @@
         <div class="form-group row">
             <label for="image" class="col-sm-3 col-form-label text-nowrap">이미지파일 등록</label>
             <div class="col-sm-9">
-                <input type="file" class="form-control text-right" id="image" name="image">
+                <input type="file" class="form-control text-right" id="file" name="file">
             </div>
         </div>
         

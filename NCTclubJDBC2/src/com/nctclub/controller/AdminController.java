@@ -34,6 +34,11 @@ public class AdminController {
 		return "userListForm";
 	}
 	
+	@RequestMapping(value="/main", method = RequestMethod.GET)
+    public String main() {
+		return "main";
+	}
+	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
