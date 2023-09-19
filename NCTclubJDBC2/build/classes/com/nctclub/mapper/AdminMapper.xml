@@ -13,9 +13,23 @@
  	 	DELETE FROM users WHERE userid = #{userId}
  	 </delete>
  	
- 	<insert id="insertMember" parameterType="NCTmemberDTO">
-        INSERT INTO nctmembers (id, name, birthdate, nationality, position, mbti, image, regdate)
-        VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
-    </insert>
+
+<!-- Insert member -->
+<insert id="insertMember">
+   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
+   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE);
+</insert>
+
+<!-- Insert groups -->
+<insert id="insertGroupsForMember">
+   <foreach collection="groupList" item="group">
+       INSERT INTO nctgroups (groupId, groupName, memberRefId)
+       VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, NCTMEMBERS_SEQ.CURRVAL);
+   </foreach>
+</insert>
+
+	   
+ 	
+ 
 
  </mapper>

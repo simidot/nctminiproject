@@ -12,9 +12,9 @@
 	<form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
     	<!-- 멤버 이름 등록 -->
         <div class="form-group row">
-          <label for="memberName" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
+          <label for="name" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
             <div class="col-sm-9">
-                <input type="text" class="form-control mb-2" id="memberName" name="memberName" required>
+                <input type="text" class="form-control mb-2" id="name" name="name" required>
                 <small id="idWarning" class="text-danger"></small>
             </div>
         </div>

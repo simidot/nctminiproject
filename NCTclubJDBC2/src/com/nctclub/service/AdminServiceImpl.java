@@ -8,6 +8,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nctclub.mapper.AdminMapper;
@@ -36,11 +37,14 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.deleteUser(userId);
 	}
 
-	@Override
-	public int memberRegister(NCTmemberDTO dto) {
-	
-		return mapper.insertMember(dto);
-	}
+    @Transactional
+    public void addMemberWithGroups(NCTmemberDTO dto) {
+        // Insert member
+        mapper.insertMember(dto);
+        
+        // Insert groups
+        mapper.insertGroupsForMember(dto);
+    }
 	
     /**
      * 파일을 업로드하는 메서드

@@ -16,5 +16,7 @@ public interface AdminMapper {
 	
 	// 엔시티 멤버 추가
 	public int insertMember(NCTmemberDTO dto);
+	
+	public int insertGroupsForMember(NCTmemberDTO dto);
 
 }

@@ -96,7 +96,7 @@ public class AdminController {
 
         // TODO: 이미지가 null 일때의 처리를 고려해야 함
         // 회원 정보를 데이터베이스에 추가
-        //adminService.memberRegister(dto);
+        adminService.addMemberWithGroups(dto);
        
        
         // 회원 등록 후 메인 페이지로 리다이렉션
