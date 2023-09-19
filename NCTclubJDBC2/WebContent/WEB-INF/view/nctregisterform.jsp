@@ -9,7 +9,7 @@
 <!-- main html -->
 <div class="container shadow py-5 w-50 rounded p-5 my-auto">
 <h2 class="text-center mb-3">엔시티 멤버 등록</h2>
-    <form action='${ctxPath}/admin/memberregister' method='post'>
+    <form action='${ctxPath}/admin/nctregister' method='post'>
     	<!-- 멤버 이름 등록 -->
         <div class="form-group row">
     		<label for="memberName" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
