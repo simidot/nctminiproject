@@ -1,8 +1,11 @@
 package com.nctclub.service;
 
+import java.io.File;
 import java.util.List;
 
-import com.nctclub.model.MemberDTO;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 
 public interface AdminService {
@@ -11,8 +14,7 @@ public interface AdminService {
 	
 	public int deleteUser(String userId);
 	
-	public int memberRegister(MemberDTO dto);
-
+	public int memberRegister(NCTmemberDTO dto);
 	
-	
+	public File uploadFile(MultipartFile file, String uploadPath) throws Exception;
 }
