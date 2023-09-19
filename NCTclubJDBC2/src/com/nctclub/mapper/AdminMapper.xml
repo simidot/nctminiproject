@@ -12,10 +12,10 @@
  	 <delete id = "deleteUser" parameterType = "String" >
  	 	DELETE FROM users WHERE userid = #{userId}
  	 </delete>
- 	 
- 	 <insert id = "insertMember" parameterType= "memberDTO">
- 	 	INSERT INTO nctmembers (nctmemberid, name, birthdate, nationality, positionlist, mbti, image, regdate, grouplist)
- 	 	VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{positionlist}, #{mbti}, #{image}, SYSDATE, #{grouplist})
- 	 </insert>
+ 	
+ 	<insert id="insertMember" parameterType="NCTmemberDTO">
+        INSERT INTO nctmembers (id, name, birthdate, nationality, position, mbti, image, regdate)
+        VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
+    </insert>
 
  </mapper>

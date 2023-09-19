@@ -1,3 +1,5 @@
+
+-- 사용자
 CREATE TABLE USERS (
    id NUMBER PRIMARY KEY,
    userId VARCHAR2(50) UNIQUE NOT NULL,
@@ -15,27 +17,42 @@ create SEQUENCE USERS_SEQ
   START WITH 1
   INCREMENT BY 1
   NOCACHE;
+  
+-- nct 맴버
+ CREATE TABLE nctmembers (
+    id NUMBER PRIMARY KEY,
+    name VARCHAR2(255),
+    birthdate DATE,
+    nationality VARCHAR2(255) NOT NULL,
+    position VARCHAR2(200)  NOT NULL,
+    mbti    VARCHAR2(4),
+    image   VARCHAR2(100)   NOT NULL,
+    regdate     DATE DEFAULT SYSDATE
+);
 
--- 더미 사용자 1
-INSERT INTO USERS (id, user_id, password, full_name, nickname, birthdate, phone, email, address, user_role, regdate)
-VALUES (USERS_SEQ.NEXTVAL, 'john_doe', 'password123', 'John Doe', 'Johny', TO_DATE('1990-05-10', 'YYYY-MM-DD'), '123-456-7890', 'john.doe@email.com', '1234 Elm Street, Anytown', 'USER', SYSDATE);
+--nct 그룹
+CREATE TABLE nctgroups (
+    memberId NUMBER,
+    groupId NUMBER,
+    PRIMARY KEY (memberId, groupId),
+    FOREIGN KEY (memberId) REFERENCES nctmembers(id),
+    FOREIGN KEY (groupId) REFERENCES groups(id)
+);
 
--- 더미 사용자 2
-INSERT INTO USERS (id, user_id, password, full_name, nickname, birthdate, phone, email, address, user_role, regdate)
-VALUES (USERS_SEQ.NEXTVAL, 'admin01', 'adminpass', 'Admin User', 'Admin', TO_DATE('1985-10-15', 'YYYY-MM-DD'), '123-456-7891', 'admin@email.com', '1234 Admin Street, Anytown', 'ADMIN', SYSDATE);
+--그룹명
+CREATE TABLE groups (
+    id NUMBER PRIMARY KEY,
+    groupName VARCHAR2(255)
+);
 
--- 더미 사용자 3
-INSERT INTO USERS (id, user_id, password, full_name, nickname, birthdate, phone, email, address, user_role, regdate)
-VALUES (USERS_SEQ.NEXTVAL, 'jane_doe', 'password456', 'Jane Doe', 'Janey', TO_DATE('1992-08-20', 'YYYY-MM-DD'), '123-456-7892', 'jane.doe@email.com', '1234 Oak Street, Anytown', 'USER', SYSDATE);
 
-select * from USERS;
+CREATE SEQUENCE nctmembers_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
 
-drop sequence USERS_SEQ;
 
-drop table users;
-
-commit;
-desc users;
-
-INSERT INTO USERS (id,userid, password, username, nickname, birthdate, phone, email, address, userrole, regdate)
-VALUES (USERS_SEQ.NEXTVAL,'jane_doe1', 'password2456', 'Jane 3Doe', 'J4aney', TO_DATE('1992-08-20', 'YYYY-MM-DD'), '123-456-7892', 'jane.doe@email.com', '1234 Oak Street, Anytown', 'USER', SYSDATE);
+CREATE SEQUENCE groups_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
