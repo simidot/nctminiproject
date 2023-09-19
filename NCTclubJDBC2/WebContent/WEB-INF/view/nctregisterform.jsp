@@ -9,12 +9,12 @@
 <!-- main html -->
 <div class="container shadow py-5 w-50 rounded p-5 my-auto">
 <h2 class="text-center mb-3">엔시티 멤버 등록</h2>
-   <form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
-       <!-- 멤버 이름 등록 -->
+	<form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
+    	<!-- 멤버 이름 등록 -->
         <div class="form-group row">
-          <label for="memberName" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
+          <label for="name" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
             <div class="col-sm-9">
-                <input type="text" class="form-control mb-2" id="memberName" name="memberName" required>
+                <input type="text" class="form-control mb-2" id="name" name="name" required>
                 <small id="idWarning" class="text-danger"></small>
             </div>
         </div>
@@ -37,20 +37,20 @@
         
         <!-- 포지션 정보 등록 (리더, 센터, 메인보컬, 리드보컬, 서브보컬, 메인댄서, 리드댄서, 서브댄서, 메인래퍼, 리드래퍼, 서브래퍼 중 선택하도록)
         체크하면 리스트에 추가되도록 하면 좋을 것 같당... -->
-      <div class="form-group row">
-       <label for="positionlist" class="col-sm-3 col-form-label text-nowrap">포지션 :<span class="text-danger">*</span></label>
-          <div class="col-sm-9">
-              <label>
-                  <input type="radio" name="position" value="보컬"> 보컬
-              </label>
-              <label>
-                  <input type="radio" name="position" value="댄서"> 댄서
-              </label>
-              <label>
-                  <input type="radio" name="position" value="래퍼"> 래퍼
-              </label>
-          </div>
-      </div>
+		<div class="form-group row">
+	    <label for="positionlist" class="col-sm-3 col-form-label text-nowrap">포지션 :<span class="text-danger">*</span></label>
+		    <div class="col-sm-9">
+		        <label>
+		            <input type="radio" name="position" value="보컬"> 보컬
+		        </label>
+		        <label>
+		            <input type="radio" name="position" value="댄서"> 댄서
+		        </label>
+		        <label>
+		            <input type="radio" name="position" value="래퍼"> 래퍼
+		        </label>
+		    </div>
+		</div>
 
         
         <!-- 엠비티아이 정보 등록 -->
@@ -71,7 +71,7 @@
         
         <!-- 그룹 정보 등록 (NCT U, NCT DREAM, Way V, NCT 127, SuperM, NCT 도재정 중 선택하도록)
         체크하면 리스트에 추가되도록 하면 좋을 것 같당... -->
-      <div class="form-group row">
+		<div class="form-group row">
     <label for="groupList" class="col-sm-3 col-form-label text-nowrap">소속 그룹 :<span class="text-danger">*</span></label>
     <div class="col-sm-9">
         <div class="form-check form-check-inline">

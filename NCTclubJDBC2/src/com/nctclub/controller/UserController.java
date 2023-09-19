@@ -41,6 +41,7 @@ public class UserController {
 	public String loginform() {
 		return "loginform";
 	}
+    
     @RequestMapping(value="/main", method = RequestMethod.GET)
     public String main() {
 		return "main";

@@ -14,7 +14,7 @@ public interface AdminService {
 	
 	public int deleteUser(String userId);
 	
-	public int memberRegister(NCTmemberDTO dto);
+    public void addMemberWithGroups(NCTmemberDTO dto); 
 	
 	public File uploadFile(MultipartFile file, String uploadPath) throws Exception;
 }
