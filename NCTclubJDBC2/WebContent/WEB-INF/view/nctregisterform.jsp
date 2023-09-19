@@ -75,28 +75,28 @@
     <label for="groupList" class="col-sm-3 col-form-label text-nowrap">소속 그룹 :<span class="text-danger">*</span></label>
     <div class="col-sm-9">
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="nctU" name="groupList[]" value="NCT U">
+            <input class="form-check-input" type="checkbox" id="nctU" name="groupList" value="NCT U">
             <label class="form-check-label" for="nctU">NCT U</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="nctDREAM" name="groupList[]" value="NCT DREAM">
+            <input class="form-check-input" type="checkbox" id="nctDREAM" name="groupList" value="NCT DREAM">
             <label class="form-check-label" for="nctDREAM">NCT DREAM</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="wayV" name="groupList[]" value="Way V">
+            <input class="form-check-input" type="checkbox" id="wayV" name="groupList" value="Way V">
             <label class="form-check-label" for="wayV">Way V</label>
         </div>
         <br>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="nct127" name="groupList[]" value="NCT 127">
+            <input class="form-check-input" type="checkbox" id="nct127" name="groupList" value="NCT 127">
             <label class="form-check-label" for="nct127">NCT 127</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="superM" name="groupList[]" value="SuperM">
+            <input class="form-check-input" type="checkbox" id="superM" name="groupList" value="SuperM">
             <label class="form-check-label" for="superM">SuperM</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="dojaejung" name="groupList[]" value="NCT 도재정">
+            <input class="form-check-input" type="checkbox" id="dojaejung" name="groupList" value="NCT 도재정">
             <label class="form-check-label" for="dojaejung">NCT 도재정</label>
         </div>
     </div>

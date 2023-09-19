@@ -17,42 +17,31 @@ create SEQUENCE USERS_SEQ
   START WITH 1
   INCREMENT BY 1
   NOCACHE;
-  
--- nct 맴버
- CREATE TABLE nctmembers (
-    id NUMBER PRIMARY KEY,
+
+  CREATE TABLE nctmembers (
+    memberId NUMBER PRIMARY KEY,
     name VARCHAR2(255),
     birthdate DATE,
     nationality VARCHAR2(255) NOT NULL,
-    position VARCHAR2(200)  NOT NULL,
-    mbti    VARCHAR2(4),
-    image   VARCHAR2(100)   NOT NULL,
-    regdate     DATE DEFAULT SYSDATE
+    position VARCHAR2(200) NOT NULL,
+    mbti VARCHAR2(4),
+    image VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
 );
 
---nct 그룹
 CREATE TABLE nctgroups (
-    memberId NUMBER,
-    groupId NUMBER,
-    PRIMARY KEY (memberId, groupId),
-    FOREIGN KEY (memberId) REFERENCES nctmembers(id),
-    FOREIGN KEY (groupId) REFERENCES groups(id)
+    groupId NUMBER PRIMARY KEY,
+    groupName VARCHAR2(255) UNIQUE,
+    memberRefId NUMBER,
+    FOREIGN KEY (memberRefId) REFERENCES nctmembers(memberId)
 );
-
---그룹명
-CREATE TABLE groups (
-    id NUMBER PRIMARY KEY,
-    groupName VARCHAR2(255)
-);
-
 
 CREATE SEQUENCE nctmembers_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;
 
-
-CREATE SEQUENCE groups_seq
+CREATE SEQUENCE nctgroups_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;

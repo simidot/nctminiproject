@@ -87,10 +87,12 @@ public class AdminController {
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
         }
-        
+        System.out.println(dto.getGroupList().toString());
+
         // TODO: 이미지가 null 일때의 처리를 고려해야 함
         // 회원 정보를 데이터베이스에 추가
         //adminService.memberRegister(dto);
+       
        
         // 회원 등록 후 메인 페이지로 리다이렉션
         return "redirect:main";
