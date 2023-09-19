@@ -12,14 +12,14 @@
 	<form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
     	<!-- 멤버 이름 등록 -->
         <div class="form-group row">
-    		<label for="memberName" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
+          <label for="memberName" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
             <div class="col-sm-9">
                 <input type="text" class="form-control mb-2" id="memberName" name="memberName" required>
                 <small id="idWarning" class="text-danger"></small>
             </div>
         </div>
 
-		<!-- 생년월일 정보 등록 -->
+      <!-- 생년월일 정보 등록 -->
         <div class="form-group row">
             <label for="birthdate" class="col-sm-3 col-form-label text-nowrap">생년월일:</label>
             <div class="col-sm-9">
@@ -27,8 +27,8 @@
             </div>
         </div>
 
-		<!-- 국적 정보 등록 -->
-		<div class="form-group row">
+      <!-- 국적 정보 등록 -->
+      <div class="form-group row">
             <label for="nationality" class="col-sm-3 col-form-label text-nowrap">국적 :<span class="text-danger">*</span></label>
             <div class="col-sm-9">
                 <input type="text" class="form-control" id="nationality" name="nationality">
@@ -103,7 +103,7 @@
 </div>
 
 
-		<button type="submit" class="btn btn-dark d-block mx-auto" >등록하기</button>
+      <button type="submit" class="btn btn-dark d-block mx-auto" >등록하기</button>
     </form>
 </div>
 
