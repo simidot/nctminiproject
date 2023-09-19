@@ -38,6 +38,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int memberRegister(NCTmemberDTO dto) {
+	
 		return mapper.insertMember(dto);
 	}
 	
