@@ -22,5 +22,5 @@ public class NCTmemberDTO {
     private String mbti;
     private String image;
     private Date regdate;
-    private List<String> grouplist;
+    private List<String> groupList; 
 }
