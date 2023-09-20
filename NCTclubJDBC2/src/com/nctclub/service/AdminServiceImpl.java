@@ -40,9 +40,10 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void addMemberWithGroups(NCTmemberDTO dto) {
         // Insert member
-        mapper.insertMember(dto);
+        int result = mapper.insertMember(dto);
         
         // Insert groups
+        System.out.println("데이터는:" + result + " / DTO Group list : " +dto.getGroupList());
         mapper.insertGroupsForMember(dto);
     }
 	
