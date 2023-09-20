@@ -28,7 +28,7 @@
 		        </c:if>
 		        
 		        <td style = "text-align: center; vertical-align: middle;">
-		            <img src="${ctxPath}/resources/file_repo/${nctmember.IMAGE}" width="150" height="150">
+		            <img src="${ctxPath}/resources/file_repo/2johnny.jpg" width="150" height="150">
 		            <br>
 		            <span style = "margin-top: 50px;">${nctmember.NAME}</span>
 		            <a href="${ctxPath}/admin/detail?memberId=${nctmember.MEMBERID}">

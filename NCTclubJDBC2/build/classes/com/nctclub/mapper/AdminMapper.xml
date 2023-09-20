@@ -40,7 +40,7 @@
   	
   	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
   	<select id="selectMember" resultType="NCTmemberDTO">
-    SELECT 
+	   SELECT 
         m.memberId, 
         m.name, 
         m.birthdate, 
