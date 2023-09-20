@@ -17,19 +17,15 @@
 <!-- Insert member -->
 <insert id="insertMember">
    INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
-   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE);
+   VALUES (nctmembers_seq.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
 </insert>
 
-<!-- Insert groups -->
 <insert id="insertGroupsForMember">
-   <foreach collection="groupList" item="group">
-       INSERT INTO nctgroups (groupId, groupName, memberRefId)
-       VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, NCTMEMBERS_SEQ.CURRVAL);
+	<foreach collection="groupList" item="group" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
+       INTO nctgroups (groupId, groupName, memberRefId)
+       VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, (SELECT LAST_NUMBER FROM user_sequences WHERE sequence_name=upper('nctmembers_seq')))
    </foreach>
 </insert>
 
-	   
- 	
- 
-
  </mapper>
+ 

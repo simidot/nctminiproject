@@ -92,6 +92,7 @@ public class AdminController {
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
         }
+        System.out.println(dto.toString());
         System.out.println(dto.getGroupList().toString());
 
         // TODO: 이미지가 null 일때의 처리를 고려해야 함
