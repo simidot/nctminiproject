@@ -34,9 +34,20 @@ public class AdminController {
 		return "userListForm";
 	}
 	
-	@RequestMapping(value="/main", method = RequestMethod.GET)
-    public String main() {
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String selectAllMembers (Model model) {
+		List<NCTmemberDTO> nctmembers = adminService.selectAllMembers();
+		System.out.println(nctmembers.get(1));
+		model.addAttribute("nctmemberList", nctmembers);
 		return "main";
+	}
+	
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
+		NCTmemberDTO dto = adminService.selectMember(memberId);
+		model.addAttribute("nctmemberDTO", dto);
+		System.out.println(dto);
+		return "nctdetailform";
 	}
 	
 	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
@@ -92,14 +103,14 @@ public class AdminController {
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
         }
-        System.out.println(dto.toString());
-        System.out.println(dto.getGroupList().toString());
+        // System.out.println(dto.toString());
+       // System.out.println(dto.getGroupList().toString());
 
         // TODO: 이미지가 null 일때의 처리를 고려해야 함
         // 회원 정보를 데이터베이스에 추가
         adminService.addMemberWithGroups(dto);
-       
-       
+        System.out.println(dto.toString());
+    
         // 회원 등록 후 메인 페이지로 리다이렉션
         return "redirect:main";
     }

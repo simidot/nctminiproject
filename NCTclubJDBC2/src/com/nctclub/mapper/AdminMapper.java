@@ -14,9 +14,14 @@ public interface AdminMapper {
 	// 회원 삭제
 	public int deleteUser(String userId);
 	
-	// 엔시티 멤버 추가
+	// 엔시티 멤버 추가 (멤버 정보와 그룹 정보 추가)
 	public int insertMember(NCTmemberDTO dto);
-	
 	public int insertGroupsForMember(NCTmemberDTO dto);
+	
+	// 엔시티 멤버 전체선택하기
+	public List<NCTmemberDTO> selectAllMembers();
 
+	
+	// 엔시티 멤버 한 명 선택하기
+	public NCTmemberDTO selectMember(int memberid);
 }
