@@ -17,4 +17,9 @@ public interface AdminService {
     public void addMemberWithGroups(NCTmemberDTO dto); 
 	
 	public File uploadFile(MultipartFile file, String uploadPath) throws Exception;
+
+	public List<NCTmemberDTO> selectAllMembers();
+	
+	public NCTmemberDTO selectMember(int memberId);
+
 }

@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class NCTmemberDTO {
-    private Long id;  
+    private Long memberId;  
     private String name;
     private Date birthdate;
     private String nationality;

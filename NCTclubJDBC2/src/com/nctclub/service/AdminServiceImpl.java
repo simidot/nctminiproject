@@ -40,10 +40,8 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void addMemberWithGroups(NCTmemberDTO dto) {
         // Insert member
-        int result = mapper.insertMember(dto);
-        
+        mapper.insertMember(dto);
         // Insert groups
-        System.out.println("데이터는:" + result + " / DTO Group list : " +dto.getGroupList());
         mapper.insertGroupsForMember(dto);
     }
 	
@@ -106,5 +104,16 @@ public class AdminServiceImpl implements AdminService {
         }
         return fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     }
+    
+    @Override
+	public List<NCTmemberDTO> selectAllMembers() {   	
+		return mapper.selectAllMembers();
+	}
+
+	@Override
+	public NCTmemberDTO selectMember(int memberId) {
+		System.out.println(mapper.selectMember(memberId));
+		return mapper.selectMember(memberId);
+	}
 
 }
