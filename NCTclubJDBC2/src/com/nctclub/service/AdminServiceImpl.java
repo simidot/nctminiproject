@@ -116,8 +116,19 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public NCTmemberDTO selectMember(int memberId) {
-		System.out.println(mapper.selectMember(memberId));
+//		System.out.println(mapper.selectMember(memberId));
 		return mapper.selectMember(memberId);
+	}
+
+
+	@Override
+	public int updateMember(NCTmemberDTO dto) {
+		return mapper.updateMember(dto);
+	}
+
+	@Override
+	public int updateGroup(NCTmemberDTO dto) {
+		return mapper.updateGroup(dto);
 	}
 
 }

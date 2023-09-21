@@ -86,7 +86,9 @@
 <script>
     var idCheckURL = "<c:url value='/user/idCheck.do'/>";
 </script>
-<script src="${ctxPath}/resources/js/registerCheck.js"></script>
+<script src="${ctxPath}/resources/js/registerCheck.js"></script> 
+
+
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

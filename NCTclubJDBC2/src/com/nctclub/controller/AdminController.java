@@ -1,6 +1,7 @@
 package com.nctclub.controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -31,12 +32,7 @@ public class AdminController {
 	@Autowired
 	AdminService adminService;
 	
-	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
-	public String selectall(Model model) {
-		List<UserDTO> members = adminService.selectAllUsers();
-		model.addAttribute("memberList", members);
-		return "userListForm";
-	}
+
 	
 
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
@@ -51,11 +47,19 @@ public class AdminController {
 	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
 		NCTmemberDTO dto = adminService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
+
 		System.out.println(dto);
 		return "nctdetailform";
 	}
 	
-	@RequestMapping(value = "/deleteUser", method = RequestMethod.GET)
+	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
+	public String selectall(Model model) {
+		List<UserDTO> members = adminService.selectAllUsers();
+		model.addAttribute("memberList", members);
+		return "userListForm";
+	}
+
+	@RequestMapping(value = "/deleteuser", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
 		System.out.println(userId);
@@ -100,6 +104,7 @@ public class AdminController {
         */
         
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
+        System.out.println(uploadPath);
         
         // 파일이 비어 있지 않은 경우 파일 업로드 처리
         if (!file.isEmpty()) {
@@ -119,4 +124,34 @@ public class AdminController {
         // 회원 등록 후 메인 페이지로 리다이렉션
         return "redirect:main";
     }
+    
+    
+    @RequestMapping("/updatememberform")
+    public String updatemember(@RequestParam("memberId") int memberId, Model model) {
+    	NCTmemberDTO dto = adminService.selectMember(memberId);
+		model.addAttribute("nctmemberDTO", dto);
+		System.out.println(dto);
+		return "updatememberform";
+    }
+    
+    @RequestMapping("/updatemember")
+    public String updatemember(@RequestParam("file") MultipartFile file, @ModelAttribute NCTmemberDTO dto, HttpServletRequest request, Model model) throws Exception {
+    	String UPLOAD_DIR = "resources/file_repo";
+        ServletContext servletContext = request.getSession().getServletContext();
+        String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
+        System.out.println(uploadPath);
+        if (!file.isEmpty()) {
+            File uploadedFile = adminService.uploadFile(file, uploadPath);
+            System.out.println("저장소 : " + uploadPath);
+            dto.setImage(uploadedFile.getName());
+            System.out.println("테스트완료");
+        }
+        
+    	adminService.updateMember(dto);
+    	adminService.updateGroup(dto);
+        System.out.println(dto.toString());
+
+		return "redirect:detail";
+    }
+    
 }
