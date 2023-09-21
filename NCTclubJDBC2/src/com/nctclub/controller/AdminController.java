@@ -19,10 +19,14 @@ import org.springframework.web.multipart.MultipartFile;
 import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.AdminService;
+import com.nctclub.service.CustomUserDetailsService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Autowired
+	CustomUserDetailsService customUserDetailsService;
 	
 	@Autowired
 	AdminService adminService;
@@ -34,6 +38,7 @@ public class AdminController {
 		return "userListForm";
 	}
 	
+
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String selectAllMembers (Model model) {
 		List<NCTmemberDTO> nctmembers = adminService.selectAllMembers();

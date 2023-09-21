@@ -45,3 +45,33 @@ CREATE SEQUENCE nctgroups_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;
+    
+--nct 맴버와 그룹
+CREATE TABLE nctmembers (
+    memberId NUMBER PRIMARY KEY,
+    name VARCHAR2(255),
+    birthdate DATE,
+    nationality VARCHAR2(255) NOT NULL,
+    position VARCHAR2(200) NOT NULL,
+    mbti VARCHAR2(4),
+    image VARCHAR2(100) NOT NULL,
+    regdate DATE DEFAULT SYSDATE
+);
+
+CREATE TABLE nctgroups (
+    groupId NUMBER PRIMARY KEY,
+    groupName VARCHAR2(255),
+    memberRefId NUMBER,
+    FOREIGN KEY (memberRefId) REFERENCES nctmembers(memberId)
+);
+
+CREATE SEQUENCE nctmembers_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+
+CREATE SEQUENCE nctgroups_seq
+    START WITH 1
+    INCREMENT BY 1
+    NOMAXVALUE;
+commit ;    
