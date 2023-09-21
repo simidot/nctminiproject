@@ -5,6 +5,7 @@
   
   
  <mapper namespace="com.nctclub.mapper.AdminMapper">
+ 	<!-- 전체 회원 선택  -->
   	<select id="selectAllusers" resultType="userDTO">
   		SELECT * FROM users
   	</select> 	
@@ -14,32 +15,48 @@
  	 </delete>
  	
 
-<!-- Insert member -->
-<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
-   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
-   VALUES (nctmembers_seq.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
-</insert>
+
+	<!-- nctmembers 기본 정보 추가 -->
+	<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
+	   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
+	   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
+	</insert>
+	
+	<!-- nctgroups 그룹 정보 추가 -->
+	<insert id = "insertGroupsForMember" parameterType = "java.util.List">
+	INSERT INTO nctgroups (groupId, memberRefId, groupName) 
+		SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
+			<foreach collection = "groupList" item = "group" separator = "UNION ALL">
+			SELECT #{group} FROM DUAL
+			</foreach>) A
+	</insert>
 
 
-<!-- 반복문을 통해 insert 하는 방법
-<insert id="insertGroupsForMember" parameterType="map">
-    INSERT INTO nctgroups (groupId, groupName, memberRefId)
-    VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, #{id, jdbcType=BIGINT})
-</insert> 
--->
-
-<!-- Insert groups for member -->
-<insert id = "insertGroupsForMember" parameterType = "java.util.List">
-INSERT INTO nctgroups (groupId, memberRefId, groupName) 
-   SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
-      <foreach collection = "groupList" item = "group" separator = "UNION ALL">
-      SELECT #{group} FROM DUAL
-      </foreach>) A
-</insert>
-
-
-
-
-
+	<!-- 엔시티 멤버 전체 선택하기 -->
+	<select id="selectAllMembers" resultType="java.util.HashMap">
+  		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, listagg(groupName, ', ') within group(order by groupName) AS groupName
+		FROM nctmembers
+   		JOIN nctgroups ON (nctmembers.memberId = nctgroups.memberRefId)
+   		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate
+  	</select> 
+  	
+  	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
+  	<select id="selectMember" resultType="NCTmemberDTO">
+    SELECT 
+        m.memberId, 
+        m.name, 
+        m.birthdate, 
+        m.nationality, 
+        m.position, 
+        m.mbti, 
+        m.image, 
+        m.regdate, 
+        LISTAGG(g.groupName, ', ') WITHIN GROUP (ORDER BY g.groupName) AS groups
+    FROM nctmembers m
+    LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
+    WHERE m.memberId = #{memberId}
+    GROUP BY m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate
+	</select>
+  	
  </mapper>
  

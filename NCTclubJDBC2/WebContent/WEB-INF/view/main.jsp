@@ -6,64 +6,55 @@
 
 <!-- main html -->
 
-<html lang="en" data-bs-theme="auto">
-  <head><script src="../assets/js/color-modes.js"></script>
+<!DOCTYPE html>
+<html>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
-    <meta name="generator" content="Hugo 0.118.2">
-    <title>Album example · Bootstrap v5.3</title>
-    <link rel="canonical" href="https://getbootstrap.com/docs/5.3/examples/album/">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
-	<link href="../assets/dist/css/bootstrap.min.css" rel="stylesheet">
+<body>
+<form action = '${ctxPath}/user/main' method = 'get'>
+	<div class = "container">
+		<h2 class = "mb-3">전체 멤버 보기</h2>
+<%-- 		<table class = "table">
+		    <tr>
+          		<img src = "${ctxPath}/resources/img/taeil.jpg" alt = "태일">
+		        <td><button type="button" class="btn btn-primary">상세보기</button></td>
+		    </tr>
+		</table> --%>
+		
+		<table class="table">
+		    <c:forEach var="nctmember" items="${nctmemberList}" varStatus="status">
+		        <c:if test="${status.index % 4 == 0}">
+		            <!-- 새로운 줄 시작 -->
+		            <tr>
+		        </c:if>
+		        
+		        <td style = "text-align: center; vertical-align: middle;">
+		            <img src="${ctxPath}/resources/file_repo/${nctmember.IMAGE}" width="150" height="150">
+		            <br>
+		            <span style = "margin-top: 50px;">${nctmember.NAME}</span>
+		            <a href="${ctxPath}/admin/detail?memberId=${nctmember.MEMBERID}">
+		            <button type="button" class="btn btn-secondary btn-sm">상세보기</button>
+		        </td>
+		
+		        <c:if test="${status.index % 4 == 3 or status.last}">
+		            <!-- 줄 끝 -->
+		            </tr>
+		        </c:if>
+		    </c:forEach>
+		</table>
+	</div>
+</form>
 
-  </head>
-  <body>
- 
-<main>
+    <!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <section class="py-5 text-center container">
-    <div class="row py-lg-5">
-      <div class="col-lg-6 col-md-8 mx-auto">
-        <h1 class="fw-light">멤버 소개</h1>
-      </div>
-    </div>
-  </section>
 
-  <div class="album py-5 bg-body-tertiary">
-    <div class="container">
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm">
-          	<img src = "${ctxPath}/resources/img/taeil.jpg" alt = "태일">
-            <div class="card-body">
-              <p class="card-text">태일</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">상세보기</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        
-        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-        <div class="col">
-          <div class="card shadow-sm">
-          	<img src = "${ctxPath}/resources/img/2johnny.jpg" alt = "쟈니">
-            <div class="card-body">
-              <p class="card-text">솔하</p>
-              <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-secondary">상세보기</button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-</main>
+
+</body>
+</html>
+
+
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

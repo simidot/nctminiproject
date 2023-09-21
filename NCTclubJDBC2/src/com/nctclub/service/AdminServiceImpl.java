@@ -42,18 +42,9 @@ public class AdminServiceImpl implements AdminService {
     @Transactional
     public void addMemberWithGroups(NCTmemberDTO dto) {
         // Insert member
-        int result = mapper.insertMember(dto);
-        System.out.println("id = "+ dto.getId());
-        
-		/*
-		 * //1.각각 서비스단에서 반복문을 통해 들어감. 
-		 * for (int i = 0; i < dto.getGroupList().size();
-		 * i++) { String group = dto.getGroupList().get(i); Map<String, Object> params =
-		 * new HashMap<>(); params.put("group", group); params.put("id", dto.getId());
-		 * mapper.insertGroupsForMember(params); }
-		 */
-        
-        //2.xml에서 한번에 넣기.
+
+        mapper.insertMember(dto);
+        // Insert groups
         mapper.insertGroupsForMember(dto);
 
     }
@@ -117,5 +108,16 @@ public class AdminServiceImpl implements AdminService {
         }
         return fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     }
+    
+    @Override
+	public List<NCTmemberDTO> selectAllMembers() {   	
+		return mapper.selectAllMembers();
+	}
+
+	@Override
+	public NCTmemberDTO selectMember(int memberId) {
+		System.out.println(mapper.selectMember(memberId));
+		return mapper.selectMember(memberId);
+	}
 
 }
