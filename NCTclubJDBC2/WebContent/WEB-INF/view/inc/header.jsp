@@ -36,16 +36,25 @@
         <a class="navbar-brand mx-auto" href="${ctxPath}/user/main">NCTclub</a>
     </div>
 
-    <div class="navbar-collapse collapse order-3" id="navbarNav">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="${ctxPath}/user/loginform">Login</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="${ctxPath}/user/registerform">Register</a>
-            </li>
-           
-        </ul>
-    </div>
+	<div class="navbar-collapse collapse order-3" id="navbarNav">
+	    <ul class="navbar-nav ml-auto">
+	        <c:choose>
+	            <c:when test="${not empty sessionScope.loginDto}">
+	                <li class="nav-item">
+	                    <a class="nav-link" href="${ctxPath}/user/logout">Logout</a>
+	                </li>
+	            </c:when>
+	            <c:otherwise>
+	                <li class="nav-item active">
+	                    <a class="nav-link" href="${ctxPath}/user/loginform">Login</a>
+	                </li>
+	                <li class="nav-item">
+	                    <a class="nav-link" href="${ctxPath}/user/registerform">Register</a>
+	                </li>
+	            </c:otherwise>
+	        </c:choose>
+	    </ul>
+	</div>
+
 </nav>
 <!-- /Navbar -->

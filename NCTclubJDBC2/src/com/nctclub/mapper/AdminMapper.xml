@@ -15,17 +15,31 @@
  	
 
 <!-- Insert member -->
-<insert id="insertMember">
+<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
    INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
    VALUES (nctmembers_seq.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
 </insert>
 
-<insert id="insertGroupsForMember">
-	<foreach collection="groupList" item="group" index="index" separator=" " open="INSERT ALL" close="SELECT * FROM DUAL">
-       INTO nctgroups (groupId, groupName, memberRefId)
-       VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, (SELECT LAST_NUMBER FROM user_sequences WHERE sequence_name=upper('nctmembers_seq')))
-   </foreach>
+
+<!-- 반복문을 통해 insert 하는 방법
+<insert id="insertGroupsForMember" parameterType="map">
+    INSERT INTO nctgroups (groupId, groupName, memberRefId)
+    VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, #{id, jdbcType=BIGINT})
+</insert> 
+-->
+
+<!-- Insert groups for member -->
+<insert id = "insertGroupsForMember" parameterType = "java.util.List">
+INSERT INTO nctgroups (groupId, memberRefId, groupName) 
+   SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
+      <foreach collection = "groupList" item = "group" separator = "UNION ALL">
+      SELECT #{group} FROM DUAL
+      </foreach>) A
 </insert>
+
+
+
+
 
  </mapper>
  

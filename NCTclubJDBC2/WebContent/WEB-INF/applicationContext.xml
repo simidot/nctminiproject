@@ -17,8 +17,8 @@
 	</bean>
 	 -->
 
-	<!--암호화 라이브러리 -->
-	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean>
+	<!--암호화 라이브러리-->
+	<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder"></bean> 
 		
 	<!-- db.properties 파일 연결-->
 	<bean id="propertyPlaceholderConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">

@@ -2,7 +2,9 @@ package com.nctclub.service;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,10 +43,19 @@ public class AdminServiceImpl implements AdminService {
     public void addMemberWithGroups(NCTmemberDTO dto) {
         // Insert member
         int result = mapper.insertMember(dto);
+        System.out.println("id = "+ dto.getId());
         
-        // Insert groups
-        System.out.println("데이터는:" + result + " / DTO Group list : " +dto.getGroupList());
+		/*
+		 * //1.각각 서비스단에서 반복문을 통해 들어감. 
+		 * for (int i = 0; i < dto.getGroupList().size();
+		 * i++) { String group = dto.getGroupList().get(i); Map<String, Object> params =
+		 * new HashMap<>(); params.put("group", group); params.put("id", dto.getId());
+		 * mapper.insertGroupsForMember(params); }
+		 */
+        
+        //2.xml에서 한번에 넣기.
         mapper.insertGroupsForMember(dto);
+
     }
 	
     /**
