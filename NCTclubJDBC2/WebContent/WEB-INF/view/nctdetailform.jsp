@@ -37,9 +37,14 @@
                     <p>생년월일: ${nctmemberDTO.birthdate}</p>
                     <p>국적: ${nctmemberDTO.nationality}</p>
                     <p>소속 그룹: ${nctmemberDTO.groupList}</p>
-                    <p>역할: ${nctmemberDTO.position}</p>
+                    <p>포지션: ${nctmemberDTO.position}</p>
                     <p>MBTI: ${nctmemberDTO.mbti}</p>
-                    <!-- 기타 세부사항 항목 추가 -->
+                   
+					<!-- 수정하기 버튼 -->
+					<a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
+		            <!-- 삭제하기 버튼 -->
+		            <button onclick="deleteMember(${nctmemberDTO.memberId})" class = "btn btn-secondary btn-sm">삭제하기</button>
+                    
                 </div>
             </div>
         </div>

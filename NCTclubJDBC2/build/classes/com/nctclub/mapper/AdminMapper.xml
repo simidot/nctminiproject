@@ -10,9 +10,24 @@
   		SELECT * FROM users
   	</select> 	
  	 
+ 	 <!-- 회원 삭제 -->
  	 <delete id = "deleteUser" parameterType = "String" >
  	 	DELETE FROM users WHERE userid = #{userId}
  	 </delete>
+ 	
+ 	<resultMap id="NCTmemberResultMap" type="NCTmemberDTO">
+        <id property="memberId" column="memberId" />
+        <result property="name" column="name" />
+        <result property="birthdate" column="birthdate" />
+        <result property="nationality" column="nationality" />
+        <result property="position" column="position" />
+        <result property="mbti" column="mbti" />
+        <result property="image" column="image" />
+        <result property="regdate" column="regdate" />
+        <collection property="groupList" ofType="java.lang.String">
+       		<result property="groupName" column="groupName" />
+    	</collection>
+    </resultMap>
  	
 
 	<!-- nctmembers 기본 정보 추가 -->
@@ -39,22 +54,36 @@
   	</select> 
   	
   	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
-  	<select id="selectMember" resultType="NCTmemberDTO">
-	   SELECT 
-        m.memberId, 
-        m.name, 
-        m.birthdate, 
-        m.nationality, 
-        m.position, 
-        m.mbti, 
-        m.image, 
-        m.regdate, 
-        LISTAGG(g.groupName, ', ') WITHIN GROUP (ORDER BY g.groupName) AS groups
-    FROM nctmembers m
-    LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
-    WHERE m.memberId = #{memberId}
-    GROUP BY m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate
-	</select>
+	 <select id="selectMember" resultMap="NCTmemberResultMap">
+        SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
+        FROM nctmembers m
+        LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
+        WHERE m.memberId = #{memberId}
+    </select>
+	
+		
+	<!-- 엔시티 멤버 정보 수정하기 -->
+	<update id="updateMember" parameterType="NCTmemberDTO">
+	    <!-- 첫 번째 UPDATE 문: nctmembers 테이블 업데이트 -->
+	    UPDATE nctmembers
+	    SET
+	        name = #{name},
+	        birthdate = #{birthdate},
+	        nationality = #{nationality},
+	        position = #{position},
+	        mbti = #{mbti},
+	        image = #{image}  <!-- 이미지 업데이트에 대한 로직이 필요할 경우 추가 -->
+	    WHERE memberId = #{memberId}
+	</update>
+
+	<!-- 두 번째 UPDATE 문: nctgroups 테이블 업데이트 -->
+	<update id="updateGroup" parameterType="NCTmemberDTO">
+	    UPDATE nctgroups
+	    SET groupName = #{groupName}
+	    WHERE memberRefId = #{memberId}
+	</update>
+
+  	
   	
  </mapper>
  

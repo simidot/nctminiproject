@@ -23,5 +23,10 @@ public interface AdminMapper {
 
 	
 	// 엔시티 멤버 한 명 선택하기
-	public NCTmemberDTO selectMember(int memberid);
+	public NCTmemberDTO selectMember(int memberId);
+
+	// 엔시티 멤버 정보 수정하기
+	public int updateMember(NCTmemberDTO dto);
+	public int updateGroup(NCTmemberDTO dto);
+
 }

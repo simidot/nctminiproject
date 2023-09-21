@@ -116,4 +116,15 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectMember(memberId);
 	}
 
+
+	@Override
+	public int updateMember(NCTmemberDTO dto) {
+		return mapper.updateMember(dto);
+	}
+
+	@Override
+	public int updateGroup(NCTmemberDTO dto) {
+		return mapper.updateGroup(dto);
+	}
+
 }

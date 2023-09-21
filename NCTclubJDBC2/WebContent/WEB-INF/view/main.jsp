@@ -6,10 +6,6 @@
 
 <!-- main html -->
 
-<!DOCTYPE html>
-<html>
-
-<body>
 <form action = '${ctxPath}/user/main' method = 'get'>
 	<div class = "container">
 		<h2 class = "mb-3">전체 멤버 보기</h2>
@@ -28,7 +24,7 @@
 		        </c:if>
 		        
 		        <td style = "text-align: center; vertical-align: middle;">
-		            <img src="${ctxPath}/resources/file_repo/2johnny.jpg" width="150" height="150">
+		            <img src="${ctxPath}/resources/file_repo/${nctmember.IMAGE}" width="150" height="150">
 		            <br>
 		            <span style = "margin-top: 50px;">${nctmember.NAME}</span>
 		            <a href="${ctxPath}/admin/detail?memberId=${nctmember.MEMBERID}">
@@ -48,11 +44,6 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-
-
-
-</body>
-</html>
 
 
 

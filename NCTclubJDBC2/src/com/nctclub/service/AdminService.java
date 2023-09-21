@@ -21,5 +21,9 @@ public interface AdminService {
 	public List<NCTmemberDTO> selectAllMembers();
 	
 	public NCTmemberDTO selectMember(int memberId);
+	
+	public int updateMember(NCTmemberDTO dto);
+	public int updateGroup(NCTmemberDTO dto);
+
 
 }
