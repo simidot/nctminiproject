@@ -21,7 +21,7 @@ public interface AdminMapper {
 	public int insertGroupsForMember(NCTmemberDTO dto);
 	
 	// 엔시티 멤버 전체선택하기
-	public List<NCTmemberDTO> selectAllMembers();
+	//public List<NCTmemberDTO> selectAllMembers();
 
 
 	// 엔시티 멤버 한 명 선택하기
@@ -29,6 +29,7 @@ public interface AdminMapper {
 
 	// 엔시티 멤버 정보 수정하기
 	public int updateMember(NCTmemberDTO dto);
+	public int deleteGroup(NCTmemberDTO dto);
 	public int updateGroup(NCTmemberDTO dto);
 
 }

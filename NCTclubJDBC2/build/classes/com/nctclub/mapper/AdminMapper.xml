@@ -15,7 +15,7 @@
  	 	DELETE FROM users WHERE userid = #{userId}
  	 </delete>
  	
- 	<resultMap id="NCTmemberResultMap" type="NCTmemberDTO">
+ 	 <resultMap id="NCTmemberResultMap" type="NCTmemberDTO">
         <id property="memberId" column="memberId" />
         <result property="name" column="name" />
         <result property="birthdate" column="birthdate" />
@@ -32,7 +32,7 @@
 
 
 	<!-- nctmembers 기본 정보 추가 -->
-	<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
+	<insert id="insertMember" useGeneratedKeys="true" keyProperty="memberId" keyColumn="memberId">
 	   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
 	   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
 	</insert>
@@ -40,7 +40,7 @@
 	<!-- nctgroups 그룹 정보 추가 -->
 	<insert id = "insertGroupsForMember" parameterType = "java.util.List">
 	INSERT INTO nctgroups (groupId, memberRefId, groupName) 
-		SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
+		SELECT NCTGROUPS_SEQ.NEXTVAL, #{memberId}, A.* FROM (
 			<foreach collection = "groupList" item = "group" separator = "UNION ALL">
 			SELECT #{group} FROM DUAL
 			</foreach>) A
@@ -48,12 +48,12 @@
 
 
 	<!-- 엔시티 멤버 전체 선택하기 -->
-	<select id="selectAllMembers" resultType="java.util.HashMap">
+	<!-- <select id="selectAllMembers" resultType="java.util.HashMap">
   		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, listagg(groupName, ', ') within group(order by groupName) AS groupName
 		FROM nctmembers
    		JOIN nctgroups ON (nctmembers.memberId = nctgroups.memberRefId)
    		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate
-  	</select> 
+  	</select>  -->
   	
   	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
 	 <select id="selectMember" resultMap="NCTmemberResultMap">
@@ -62,7 +62,7 @@
         LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
         WHERE m.memberId = #{memberId}
     </select>
-	
+
 		
 	<!-- 엔시티 멤버 정보 수정하기 -->
 	<update id="updateMember" parameterType="NCTmemberDTO">
@@ -78,12 +78,21 @@
 	    WHERE memberId = #{memberId}
 	</update>
 
-	<!-- 두 번째 UPDATE 문: nctgroups 테이블 업데이트 -->
-	<update id="updateGroup" parameterType="NCTmemberDTO">
-	    UPDATE nctgroups
-	    SET groupName = #{groupName}
-	    WHERE memberRefId = #{memberId}
-	</update>
+	<!-- nctgroups 테이블 업데이트를 할 때 삭제를 하고, 다시 삽입하기 -->
+	<delete id="deleteGroup" parameterType="NCTmemberDTO">
+		DELETE 
+		FROM nctgroups
+		WHERE memberRefID = #{memberId}
+	</delete>
+	
+	
+	<insert id = "updateGroup" parameterType="NCTmemberDTO">
+	    INSERT INTO nctgroups (groupId, memberRefId, groupName) 
+		SELECT NCTGROUPS_SEQ.NEXTVAL, #{memberId}, A.* FROM (
+			<foreach collection = "groupList" item = "group" separator = "UNION ALL">
+			SELECT #{group} FROM DUAL
+			</foreach>) A
+	</insert>
 
   	
   	

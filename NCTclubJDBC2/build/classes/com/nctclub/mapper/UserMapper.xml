@@ -17,5 +17,38 @@
    <select id="idCheck" resultType="userDTO">
 		SELECT userId FROM users WHERE userid = #{userId}
 	</select>
+	
+	 <resultMap id="NCTmemberResultMap" type="NCTmemberDTO">
+        <id property="memberId" column="memberId" />
+        <result property="name" column="name" />
+        <result property="birthdate" column="birthdate" />
+        <result property="nationality" column="nationality" />
+        <result property="position" column="position" />
+        <result property="mbti" column="mbti" />
+        <result property="image" column="image" />
+        <result property="regdate" column="regdate" />
+        <collection property="groupList" ofType="java.lang.String">
+       		<result property="groupName" column="groupName" />
+    	</collection>
+    </resultMap>
+	
+	<!-- 엔시티 멤버 전체 선택하기 -->
+	<select id="selectAllMembers" resultType="java.util.HashMap">
+  		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, listagg(groupName, ', ') within group(order by groupName) AS groupName
+		FROM nctmembers
+   		JOIN nctgroups ON (nctmembers.memberId = nctgroups.memberRefId)
+   		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate
+  	</select> 
+  	
+  	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
+	 <select id="selectMember" resultMap="NCTmemberResultMap">
+        SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
+        FROM nctmembers m
+        LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
+        WHERE m.memberId = #{memberId}
+    </select>
+    
+   
+	
  </mapper>
  

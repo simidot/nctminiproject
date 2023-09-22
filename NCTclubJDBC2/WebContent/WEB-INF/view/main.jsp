@@ -6,7 +6,6 @@
 
 <!-- main html -->
 
-<form action = '${ctxPath}/user/main' method = 'get'>
 	<div class = "container">
 		<h2 class = "mb-3">전체 멤버 보기</h2>
 <%-- 		<table class = "table">
@@ -27,7 +26,7 @@
 		            <img src="${ctxPath}/resources/file_repo/${nctmember.IMAGE}" width="150" height="150">
 		            <br>
 		            <span style = "margin-top: 50px;">${nctmember.NAME}</span>
-		            <a href="${ctxPath}/admin/detail?memberId=${nctmember.MEMBERID}">
+		            <a href="${ctxPath}/user/detail?memberId=${nctmember.MEMBERID}">
 		            <button type="button" class="btn btn-secondary btn-sm">상세보기</button>
 		        </td>
 		
@@ -38,7 +37,6 @@
 		    </c:forEach>
 		</table>
 	</div>
-</form>
 
     <!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
