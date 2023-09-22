@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nctclub.model.CustomUserDetails;
 import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.CustomUserDetailsService;
@@ -87,18 +88,19 @@ public class UserController {
 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String loginProcess(UserDTO dto, HttpServletRequest req, Model model) {
-        UserDetails userDetails = userService.userLogin(dto);
+    	
+    	UserDetails userDetails = userService.userLogin(dto);
+    	
         if(userDetails != null) {
-            // 2. 인증된 Authentication 객체를 생성한다.
+        	
             UsernamePasswordAuthenticationToken authentication = 
-                new UsernamePasswordAuthenticationToken(userDetails, dto.getPassword(), userDetails.getAuthorities());
-
-            // 3. SecurityContextHolder에 인증 정보를 설정한다.
+            	    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
-
+            
             HttpSession session = req.getSession();
-            session.setAttribute("loginDto", dto);  // dto가 이미 인증된 사용자 정보를 가지고 있으므로 이를 세션에 저장된다.
-
+            
+            CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+            session.setAttribute("loginDto", customUserDetails.getUserDto());
             return "redirect:main";
         } else {
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 틀렸습니다.");
