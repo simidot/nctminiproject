@@ -13,7 +13,6 @@
     <title>멤버 상세정보</title>
  </head>
 <body>
-    <form action ='${ctxPath}/user/detail' method = 'get'>
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -53,7 +52,7 @@
                 <p id="notificationMessage">정말 삭제하시겠습니까?</p>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+                <button id = "confirmDeleteButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
             </div>
         </div>
     </div>
@@ -85,7 +84,7 @@
 				    <!-- 수정하기 버튼 -->
 				    <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
 				    <!-- 삭제하기 버튼 -->
-				    <button onclick="deleteMember(${nctmemberDTO.memberId})" class="btn btn-secondary btn-sm">삭제하기</button>
+					<button data-member-id="${nctmemberDTO.memberId}" class="delete-button btn btn-secondary btn-sm">삭제하기</button>
 				</c:if>
 
                 </div>
@@ -149,67 +148,43 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-
-//모달이 열릴 때만 confirmDeleteButton을 찾도록 수정
-$("#deletenotificationModal").on("shown.bs.modal", function () {
-    const deleteButtons = document.querySelectorAll(".delete-button");
-
-    let memberIdToDelete = null;
-
-    // 각 버튼 클릭 시 해당 유저 ID를 저장하고 모달 창을 엽니다.
-    deleteButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            memberIdToDelete = button.getAttribute("data-member-id");
-        });
-    });
+//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
+$(".delete-button").on("click", function () {
+    // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
+    const memberId = $(this).data("member-id");
+    console.log(memberId);
     
-    // 첫 번째 삭제 버튼을 확인 버튼으로 사용
-    const confirmDeleteButton = deleteButtons[0];
+    // 삭제하기 확인 모달을 띄웁니다.
+    deleteMemberConfirmation(memberId);
+});
 
+//삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
+function deleteMemberConfirmation(memberId) {
+    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
+    const memberIdToDelete = memberId;
+    console.log(memberId);
+
+    
+    // 모달 창을 띄웁니다.
+    $("#deletenotificationModal").modal("show");
+    
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    confirmDeleteButton.addEventListener("click", function () {
+    $("#confirmDeleteButton").on("click", function () {
         // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
         if (memberIdToDelete) {
             // AJAX 요청을 보낼 URL을 설정합니다.
             const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
             console.log(deleteUrl);
-    	        $.ajax({
-    	            type: "GET", // HTTP 요청 메서드 선택 (GET 또는 POST)
-    	            url: deleteUrl, // 요청을 보낼 URL
-    	            dataType: "text", // 서버 응답 데이터 유형 (JSON을 기대하면 json으로 설정)
-    	            success: function (response) {
-    	                // 성공적으로 응답을 받았을 때 처리할 코드
-    	                if (response =="yes") {
-    	                    // 삭제가 성공했을 경우 추가 로직을 작성하세요.
-    	                    // 예를 들어, 화면에서 해당 행을 삭제하거나 다시 로드할 수 있습니다.
-    	                    window.location.href('<c:url value = "/user/main"/>');
+            
+            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
 
-    	                    console.log("멤버 삭제 성공");
-    	                } else if (response == "no"){
-    	                    console.error("멤버 삭제 실패");
-    	                }
-    	                //modal.style.display = "none"; // 모달 닫기
-    	            },
-    	            error: function () {
-    	                // 요청이 실패했을 때 처리할 코드
-    	                console.error("요청 실패");
-    	                //modal.style.display = "none"; // 모달 닫기
-    	            }
-                
-
-    	        });
-    	    }
-    	});
-
-
-     // 모달 외부를 클릭하면 모달을 닫습니다.
-    window.addEventListener("click", function (event) {
-
-        if (event.target === modal) {
-            modal.style.display = "none";
+            
         }
-    }); 
-});
+    });
+
+
+
+}
 
 
 

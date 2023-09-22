@@ -154,12 +154,11 @@ public class AdminController {
     }
     
     @RequestMapping(value = "/deletemember", method = RequestMethod.GET)
-	@ResponseBody
 	public String deleteMember(@RequestParam("memberId") int memberId) {
 		System.out.println(memberId);
 		int result = adminService.deleteMember(memberId);
 		if (result ==1) {
-			return "yes";
+			return "redirect:/user/main";
 		} else {
 			return "no";
 		}
