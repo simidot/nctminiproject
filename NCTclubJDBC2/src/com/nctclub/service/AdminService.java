@@ -29,6 +29,9 @@ public interface AdminService {
 	 */
 	
     public void updateMemberWithGroups(NCTmemberDTO dto);
+    
+	public int deleteMember(int memberId);
+
 
 
 

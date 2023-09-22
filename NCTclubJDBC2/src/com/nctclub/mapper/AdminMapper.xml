@@ -93,6 +93,12 @@
 			SELECT #{group} FROM DUAL
 			</foreach>) A
 	</insert>
+	
+	
+	 <!-- 엔시티 멤버 삭제 -->
+ 	 <delete id = "deleteMember" parameterType = "Integer" >
+ 	 	DELETE FROM nctmembers WHERE memberId = #{memberId}
+ 	 </delete>
 
   	
   	

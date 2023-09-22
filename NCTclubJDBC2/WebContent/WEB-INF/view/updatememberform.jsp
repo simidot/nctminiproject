@@ -10,6 +10,8 @@
     </div>
     
     <form action="${ctxPath}/admin/updatemember" method="POST" enctype="multipart/form-data">
+        <input type="hidden" name="memberId" value="${nctmemberDTO.memberId}">
+        
         <div class="row mt-3">
             <div class="col-md-6">
                 <!-- 이미지 -->
@@ -43,18 +45,55 @@
                       		  <input type="text" id="nationality" name="nationality" value="${nctmemberDTO.nationality}" class="form-control">
                             </div>
                         </div>
+                        
+                        
                         <div class="form-group row">
-                            <label for="groupList" class="col-md-3 col-form-label">소속 그룹:</label>
+                            <label for="groupList" class="col-md-3 col-form-label">소속 그룹: </label>
+                            <p>${nctmemberDTO.groupList}</p>
                             <div class="col-md-9">
-                        		<input type="text" id="groupList" name="groupName" value="${nctmemberDTO.groupList}" class="form-control">
+                        		<div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="nctU" name="groupList" value="NCT U">
+						            <label class="form-check-label" for="nctU">NCT U</label>
+						        </div>
+						        <div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="nctDREAM" name="groupList" value="NCT DREAM">
+						            <label class="form-check-label" for="nctDREAM">NCT DREAM</label>
+						        </div>
+						        <div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="wayV" name="groupList" value="Way V">
+						            <label class="form-check-label" for="wayV">Way V</label>
+						        </div>
+						        <br>
+						        <div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="nct127" name="groupList" value="NCT 127">
+						            <label class="form-check-label" for="nct127">NCT 127</label>
+						        </div>
+						        <div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="superM" name="groupList" value="SuperM">
+						            <label class="form-check-label" for="superM">SuperM</label>
+						        </div>
+						        <div class="form-check form-check-inline">
+						            <input class="form-check-input" type="checkbox" id="dojaejung" name="groupList" value="NCT 도재정">
+						            <label class="form-check-label" for="dojaejung">NCT 도재정</label>
+						        </div>
                             </div>
                         </div>
+                        
+                        
                         <div class="form-group row">
-                            <label for="position" class="col-md-3 col-form-label">포지션:</label>
-                            <div class="col-md-9">
-                        		<input type="text" id="position" name="position" value="${nctmemberDTO.position}" class="form-control">
-                            </div>
-                        </div>
+                            <label for="positionlist" class="col-sm-3 col-form-label text-nowrap">포지션 :</label>
+							    <div class="col-md-9">
+							        <label>
+							            <input type="radio" name="position" value="보컬" ${nctmemberDTO.position == '보컬' ? 'checked' : ''}> 보컬
+							        </label>
+							        <label>
+							            <input type="radio" name="position" value="댄서" ${nctmemberDTO.position == '댄서' ? 'checked' : ''}> 댄서
+							        </label>
+							        <label>
+							            <input type="radio" name="position" value="래퍼" ${nctmemberDTO.position == '래퍼' ? 'checked' : ''}> 래퍼
+							        </label>
+							    </div>
+							</div>
                         <div class="form-group row">
                             <label for="mbti" class="col-md-3 col-form-label">MBTI:</label>
                             <div class="col-md-9">
