@@ -109,10 +109,10 @@ public class AdminServiceImpl implements AdminService {
         return fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
     }
     
-    @Override
-	public List<NCTmemberDTO> selectAllMembers() {   	
-		return mapper.selectAllMembers();
-	}
+	/*
+	 * @Override public List<NCTmemberDTO> selectAllMembers() { return
+	 * mapper.selectAllMembers(); }
+	 */
 
 	@Override
 	public NCTmemberDTO selectMember(int memberId) {
@@ -120,15 +120,26 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.selectMember(memberId);
 	}
 
+	
+	@Transactional
+    public void updateMemberWithGroups(NCTmemberDTO dto) {
+        // Insert member
+        System.out.println("받아온값" + dto.toString());
 
-	@Override
-	public int updateMember(NCTmemberDTO dto) {
-		return mapper.updateMember(dto);
-	}
+        mapper.updateMember(dto);
+        System.out.println(dto);
+        mapper.deleteGroup(dto);
+        // Insert groups
+        mapper.updateGroup(dto);
+       
 
-	@Override
-	public int updateGroup(NCTmemberDTO dto) {
-		return mapper.updateGroup(dto);
-	}
+    }
 
+	/*
+	 * @Override public int updateMember(NCTmemberDTO dto) { return
+	 * mapper.updateMember(dto); }
+	 * 
+	 * @Override public int updateGroup(NCTmemberDTO dto) { return
+	 * mapper.updateGroup(dto); }
+	 */
 }

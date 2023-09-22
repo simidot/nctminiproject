@@ -18,12 +18,18 @@ public interface AdminService {
 	
 	public File uploadFile(MultipartFile file, String uploadPath) throws Exception;
 
-	public List<NCTmemberDTO> selectAllMembers();
-	
+	/*
+	 * public List<NCTmemberDTO> selectAllMembers();
+	 */	
 	public NCTmemberDTO selectMember(int memberId);
 	
-	public int updateMember(NCTmemberDTO dto);
-	public int updateGroup(NCTmemberDTO dto);
+	/*
+	 * public int updateMember(NCTmemberDTO dto); public int
+	 * updateGroup(NCTmemberDTO dto);
+	 */
+	
+    public void updateMemberWithGroups(NCTmemberDTO dto);
+
 
 
 }

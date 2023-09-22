@@ -35,13 +35,12 @@ public class AdminController {
 
 	
 
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String selectAllMembers (Model model) {
-		List<NCTmemberDTO> nctmembers = adminService.selectAllMembers();
-		System.out.println(nctmembers.get(1));
-		model.addAttribute("nctmemberList", nctmembers);
-		return "main";
-	}
+	/*
+	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public String
+	 * selectAllMembers (Model model) { List<NCTmemberDTO> nctmembers =
+	 * adminService.selectAllMembers(); System.out.println(nctmembers.get(1));
+	 * model.addAttribute("nctmemberList", nctmembers); return "main"; }
+	 */
 	
 	@RequestMapping(value = "/detail", method = RequestMethod.GET)
 	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
@@ -147,9 +146,13 @@ public class AdminController {
             System.out.println("테스트완료");
         }
         
-    	adminService.updateMember(dto);
-    	adminService.updateGroup(dto);
-        System.out.println(dto.toString());
+        
+        adminService.updateMemberWithGroups(dto);
+
+		/*
+		 * adminService.updateMember(dto); adminService.updateGroup(dto);
+		 */
+        System.out.println("수정완:" + dto.toString());
 
 		return "redirect:detail";
     }

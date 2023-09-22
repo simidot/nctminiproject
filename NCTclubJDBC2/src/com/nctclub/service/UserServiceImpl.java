@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nctclub.mapper.UserMapper;
+import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.utils.UserRole;
 
@@ -67,6 +68,18 @@ public class UserServiceImpl implements UserService {
 	    dto.setUserId(userId);
 	    return mapper.userLogin(dto);
 	}
+	
+	@Override
+	public List<NCTmemberDTO> selectAllMembers() {   	
+		return mapper.selectAllMembers();
+	}
+	
+	@Override
+	public NCTmemberDTO selectMember(int memberId) {
+//		System.out.println(mapper.selectMember(memberId));
+		return mapper.selectMember(memberId);
+	}
+
 
 
 }

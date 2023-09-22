@@ -1,6 +1,7 @@
 package com.nctclub.controller;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.CustomUserDetailsService;
 import com.nctclub.service.UserService;
@@ -54,10 +56,27 @@ public class UserController {
 		return "loginform";
 	}
     
-    @RequestMapping(value="/main", method = RequestMethod.GET)
-    public String main() {
+    
+    // 메인 화면에서 엔시티 멤버 전체 정보 가져오기
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String selectAllMembers (Model model) {
+		List<NCTmemberDTO> nctmembers = userService.selectAllMembers();
+		System.out.println(nctmembers.get(1));
+		model.addAttribute("nctmemberList", nctmembers);
 		return "main";
 	}
+	
+	// 메인에서 정보 상세보기를 누르면 각 멤버의 정보를 가져오기. 
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
+		NCTmemberDTO dto = userService.selectMember(memberId);
+		model.addAttribute("nctmemberDTO", dto);
+
+		System.out.println(dto);
+		return "nctdetailform";
+	}
+	
+    
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logoutform(HttpServletRequest req) {
     	   HttpSession session = req.getSession();
