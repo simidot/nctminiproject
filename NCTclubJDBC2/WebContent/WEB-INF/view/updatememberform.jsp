@@ -68,7 +68,7 @@
 		                <div class="row mt-3">
 			            <div class="col-md-4 text-center">
 			                <!-- 확인 버튼 -->
-			                <button type="submit" class="btn btn-primary">제출하기</button>
+			                <button type="submit" class="btn btn-dark d-block mx-auto">제출하기</button>
 			            </div>
 			        </div>
                     </div>
