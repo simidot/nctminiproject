@@ -32,7 +32,7 @@
 
 
 	<!-- nctmembers 기본 정보 추가 -->
-	<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
+	<insert id="insertMember" useGeneratedKeys="true" keyProperty="memberId" keyColumn="memberId">
 	   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
 	   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
 	</insert>
@@ -40,7 +40,7 @@
 	<!-- nctgroups 그룹 정보 추가 -->
 	<insert id = "insertGroupsForMember" parameterType = "java.util.List">
 	INSERT INTO nctgroups (groupId, memberRefId, groupName) 
-		SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
+		SELECT NCTGROUPS_SEQ.NEXTVAL, #{memberId}, A.* FROM (
 			<foreach collection = "groupList" item = "group" separator = "UNION ALL">
 			SELECT #{group} FROM DUAL
 			</foreach>) A

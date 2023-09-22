@@ -38,7 +38,7 @@ public class AdminController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String selectAllMembers (Model model) {
 		List<NCTmemberDTO> nctmembers = adminService.selectAllMembers();
-		System.out.println(nctmembers.get(1));
+		System.out.println(nctmembers);
 		model.addAttribute("nctmemberList", nctmembers);
 		return "main";
 	}
