@@ -40,10 +40,13 @@
                     <p>포지션: ${nctmemberDTO.position}</p>
                     <p>MBTI: ${nctmemberDTO.mbti}</p>
                    
-					<!-- 수정하기 버튼 -->
-					<a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
-		            <!-- 삭제하기 버튼 -->
-		            <button onclick="deleteMember(${nctmemberDTO.memberId})" class = "btn btn-secondary btn-sm">삭제하기</button>
+				<c:if test="${sessionScope.loginDto.userrole.name() != 'USER'}">
+				    <!-- 수정하기 버튼 -->
+				    <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
+				    <!-- 삭제하기 버튼 -->
+				    <button onclick="deleteMember(${nctmemberDTO.memberId})" class="btn btn-secondary btn-sm">삭제하기</button>
+				</c:if>
+
                     
                 </div>
             </div>

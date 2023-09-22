@@ -33,8 +33,6 @@ public class AdminController {
 	AdminService adminService;
 	
 
-	
-
 	/*
 	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public String
 	 * selectAllMembers (Model model) { List<NCTmemberDTO> nctmembers =
