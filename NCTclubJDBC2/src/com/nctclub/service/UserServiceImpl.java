@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nctclub.mapper.UserMapper;
+import com.nctclub.model.CustomUserDetails;
 import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.utils.UserRole;
@@ -48,9 +49,7 @@ public class UserServiceImpl implements UserService {
 	    String dbPw = loginDto.getPassword(); 
 	    
 	    if(pwEncoder.matches(inputPw, dbPw)) {
-	        List<GrantedAuthority> authorities = new ArrayList<>();
-	        authorities.add(new SimpleGrantedAuthority("ROLE_" + loginDto.getUserrole()));
-	        return new org.springframework.security.core.userdetails.User(loginDto.getUserId(), loginDto.getPassword(), authorities);
+	    	 return new CustomUserDetails(loginDto); 
 	    }
 	    return null;
 	}
