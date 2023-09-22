@@ -99,6 +99,8 @@
  	 <delete id = "deleteMember" parameterType = "Integer" >
  	 	DELETE FROM nctmembers WHERE memberId = #{memberId}
  	 </delete>
+ 	 
+ 	 
 
   	
   	
