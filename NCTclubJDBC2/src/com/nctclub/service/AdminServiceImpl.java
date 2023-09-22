@@ -123,6 +123,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Transactional
     public void updateMemberWithGroups(NCTmemberDTO dto) {
+
         // Insert member
         System.out.println("받아온값" + dto.toString());
 
@@ -134,6 +135,12 @@ public class AdminServiceImpl implements AdminService {
        
 
     }
+
+	@Override
+	public int deleteMember(int memberId) {
+		System.out.println("삭제전 : "+memberId);
+		return mapper.deleteMember(memberId);
+	}
 
 	/*
 	 * @Override public int updateMember(NCTmemberDTO dto) { return

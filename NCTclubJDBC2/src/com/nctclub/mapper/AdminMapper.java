@@ -31,5 +31,8 @@ public interface AdminMapper {
 	public int updateMember(NCTmemberDTO dto);
 	public int deleteGroup(NCTmemberDTO dto);
 	public int updateGroup(NCTmemberDTO dto);
+	
+	// 엔시티 멤버 삭제
+	public int deleteMember(int memberId);
 
 }

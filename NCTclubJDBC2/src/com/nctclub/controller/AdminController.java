@@ -135,6 +135,8 @@ public class AdminController {
     
     @RequestMapping("/updatemember")
     public String updatemember(@RequestParam("file") MultipartFile file, @ModelAttribute NCTmemberDTO dto, HttpServletRequest request, Model model) throws Exception {
+    	System.out.println(dto.getMemberId());
+    	
     	String UPLOAD_DIR = "resources/file_repo";
         ServletContext servletContext = request.getSession().getServletContext();
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
@@ -146,15 +148,22 @@ public class AdminController {
             System.out.println("테스트완료");
         }
         
-        
         adminService.updateMemberWithGroups(dto);
-
-		/*
-		 * adminService.updateMember(dto); adminService.updateGroup(dto);
-		 */
         System.out.println("수정완:" + dto.toString());
+        model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");
 
-		return "redirect:detail";
+		return "redirect:detail?memberId="+dto.getMemberId();
     }
     
+    @RequestMapping(value = "/deletemember", method = RequestMethod.GET)
+	@ResponseBody
+	public String deleteMember(@RequestParam("memberId") int memberId) {
+		System.out.println(memberId);
+		int result = adminService.deleteMember(memberId);
+		if (result ==1) {
+			return "yes";
+		} else {
+			return "no";
+		}
+	}
 }
