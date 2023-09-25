@@ -2,6 +2,7 @@ package com.nctclub.service;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -11,7 +12,11 @@ import com.nctclub.model.UserDTO;
 
 public interface AdminService {
 	
-	List<UserDTO> selectAllUsers();
+	// 모든 회원 가져오기
+	List<UserDTO> selectAllUsers(HashMap<String, Integer> map);
+	
+	// 모든 회원 수 가져오기
+	int getUserCount();
 	
 	public int deleteUser(String userId);
 	
@@ -19,21 +24,16 @@ public interface AdminService {
 	
 	public File uploadFile(MultipartFile file, String uploadPath) throws Exception;
 
-	/*
-	 * public List<NCTmemberDTO> selectAllMembers();
-	 */	
 	public NCTmemberDTO selectMember(int memberId);
 	
-	/*
-	 * public int updateMember(NCTmemberDTO dto); public int
-	 * updateGroup(NCTmemberDTO dto);
-	 */
 	
     public void updateMemberWithGroups(NCTmemberDTO dto);
     
 	public int deleteMember(int memberId);
 
 	public ArrayList<String> getAllGroups();
+	
+	
 
 
 

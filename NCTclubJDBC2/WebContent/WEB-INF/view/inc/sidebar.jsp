@@ -26,11 +26,18 @@
         font-size: 24px; /* 원하는 글자 크기로 변경하세요 */
         font-weight: bold; 
     	}
-    .sidebar a {
-        text-decoration: none; /* 링크 밑줄 제거 */
-        font-size: 22px; /* 원하는 글자 크기로 변경하세요 */
-        font-weight: bold; /* 굵게 만들고 싶으면 bold로 설정하세요 */
-    }
+    	
+    	.sidebar {
+        background-color: #DCDCDC;
+        height: 800px; /* 사이드바의 높이를 100%로 지정합니다. */
+        overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 표시 */
+    	}
+    	
+	    .sidebar a {
+	        text-decoration: none; /* 링크 밑줄 제거 */
+	        font-size: 22px; /* 원하는 글자 크기로 변경하세요 */
+	        font-weight: bold; /* 굵게 만들고 싶으면 bold로 설정하세요 */
+	    }
     </style>
 	  
 </head>
@@ -59,3 +66,19 @@
 
 </nav>
 <!-- /Navbar -->
+
+<script>
+    // 페이지 로드 시 사이드바 높이 설정
+    function setSidebarHeight() {
+        const sidebar = document.getElementById("sidebar");
+        const windowHeight = window.innerHeight;
+        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+        const sidebarHeight = windowHeight - navbarHeight;
+        sidebar.style.height = `${sidebarHeight}px`;
+    }
+
+    // 페이지 로드 및 리사이즈 이벤트에 대한 이벤트 핸들러 등록
+    window.addEventListener("load", setSidebarHeight);
+    window.addEventListener("resize", setSidebarHeight);
+</script>
+

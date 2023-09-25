@@ -1,6 +1,7 @@
 package com.nctclub.mapper;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,7 @@ public interface AdminMapper {
 	
 	
 	// 전체 회원 선택
-	public List<UserDTO> selectAllusers(); 
+	public List<UserDTO> selectAllusers(HashMap<String, Integer> map); 
 			
 	// 회원 삭제
 	public int deleteUser(String userId);
@@ -37,5 +38,7 @@ public interface AdminMapper {
 	public int deleteMember(int memberId);
 
 	public ArrayList<String> getAllGroups();
+
+	public int getUserCount();
 
 }
