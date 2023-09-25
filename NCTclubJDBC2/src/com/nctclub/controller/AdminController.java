@@ -3,6 +3,7 @@ package com.nctclub.controller;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.ServletContext;
@@ -22,6 +23,7 @@ import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.AdminService;
 import com.nctclub.service.CustomUserDetailsService;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -51,9 +53,43 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
-	public String selectall(Model model) {
-		List<UserDTO> members = adminService.selectAllUsers();
+	public String selectall(HttpServletRequest request, Model model) {
+		int pg=1;
+		String strPg = request.getParameter("pg"); 
+		if(strPg!=null){
+			pg = Integer.parseInt(strPg);			
+		}
+		int rowSize = 10;
+		int start = (pg*rowSize)-(rowSize -1);
+		int end = pg*rowSize;
+		
+		int total = adminService.getUserCount(); //총 회원 수
+		System.out.println("시작 : "+start +" 끝: "+end);
+		System.out.println("회원 수 : "+total);
+		
+		int allPage = (int) Math.ceil(total/(double)rowSize); //페이지수
+		System.out.println("페이지수 : "+ allPage);
+		
+		int block = 10; //한페이지에 보여줄  범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] >>
+		int fromPage = ((pg-1)/block*block)+1;  //보여줄 페이지의 시작
+		//((1-1)/10*10)
+		int toPage = ((pg-1)/block*block)+block; //보여줄 페이지의 끝
+		if(toPage> allPage){ // 예) 20>17
+			toPage = allPage;
+		}
+		
+		HashMap<String, Integer> map = new HashMap<>();
+		
+		map.put("start", start);
+		map.put("end", end);
+		
+		List<UserDTO> members = adminService.selectAllUsers(map);
 		model.addAttribute("memberList", members);
+		request.setAttribute("pg",pg);
+		request.setAttribute("allPage",allPage);
+		request.setAttribute("block",block);
+		request.setAttribute("fromPage",fromPage);
+		request.setAttribute("toPage",toPage);	
 		return "userListForm";
 	}
 
@@ -169,4 +205,7 @@ public class AdminController {
 			return "no";
 		}
 	}
+    
+    
+    
 }

@@ -48,7 +48,7 @@ public class UserController {
     	int result = userService.userRegister(userDto);
  
     	System.out.println(result);
-        return "main";
+        return "redirect:/user/main";
     }
     
     // 로그인 폼 /loginform.jsp > 사용자 등록하면 login으로 넘어감.
@@ -101,7 +101,7 @@ public class UserController {
             
             CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
             session.setAttribute("loginDto", customUserDetails.getUserDto());
-            return "redirect:main";
+            return "redirect:/user/main";
         } else {
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 틀렸습니다.");
             return "loginform";

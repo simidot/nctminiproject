@@ -3,7 +3,9 @@
     
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
+<c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
 <%@ include file="inc/sidebar.jsp" %>
+</c:if>
 
 <!-- main html -->
 
@@ -38,7 +40,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+<script>
+    // 페이지 로드 시 사이드바 높이 설정
+    function setSidebarHeight() {
+        const sidebar = document.getElementById("sidebar");
+        const windowHeight = window.innerHeight;
+        const navbarHeight = document.querySelector(".navbar").offsetHeight;
+        const sidebarHeight = windowHeight - navbarHeight;
+        sidebar.style.height = `${sidebarHeight}px`;
+    }
 
+    // 페이지 로드 및 리사이즈 이벤트에 대한 이벤트 핸들러 등록
+    window.addEventListener("load", setSidebarHeight);
+    window.addEventListener("resize", setSidebarHeight);
+</script>
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>
