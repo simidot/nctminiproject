@@ -87,4 +87,4 @@ CREATE TABLE "COMMENTS" (
     "is_deleted"   NUMBER DEFAULT 0,    -- 댓글이 삭제되었는지 여부 (0: 아니오, 1: 예)
     FOREIGN KEY ("nctmember_id") REFERENCES "NCTMEMBERS"("memberId"),
     FOREIGN KEY ("parents_id") REFERENCES "COMMENTS"("commentid")
-);
+)

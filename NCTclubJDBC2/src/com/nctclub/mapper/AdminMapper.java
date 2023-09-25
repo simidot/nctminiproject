@@ -35,4 +35,6 @@ public interface AdminMapper {
 	// 엔시티 멤버 삭제
 	public int deleteMember(int memberId);
 
+	public List<String> getAllGroups();
+
 }

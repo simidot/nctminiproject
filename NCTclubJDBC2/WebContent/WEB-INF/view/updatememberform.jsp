@@ -47,39 +47,19 @@
                         </div>
                         
                         
-                        <div class="form-group row">
-                            <label for="groupList" class="col-md-3 col-form-label">소속 그룹: </label>
-                            <p>${nctmemberDTO.groupList}</p>
-                            <div class="col-md-9">
-                        		<div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="nctU" name="groupList" value="NCT U">
-						            <label class="form-check-label" for="nctU">NCT U</label>
-						        </div>
-						        <div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="nctDREAM" name="groupList" value="NCT DREAM">
-						            <label class="form-check-label" for="nctDREAM">NCT DREAM</label>
-						        </div>
-						        <div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="wayV" name="groupList" value="Way V">
-						            <label class="form-check-label" for="wayV">Way V</label>
-						        </div>
-						        <br>
-						        <div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="nct127" name="groupList" value="NCT 127">
-						            <label class="form-check-label" for="nct127">NCT 127</label>
-						        </div>
-						        <div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="superM" name="groupList" value="SuperM">
-						            <label class="form-check-label" for="superM">SuperM</label>
-						        </div>
-						        <div class="form-check form-check-inline">
-						            <input class="form-check-input" type="checkbox" id="dojaejung" name="groupList" value="NCT 도재정">
-						            <label class="form-check-label" for="dojaejung">NCT 도재정</label>
-						        </div>
-                            </div>
-                        </div>
-                        
-                        
+<!-- 소속 그룹 표시 -->
+<div class="form-group row">
+    <label for="groupList" class="col-md-3 col-form-label">소속 그룹: </label>
+    <div class="col-md-5">
+        <c:forEach items="${allGroups}" var="group">
+            <div class="form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" id="${group}" name="groupList" value="${group}" <c:if test="${nctmemberDTO.groupList.contains(group)}">checked</c:if>>
+                <label class="form-check-label" for="${group}">${group}</label>
+            </div>
+        </c:forEach>
+    </div>
+</div>
+                      
                         <div class="form-group row">
                             <label for="positionlist" class="col-sm-3 col-form-label text-nowrap">포지션 :</label>
 							    <div class="col-md-9">

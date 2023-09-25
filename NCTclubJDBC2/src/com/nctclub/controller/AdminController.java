@@ -127,6 +127,9 @@ public class AdminController {
     public String updatemember(@RequestParam("memberId") int memberId, Model model) {
     	NCTmemberDTO dto = adminService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
+        List<String> allGroups = adminService.getAllGroups();
+        System.out.println(allGroups.toString());
+        model.addAttribute("allGroups", allGroups);
 		System.out.println(dto);
 		return "updatememberform";
     }
@@ -146,6 +149,7 @@ public class AdminController {
             System.out.println("테스트완료");
         }
         
+
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
         model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");

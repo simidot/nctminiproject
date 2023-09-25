@@ -32,6 +32,8 @@ public interface AdminService {
     
 	public int deleteMember(int memberId);
 
+	List<String> getAllGroups();
+
 
 
 
