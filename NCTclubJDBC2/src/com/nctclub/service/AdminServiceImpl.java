@@ -142,6 +142,11 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.deleteMember(memberId);
 	}
 
+	@Override
+	public List<String> getAllGroups() {
+		return mapper.getAllGroups();
+	}
+
 	/*
 	 * @Override public int updateMember(NCTmemberDTO dto) { return
 	 * mapper.updateMember(dto); }

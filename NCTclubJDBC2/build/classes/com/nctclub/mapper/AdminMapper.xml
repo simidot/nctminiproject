@@ -101,6 +101,11 @@
  	 </delete>
  	 
  	 
+ 	 <!-- 엔시티 그룹 종류 모두 가져오기  -->
+ 	 <select id = "getAllGroups" resultType="java.util.List">
+ 	 	SELECT DISTINCT groupname FROM nctgroups
+ 	 </select>
+ 	 
 
   	
   	
