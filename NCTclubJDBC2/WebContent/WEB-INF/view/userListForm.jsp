@@ -4,12 +4,15 @@
 
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
+<c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
 <%@ include file="inc/sidebar.jsp" %>
-
+</c:if>
 <link rel="stylesheet" type="text/css" href="${ctxPath}/resources/css/userList.css">
 
 
 <!-- main html -->
+<body class="d-flex flex-column vh-100" style="overflow-y: auto;">
+
     <form action ='${ctxPath}/admin/userlist' method = 'get'>
         <div class="container">
             <h2 class="mb-3">회원 리스트</h2>
@@ -44,6 +47,42 @@
                 </tbody>
             </table>
         </div>
+        
+        
+        <tr>
+	<td align="center">
+		<!-- 처음 이전 링크 -->
+		<c:if test="${pg>block}">  <!-- 5>10 : false / 15>10 : true -->
+			[<a href="${ctxPath}/admin/userlist?pg=1">◀◀</a>]
+			[<a href="${ctxPath}/admin/userlist?pg=${fromPage-1}">◀</a>]		
+		</c:if>
+		<c:if test="${pg<=block}"> <!-- 5<=10 :true / 15<=10:false -->
+			[<span style="color:gray">◀◀</span>]	
+			[<span style="color:gray">◀</span>]
+		</c:if>
+		
+		<!-- 블록 범위 찍기 -->
+		<c:forEach begin="${fromPage}" end="${toPage}" var="i">
+			<c:if test="${i==pg}">[${i}]</c:if>
+			<c:if test="${i!=pg}">
+				[<a href="${ctxPath}/admin/userlist?pg=${i}">${i}</a>]
+			</c:if>
+		</c:forEach>
+		
+		<!-- 다음, 이후 -->
+		<c:if test="${toPage<allPage}"> <!-- 20<21 : true -->
+				[<a href="${ctxPath}/admin/userlist?pg=${toPage+1}">▶</a>]
+				[<a href="${ctxPath}/admin/userlist?pg=${allPage}">▶▶</a>]
+		
+		</c:if>	
+		<c:if test="${toPage>=allPage}"> <!-- 21>=21 :true -->
+				[<span style="color:gray">▶</span>]
+				[<span style="color:gray">▶▶</span>]
+		
+		</c:if>			
+		
+	</td>
+</tr>
 
         <!-- 모달 창 -->
         <div id="myModal" class="modal">
@@ -54,6 +93,8 @@
             </div>
         </div>
     </form>
+    
+    
 
 <!-- <script>
 	const deleteUrl = '<c:url value="/admin/deleteuser"/>' + "?userId=" + confirmDelete.getAttribute("data-user-id");

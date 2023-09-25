@@ -76,8 +76,6 @@ CREATE SEQUENCE nctgroups_seq
     NOMAXVALUE;
 commit ;    
 
-<<<<<<< HEAD
-
 CREATE TABLE comments (
     commentid NUMBER PRIMARY KEY,
     nctmember_id NUMBER NOT NULL,    -- 댓글의 대상인 nctmembers의 ID
@@ -96,18 +94,3 @@ CREATE SEQUENCE comments_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;
-=======
-CREATE TABLE comments (
-    commentid NUMBER PRIMARY KEY,
-    nctmember_id NUMBER NOT NULL,    -- 댓글의 대상인 nctmembers의 ID
-    userid NUMBER NOT NULL,          -- 댓글을 남긴 사용자의 ID
-    parents_id NUMBER NULL,          -- 상위 댓글 ID (null이면 최상위 댓글)
-    contents VARCHAR2(255) NOT NULL,
-    regdate DATE DEFAULT SYSDATE,
-    depth   NUMBER DEFAULT 1 CHECK (depth IN (1, 2)),  -- 댓글의 깊이 (1: 최상위, 2: 답글)
-    is_deleted  NUMBER DEFAULT 0,    -- 댓글이 삭제되었는지 여부 (0: 아니오, 1: 예)
-    FOREIGN KEY (nctmember_id) REFERENCES nctmembers(memberId),
-    FOREIGN KEY (parents_id) REFERENCES comments(commentid),
-    FOREIGN KEY (userid) REFERENCES USERS(id)
-);
->>>>>>> branch 'master' of https://github.com/simidot/nctminiproject.git

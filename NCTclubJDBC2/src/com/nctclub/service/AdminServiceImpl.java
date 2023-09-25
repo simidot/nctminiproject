@@ -31,8 +31,8 @@ public class AdminServiceImpl implements AdminService {
     private static final long MAX_FILE_SIZE = 5 * 1024 * 1024;
 	
 	@Override
-	public List<UserDTO> selectAllUsers() {
-		return mapper.selectAllusers();
+	public List<UserDTO> selectAllUsers(HashMap<String, Integer> map){
+		return mapper.selectAllusers(map);
 	}
 
 	@Override
@@ -147,6 +147,11 @@ public class AdminServiceImpl implements AdminService {
 	public ArrayList<String> getAllGroups() {
 		ArrayList<String> allGroups = mapper.getAllGroups();
 		return allGroups;
+	}
+
+	@Override
+	public int getUserCount() {
+		return mapper.getUserCount();
 	}
 
 	/*

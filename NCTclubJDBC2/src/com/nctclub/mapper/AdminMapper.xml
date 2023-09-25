@@ -6,8 +6,11 @@
   
  <mapper namespace="com.nctclub.mapper.AdminMapper">
  	<!-- 전체 회원 선택  -->
-  	<select id="selectAllusers" resultType="userDTO">
-  		SELECT * FROM users
+  	<select id="selectAllusers" parameterType="hashmap" resultType="userDTO">
+  		SELECT * FROM
+  			(select A.*,ROWNUM r from 
+ 	 			(select * from users)A)
+  		where r >= #{start} and r &lt;= #{end}
   	</select> 	
  	 
  	 <!-- 회원 삭제 -->
@@ -106,6 +109,10 @@
  	 	SELECT DISTINCT groupname FROM nctgroups
  	 </select>
  	 
+ 	 <!-- 회원가입한 회원 수 가져오기 -->
+ 	 <select id = "getUserCount" resultType = "Integer">
+ 	 	SELECT count(*) FROM users
+ 	 </select>
 
   	
   	
