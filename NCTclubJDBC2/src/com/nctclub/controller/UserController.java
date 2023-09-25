@@ -72,7 +72,7 @@ public class UserController {
 	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
 		NCTmemberDTO dto = userService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
-
+		//여기에 COMMENTS 리스트 가져오기
 		System.out.println(dto);
 		return "nctdetailform";
 	}
