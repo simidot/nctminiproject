@@ -80,7 +80,7 @@
                     <p>MBTI: ${nctmemberDTO.mbti}</p>
                    
 
-				<c:if test="${sessionScope.loginDto.userrole.name() != 'USER'}">
+				  <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
 				    <!-- 수정하기 버튼 -->
 				    <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
 				    <!-- 삭제하기 버튼 -->
@@ -100,23 +100,10 @@
                 <button id="confirmDelete">삭제</button>
             </div>
         </div> -->
- 
-    <div class="row mt-3">
-        <div class="col-md-6 offset-md-3">
-            <!-- 코멘트 -->
-            <div class="card">
-                <div class="card-header">
-                    코멘트
-                </div>
-                <div class="card-body">
-                    <!-- 코멘트 내용 -->
-                    <p>멤버에 대한 추가 정보 및 코멘트 내용이 나타납니다.</p>
-                </div>
-            </div>
-        </div>
-    </div>
+     
+     <%@ include file="comment.jsp" %>
+
 </div>
-</form>
 
 
 <!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->

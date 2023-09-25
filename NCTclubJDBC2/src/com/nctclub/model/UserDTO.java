@@ -1,5 +1,6 @@
 package com.nctclub.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 
 import com.nctclub.utils.UserRole;
@@ -13,7 +14,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO {
+public class UserDTO implements Serializable  {
+       private static final long serialVersionUID = 1L;
        private Long id;  // Assuming that NUMBER type in Oracle is mapped to Long in Java
        private String userId;
        private String password;

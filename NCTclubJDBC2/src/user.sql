@@ -76,15 +76,16 @@ CREATE SEQUENCE nctgroups_seq
     NOMAXVALUE;
 commit ;    
 
-
-CREATE TABLE "COMMENTS" (
-    "commentid"    NUMBER PRIMARY KEY,
-    "nctmember_id" NUMBER NOT NULL,    -- 댓글을 남긴 회원의 ID
-    "parents_id"   NUMBER NULL,        -- 상위 댓글 ID (null이면 최상위 댓글을 의미)
-    "regdate"      DATE DEFAULT SYSDATE,
-    "contents"     VARCHAR(255) NOT NULL,
-    "depth"        NUMBER DEFAULT 1 CHECK (depth IN (1, 2)),  -- 댓글의 깊이 (1: 최상위, 2: 답글)
-    "is_deleted"   NUMBER DEFAULT 0,    -- 댓글이 삭제되었는지 여부 (0: 아니오, 1: 예)
-    FOREIGN KEY ("nctmember_id") REFERENCES "NCTMEMBERS"("memberId"),
-    FOREIGN KEY ("parents_id") REFERENCES "COMMENTS"("commentid")
-)
+CREATE TABLE comments (
+    commentid NUMBER PRIMARY KEY,
+    nctmember_id NUMBER NOT NULL,    -- 댓글의 대상인 nctmembers의 ID
+    userid NUMBER NOT NULL,          -- 댓글을 남긴 사용자의 ID
+    parents_id NUMBER NULL,          -- 상위 댓글 ID (null이면 최상위 댓글)
+    contents VARCHAR2(255) NOT NULL,
+    regdate DATE DEFAULT SYSDATE,
+    depth   NUMBER DEFAULT 1 CHECK (depth IN (1, 2)),  -- 댓글의 깊이 (1: 최상위, 2: 답글)
+    is_deleted  NUMBER DEFAULT 0,    -- 댓글이 삭제되었는지 여부 (0: 아니오, 1: 예)
+    FOREIGN KEY (nctmember_id) REFERENCES nctmembers(memberId),
+    FOREIGN KEY (parents_id) REFERENCES comments(commentid),
+    FOREIGN KEY (userid) REFERENCES USERS(id)
+);
