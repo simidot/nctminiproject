@@ -14,14 +14,19 @@
     <!-- Bootstrap CSS -->
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">    
-    <style>
+    <style type = "text/css">
     	.navbar {
     		position: relative;
     		z-index: 2;  /* 다른 요소보다 위에 표시될 수 있도록 설정 */
+    		background-color: #DAE594 !important;
 		}
-    	
+		.navbar-brand a {
+        color: #006400; /* 원하는 색상으로 변경하세요 */
+        text-decoration: none; /* 링크 밑줄 제거 */
+        font-size: 24px; /* 원하는 글자 크기로 변경하세요 */
+        font-weight: bold; 
+    	}
     </style>
-  
 	  
 </head>
 <body class="d-flex flex-column vh-100">
@@ -32,10 +37,12 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="mx-auto order-0" >
-    	<img alt="nct logo" src="${ctxPath}/resources/img/NCT-logo.jpg" style="width: 50px; height: 50px;">
-        <a class="navbar-brand mx-auto" href="${ctxPath}/user/main">NCTclub</a>
-    </div>
+
+<div class="navbar-brand mx-auto order-md-1" style="position: absolute; left: 50%; transform: translateX(-50%);">
+	<img alt="nct logo" src="${ctxPath}/resources/img/NCT-logo.jpg" style="width: 50px; height: 50px;">
+    <a href="${ctxPath}/user/main">NCTclub</a>
+</div>
+
 
 	<div class="navbar-collapse collapse order-3" id="navbarNav">
 	    <ul class="navbar-nav ml-auto">

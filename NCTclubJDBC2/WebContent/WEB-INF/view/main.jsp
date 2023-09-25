@@ -3,6 +3,7 @@
     
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
+<%@ include file="inc/sidebar.jsp" %>
 
 <!-- main html -->
 

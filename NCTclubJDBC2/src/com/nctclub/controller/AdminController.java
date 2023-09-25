@@ -114,13 +114,12 @@ public class AdminController {
         // System.out.println(dto.toString());
        // System.out.println(dto.getGroupList().toString());
 
-        // TODO: 이미지가 null 일때의 처리를 고려해야 함
         // 회원 정보를 데이터베이스에 추가
         adminService.addMemberWithGroups(dto);
         System.out.println(dto.toString());
     
         // 회원 등록 후 메인 페이지로 리다이렉션
-        return "redirect:main";
+        return "redirect:/user/main";
     }
     
     
@@ -153,7 +152,6 @@ public class AdminController {
         	System.out.println("변경안함");
         }
         
-
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
         model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");

@@ -4,6 +4,8 @@
 
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
+<%@ include file="inc/sidebar.jsp" %>
+
 <link rel="stylesheet" type="text/css" href="${ctxPath}/resources/css/userList.css">
 
 
