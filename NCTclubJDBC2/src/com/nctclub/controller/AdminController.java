@@ -1,6 +1,7 @@
 package com.nctclub.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -127,9 +128,7 @@ public class AdminController {
     public String updatemember(@RequestParam("memberId") int memberId, Model model) {
     	NCTmemberDTO dto = adminService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
-        List<String> allGroups = adminService.getAllGroups();
-        System.out.println(allGroups.toString());
-        model.addAttribute("allGroups", allGroups);
+        model.addAttribute("allGroups", adminService.getAllGroups());
 		System.out.println(dto);
 		return "updatememberform";
     }
@@ -142,11 +141,16 @@ public class AdminController {
         ServletContext servletContext = request.getSession().getServletContext();
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
         System.out.println(uploadPath);
+        
+
         if (!file.isEmpty()) {
             File uploadedFile = adminService.uploadFile(file, uploadPath);
             System.out.println("저장소 : " + uploadPath);
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
+        } else {
+        	System.out.println("파일없을 때 : "+uploadPath);
+        	System.out.println("변경안함");
         }
         
 

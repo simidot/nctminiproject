@@ -1,6 +1,7 @@
 package com.nctclub.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -143,8 +144,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<String> getAllGroups() {
-		return mapper.getAllGroups();
+	public ArrayList<String> getAllGroups() {
+		ArrayList<String> allGroups = mapper.getAllGroups();
+		return allGroups;
 	}
 
 	/*
