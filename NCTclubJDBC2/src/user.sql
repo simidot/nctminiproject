@@ -76,7 +76,6 @@ CREATE SEQUENCE nctgroups_seq
     NOMAXVALUE;
 commit ;    
 
-
 CREATE TABLE comments (
     commentid NUMBER PRIMARY KEY,
     nctmember_id NUMBER NOT NULL,    -- 댓글의 대상인 nctmembers의 ID
