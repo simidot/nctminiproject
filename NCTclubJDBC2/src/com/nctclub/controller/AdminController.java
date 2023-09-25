@@ -1,6 +1,7 @@
 package com.nctclub.controller;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -113,13 +114,12 @@ public class AdminController {
         // System.out.println(dto.toString());
        // System.out.println(dto.getGroupList().toString());
 
-        // TODO: 이미지가 null 일때의 처리를 고려해야 함
         // 회원 정보를 데이터베이스에 추가
         adminService.addMemberWithGroups(dto);
         System.out.println(dto.toString());
     
         // 회원 등록 후 메인 페이지로 리다이렉션
-        return "redirect:main";
+        return "redirect:/user/main";
     }
     
     
@@ -127,9 +127,7 @@ public class AdminController {
     public String updatemember(@RequestParam("memberId") int memberId, Model model) {
     	NCTmemberDTO dto = adminService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
-        List<String> allGroups = adminService.getAllGroups();
-        System.out.println(allGroups.toString());
-        model.addAttribute("allGroups", allGroups);
+        model.addAttribute("allGroups", adminService.getAllGroups());
 		System.out.println(dto);
 		return "updatememberform";
     }
@@ -142,14 +140,18 @@ public class AdminController {
         ServletContext servletContext = request.getSession().getServletContext();
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
         System.out.println(uploadPath);
+        
+
         if (!file.isEmpty()) {
             File uploadedFile = adminService.uploadFile(file, uploadPath);
             System.out.println("저장소 : " + uploadPath);
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
+        } else {
+        	System.out.println("파일없을 때 : "+uploadPath);
+        	System.out.println("변경안함");
         }
         
-
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
         model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");

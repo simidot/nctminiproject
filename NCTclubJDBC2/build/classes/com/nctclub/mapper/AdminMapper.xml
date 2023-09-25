@@ -73,8 +73,8 @@
 	        birthdate = #{birthdate},
 	        nationality = #{nationality},
 	        position = #{position},
-	        mbti = #{mbti},
-	        image = #{image}  <!-- 이미지 업데이트에 대한 로직이 필요할 경우 추가 -->
+	        <if test="image != null">image = #{image},</if>
+	        mbti = #{mbti}
 	    WHERE memberId = #{memberId}
 	</update>
 
@@ -102,7 +102,7 @@
  	 
  	 
  	 <!-- 엔시티 그룹 종류 모두 가져오기  -->
- 	 <select id = "getAllGroups" resultType="java.util.List">
+ 	 <select id = "getAllGroups" resultType="String">
  	 	SELECT DISTINCT groupname FROM nctgroups
  	 </select>
  	 

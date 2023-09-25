@@ -1,5 +1,6 @@
 package com.nctclub.mapper;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -35,6 +36,6 @@ public interface AdminMapper {
 	// 엔시티 멤버 삭제
 	public int deleteMember(int memberId);
 
-	public List<String> getAllGroups();
+	public ArrayList<String> getAllGroups();
 
 }

@@ -1,6 +1,7 @@
 package com.nctclub.service;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
@@ -32,7 +33,7 @@ public interface AdminService {
     
 	public int deleteMember(int memberId);
 
-	List<String> getAllGroups();
+	public ArrayList<String> getAllGroups();
 
 
 

@@ -47,19 +47,20 @@
                         </div>
                         
                         
-<!-- 소속 그룹 표시 -->
-<div class="form-group row">
-    <label for="groupList" class="col-md-3 col-form-label">소속 그룹: </label>
-    <div class="col-md-5">
-        <c:forEach items="${allGroups}" var="group">
-            <div class="form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" id="${group}" name="groupList" value="${group}" <c:if test="${nctmemberDTO.groupList.contains(group)}">checked</c:if>>
-                <label class="form-check-label" for="${group}">${group}</label>
-            </div>
-        </c:forEach>
-    </div>
-</div>
-                      
+					<!-- 소속 그룹 표시 -->
+					<div class="form-group row">
+					    <label for="groupList" class="col-md-3 col-form-label">소속 그룹: </label>
+					    <div class="col-md-5">
+					        <c:forEach items="${allGroups}" var="group">
+					            <div class="form-check form-check-inline">
+					                <input class="form-check-input" type="checkbox" id="${group}" name="groupList" value="${group}" 
+					                <c:if test="${nctmemberDTO.groupList.contains(group)}">checked</c:if>>
+					                <label class="form-check-label" for="${group}">${group}</label>
+					            </div>
+					        </c:forEach>
+					    </div>
+					</div>
+					                      
                         <div class="form-group row">
                             <label for="positionlist" class="col-sm-3 col-form-label text-nowrap">포지션 :</label>
 							    <div class="col-md-9">
@@ -80,12 +81,38 @@
                         		<input type="text" id="mbti" name="mbti" value="${nctmemberDTO.mbti}" class="form-control">
                             </div>
                         </div>
-						<label for="editimage" class="col-form-label text-nowrap">이미지 파일 수정하기</label>
-		                <div>
-		                    <input type="file" class="form-control text-right" id="file" name="file">   
-		                </div>
-		                <div class="row mt-3">
-			            <div class="col-md-4 text-center">
+                        
+				<label for="editimage" class="col-form-label text-nowrap">이미지 파일 수정하기</label>
+				<div>
+				    <!-- 이미지 미리 보기 -->
+				    <img id="image-preview" src="기본 이미지 URL" alt="이미지 미리 보기" width="100">
+				    
+				    <!-- 이미지 업로드 필드 -->
+				    <input type="file" class="form-control text-right" id="file" name="file">
+				</div>
+				<div class="row mt-3">
+				    <div class="col-md-4 text-center">
+				        <!-- 이미지를 업로드하면 미리 보기 업데이트 -->
+				        <script>
+				            document.getElementById("file").addEventListener("change", function() {
+				                var fileInput = this;
+				                var imagePreview = document.getElementById("image-preview");
+				
+				                if (fileInput.files && fileInput.files[0]) {
+				                    var reader = new FileReader();
+				
+				                    reader.onload = function(e) {
+				                        imagePreview.src = e.target.result;
+				                    };
+				
+				                    reader.readAsDataURL(fileInput.files[0]);
+				                }
+				            });
+				        </script>
+				    </div>
+				</div>
+
+
 			                <!-- 확인 버튼 -->
 			                <button type="submit" class="btn btn-dark d-block mx-auto">제출하기</button>
 			            </div>
