@@ -23,7 +23,9 @@
     </authentication-manager>
   
     <!-- URL 보안 규칙 -->
-	<http>
+	<http disable-url-rewriting="true">
+		
+	
 	    <!-- URL 보안 규칙: /admin/** 경로는 ROLE_ADMIN 권한을 가진 사용자만 접근 가능 -->
 	    <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
 	    
