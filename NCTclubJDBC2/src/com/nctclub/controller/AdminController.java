@@ -43,17 +43,11 @@ public class AdminController {
 	 * model.addAttribute("nctmemberList", nctmembers); return "main"; }
 	 */
 	
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
-		NCTmemberDTO dto = adminService.selectMember(memberId);
-		model.addAttribute("nctmemberDTO", dto);
-
-		System.out.println(dto);
-		return "nctdetailform";
-	}
+	// 회원 관련 기능
 	
+	// 모든 회원 정보 조회 + 페이징 처리
 	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
-	public String selectall(HttpServletRequest request, Model model) {
+	public String selectallusers(HttpServletRequest request, Model model) {
 		int pg=1;
 		String strPg = request.getParameter("pg"); 
 		if(strPg!=null){
@@ -79,7 +73,6 @@ public class AdminController {
 		}
 		
 		HashMap<String, Integer> map = new HashMap<>();
-		
 		map.put("start", start);
 		map.put("end", end);
 		
@@ -92,7 +85,8 @@ public class AdminController {
 		request.setAttribute("toPage",toPage);	
 		return "userListForm";
 	}
-
+	
+	// 회원정보 삭제 기능
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.GET)
 	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
@@ -105,11 +99,23 @@ public class AdminController {
 		}
 	}
 	
+	
+	// NCT member 관련 기능
+	
+	// 엔시티 멤버 세부정보 조회
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
+		NCTmemberDTO dto = adminService.selectMember(memberId);
+		model.addAttribute("nctmemberDTO", dto);
+		System.out.println(dto);
+		return "nctdetailform";
+	}
+
+	// 엔시티 멤버 등록 폼으로 이동
 	@RequestMapping(value = "/nctregisterform", method = RequestMethod.GET)
 	public String registerform() {
 		return "nctregisterform";
 	}
-	
 	
 	/**
 	 * 회원 등록 요청을 처리하는 컨트롤러 메서드.
@@ -122,7 +128,7 @@ public class AdminController {
 	 * @return String - 리다이렉션 URL
 	 * @throws Exception
 	 */
-
+	// 엔시티 멤버 등록하기 기능 (이미지 파일 업로드 기능 탑재)
     @RequestMapping("/nctregister")
     public String memberRegister(@RequestParam("file") MultipartFile file, @ModelAttribute NCTmemberDTO dto, HttpServletRequest request, Model model) throws Exception {
 
@@ -137,57 +143,56 @@ public class AdminController {
         만약 웹 애플리케이션을 다시 시작하거나 재배포할 경우, 이 임시 디렉터리의 내용은 리셋됨.
         */
         
+        // 업로드 경로 
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
-        System.out.println(uploadPath);
+        // System.out.println(uploadPath);
         
         // 파일이 비어 있지 않은 경우 파일 업로드 처리
         if (!file.isEmpty()) {
             File uploadedFile = adminService.uploadFile(file, uploadPath);
             System.out.println("저장소 : " + uploadPath);
-            dto.setImage(uploadedFile.getName());
+            dto.setImage(uploadedFile.getName()); // 이미지는 이미지파일의 제목으로 설정.
             System.out.println("테스트완료");
         }
         // System.out.println(dto.toString());
-       // System.out.println(dto.getGroupList().toString());
+        // System.out.println(dto.getGroupList().toString());
 
-        // 회원 정보를 데이터베이스에 추가
+        // 멤버 정보를 데이터베이스에 추가
         adminService.addMemberWithGroups(dto);
         System.out.println(dto.toString());
     
-        // 회원 등록 후 메인 페이지로 리다이렉션
+        // 멤버 등록 후 메인 페이지로 리다이렉션
         return "redirect:/user/main";
     }
     
-    
+    // 엔시티 멤버 정보 수정하기폼으로 이동 (멤버id를 파라미터로 가져와서 그 멤버의 정보수정)
     @RequestMapping("/updatememberform")
     public String updatemember(@RequestParam("memberId") int memberId, Model model) {
     	NCTmemberDTO dto = adminService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
+		// 그룹 전체 정보를 가져오기 위한 모델 설정
         model.addAttribute("allGroups", adminService.getAllGroups());
 		System.out.println(dto);
 		return "updatememberform";
     }
     
+    // 엔시티 멤버 정보 수정하기 기능 (이미지 파일도 새로 업로드 가능)
     @RequestMapping("/updatemember")
     public String updatemember(@RequestParam("file") MultipartFile file, @ModelAttribute NCTmemberDTO dto, HttpServletRequest request, Model model) throws Exception {
-    	System.out.println(dto.getMemberId());
-    	
     	String UPLOAD_DIR = "resources/file_repo";
         ServletContext servletContext = request.getSession().getServletContext();
         String uploadPath = servletContext.getRealPath("") + File.separator + UPLOAD_DIR;
         System.out.println(uploadPath);
-        
 
+        //업로드 파일이 있을 경우 업로드 경로에 파일 옮기고 파일제목을 이미지로 설정
         if (!file.isEmpty()) {
             File uploadedFile = adminService.uploadFile(file, uploadPath);
             System.out.println("저장소 : " + uploadPath);
             dto.setImage(uploadedFile.getName());
             System.out.println("테스트완료");
-        } else {
-        	System.out.println("파일없을 때 : "+uploadPath);
-        	System.out.println("변경안함");
         }
         
+        // 그 후 수정된 정보를 저장
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
         model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");
@@ -195,17 +200,15 @@ public class AdminController {
 		return "redirect:detail?memberId="+dto.getMemberId();
     }
     
+    // 엔시티 멤버 삭제 기능
     @RequestMapping(value = "/deletemember", method = RequestMethod.GET)
 	public String deleteMember(@RequestParam("memberId") int memberId) {
-		System.out.println(memberId);
 		int result = adminService.deleteMember(memberId);
 		if (result ==1) {
 			return "redirect:/user/main";
 		} else {
-			return "no";
+			return "no"; //여기 에러페이지로 이동하도록 수정하기**
 		}
 	}
-    
-    
-    
+
 }

@@ -1,6 +1,5 @@
 package com.nctclub.controller;
 
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +24,6 @@ import com.nctclub.service.CustomUserDetailsService;
 import com.nctclub.service.UserService;
 
 
-
 @Controller
 @RequestMapping("/user")
 public class UserController {
@@ -36,65 +34,36 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	// 회원가입 폼으로 이동
 	@RequestMapping(value = "/registerform", method = RequestMethod.GET)
 	public String registerform() {
 		return "registerform";
 	}
 	
+	// 회원가입 기능 (회원가입 후 메인 페이지로 이동)
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public String userRegister(@ModelAttribute UserDTO userDto) {
-    	
-    
-    	int result = userService.userRegister(userDto);
- 
-    	System.out.println(result);
+    public String userRegister(@ModelAttribute UserDTO dto) {
+    	int result = userService.userRegister(dto);
+    	// System.out.println(result);
         return "redirect:/user/main";
     }
     
-    // 로그인 폼 /loginform.jsp > 사용자 등록하면 login으로 넘어감.
+    // 로그인 폼으로 이동
     @RequestMapping(value = "/loginform", method = RequestMethod.GET)
 	public String loginform() {
 		return "loginform";
 	}
     
-    
-    // 메인 화면에서 엔시티 멤버 전체 정보 가져오기
-	@RequestMapping(value = "/main", method = RequestMethod.GET)
-	public String selectAllMembers (Model model) {
-		List<NCTmemberDTO> nctmembers = userService.selectAllMembers();
-		System.out.println(nctmembers.get(1));
-		model.addAttribute("nctmemberList", nctmembers);
-		return "main";
-	}
-	
-	// 메인에서 정보 상세보기를 누르면 각 멤버의 정보를 가져오기. 
-	@RequestMapping(value = "/detail", method = RequestMethod.GET)
-	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
-		NCTmemberDTO dto = userService.selectMember(memberId);
-		model.addAttribute("nctmemberDTO", dto);
-		//여기에 COMMENTS 리스트 가져오기
-		System.out.println(dto);
-		return "nctdetailform";
-	}
-	
-    
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logoutform(HttpServletRequest req) {
-    	   HttpSession session = req.getSession();
-    	   session.invalidate();
-		return "redirect:loginform";
-	}
-
-
+    // 로그인하기 기능 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String loginProcess(UserDTO dto, HttpServletRequest req, Model model) {
-    	
-    	UserDetails userDetails = userService.userLogin(dto);
+    	UserDetails userDetails = userService.userLogin(dto); // userDetails는 로그인한 정보를 가져옴
     	
         if(userDetails != null) {
-        	
+        	// authentication 객체 생성 
             UsernamePasswordAuthenticationToken authentication = 
             	    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+
             
             SecurityContextHolder.getContext().setAuthentication(authentication);
             
@@ -138,6 +107,37 @@ public class UserController {
 
         	7.모든 인증 과정이 성공적으로 완료되면 사용자를 메인 페이지로 리다이렉트 시킨다
     	**/
+    
+    
+    // 메인 화면에서 엔시티 멤버 전체 정보 가져오기
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
+	public String selectAllMembers (Model model) {
+		List<NCTmemberDTO> nctmembers = userService.selectAllMembers();
+		System.out.println(nctmembers.get(1));
+		model.addAttribute("nctmemberList", nctmembers);
+		return "main";
+	}
+	
+	// 메인에서 정보 상세보기를 누르면 각 멤버의 정보를 가져오기. 
+	@RequestMapping(value = "/detail", method = RequestMethod.GET)
+	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
+		NCTmemberDTO dto = userService.selectMember(memberId);
+		model.addAttribute("nctmemberDTO", dto);
+		//여기에 COMMENTS 리스트 가져오기
+		System.out.println(dto);
+		return "nctdetailform";
+	}
+	
+    
+    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+	public String logoutform(HttpServletRequest req) {
+    	   HttpSession session = req.getSession();
+    	   session.invalidate();
+		return "redirect:loginform";
+	}
+
+
+    
     
     
 	@RequestMapping("idCheck.do")	

@@ -1,0 +1,128 @@
+@charset "UTF-8";
+
+    .navbar {
+    	display: flex;
+    	right: 0;
+    	top: 0;
+    	position: relative;
+    	z-index: 2;  /* 다른 요소보다 위에 표시될 수 있도록 설정 */
+    	background-color: #bbe309 !important;
+	}
+	.navbar-brand a {
+       color: #006400; /* 원하는 색상으로 변경하세요 */
+       text-decoration: none; /* 링크 밑줄 제거 */
+       font-size: 24px; /* 원하는 글자 크기로 변경하세요 */
+       font-weight: bold; 
+    }
+    
+    .sidebar {
+        background-color: #DEE2CF;
+/*         height: 900px; 사이드바의 높이를 100%로 지정합니다.
+ */   		overflow-y: auto; /* 내용이 넘칠 경우 세로 스크롤 표시 */
+    	}
+    	
+	.sidebar a {
+	    text-decoration: none; /* 링크 밑줄 제거 */
+	    font-size: 22px; /* 원하는 글자 크기로 변경하세요 */
+	    font-weight: bold; /* 굵게 만들고 싶으면 bold로 설정하세요 */
+	    
+	}
+
+    html, body {
+    	margin: 0;
+    	padding: 0;
+        height: 100%; /* 페이지 내용과의 상단 간격 조절 */
+    }
+    
+    body {
+    	position: relative;
+    	padding-bottom : 999px;
+    }
+
+    footer {
+    	bottom: 0;
+    	padding: 5px 0;
+    	width: 100%;
+    	text-align : center;
+    	background-color: #FFF5EE;
+	}
+	
+	footer-container {
+		padding: 5px 0;
+    	width: 100%;
+    	margin: 0 auto;
+    	text-align : center;
+    	background-color: #FFF5EE;
+	}
+	
+	
+	    	/* 추가된 CSS 스타일 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.7);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 30%;
+            text-align: center;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+	
+	
+	
+	/* 페이징 컨테이너를 가운데 정렬합니다. */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px; /* 페이지 컨트롤과 상단 간격 조절 */
+}
+
+/* 페이지 컨트롤에 대한 스타일을 설정합니다. */
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* 각 페이지 번호 또는 이전/다음 버튼에 대한 스타일 설정 */
+.pagination li {
+    margin: 0 5px; /* 각 페이지 번호 사이 간격 조절 */
+}
+
+/* 현재 페이지 번호에 대한 스타일 설정 */
+.pagination .active {
+    font-weight: bold;
+    color: #007bff; /* 현재 페이지 번호의 색상 설정 */
+}
+
+/* 이전/다음 버튼 스타일 설정 */
+.pagination .prev,
+.pagination .next {
+    font-weight: bold;
+}
+	

@@ -7,7 +7,8 @@
 <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
 <%@ include file="inc/sidebar.jsp" %>
 </c:if>
-<link rel="stylesheet" type="text/css" href="${ctxPath}/resources/css/userList.css">
+
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/styles.css">
 
 
 <!-- main html -->
@@ -48,8 +49,10 @@
             </table>
         </div>
         
-        
-        <tr>
+
+<div class="pagination-container">
+    <ul class="pagination">        
+   <tr>
 	<td align="center">
 		<!-- 처음 이전 링크 -->
 		<c:if test="${pg>block}">  <!-- 5>10 : false / 15>10 : true -->
@@ -83,7 +86,8 @@
 		
 	</td>
 </tr>
-
+    </ul>
+</div>
         <!-- 모달 창 -->
         <div id="myModal" class="modal">
             <div class="modal-content">

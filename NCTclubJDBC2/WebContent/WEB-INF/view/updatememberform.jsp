@@ -123,24 +123,9 @@
         </div>
     </form>
 
-    <div class="row mt-3">
-        <div class="col-md-6 offset-md-3">
-            <!-- 코멘트 -->
-            <div class="card">
-                <div class="card-header">
-                    코멘트
-                </div>
-                <div class="card-body">
-                    <!-- 코멘트 내용 -->
-                    <p>멤버에 대한 추가 정보 및 코멘트 내용이 나타납니다.</p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    
 
 <!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
