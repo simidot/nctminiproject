@@ -26,6 +26,8 @@
 		<property name="locations" value="/WEB-INF/mybatis/db.properties"></property>
 	</bean>
 	
+	<bean id="jacksonMessageConverter" class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter"/>
+	
 	<!-- jdbc 설정(DataSource : 데이터베이스) -->
 	<bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
 		<property name="driverClass" value="${driver}"/>
