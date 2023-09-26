@@ -4,6 +4,7 @@
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
 
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/styles.css">
 
 
 <!-- main html -->
@@ -27,5 +28,7 @@
         <button type="submit" class="btn btn-dark d-block mx-auto">로그인하기</button>
     </form>
 </div>
+
+
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

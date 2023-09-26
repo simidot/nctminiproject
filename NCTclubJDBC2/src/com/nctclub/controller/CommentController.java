@@ -15,9 +15,9 @@ import com.nctclub.service.UserService;
 @Controller
 @RequestMapping("/comment")
 public class CommentController {
-	
-	@Autowired
-	CommentService commentService;
+	/*
+	 * @Autowired CommentService commentService;
+	 */
 	
 //	// 댓글조회
 //	@RequestMapping(value = "/{commentid}", method = RequestMethod.GET)
@@ -30,8 +30,9 @@ public class CommentController {
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody
 	public String create(@RequestBody CommentDTO commentDto) {
-		int resultCnt = commentService.register(commentDto);
-		return "success"; 
+		/*
+		 * int resultCnt = commentService.register(commentDto);
+		 */		return "success"; 
 	}
 //
 //	// 댓글삭제

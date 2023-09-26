@@ -7,7 +7,11 @@
 <%@ include file="inc/sidebar.jsp" %>
 </c:if>
 
+<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/styles.css">
+
+
 <!-- main html -->
+<body class="d-flex flex-column vh-100" style="overflow-y: auto;">
 
 	<div class = "container">
 		<h2 class = "mb-3">전체 멤버 보기</h2>
@@ -36,24 +40,10 @@
 	</div>
 
     <!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-<script>
-    // 페이지 로드 시 사이드바 높이 설정
-    function setSidebarHeight() {
-        const sidebar = document.getElementById("sidebar");
-        const windowHeight = window.innerHeight;
-        const navbarHeight = document.querySelector(".navbar").offsetHeight;
-        const sidebarHeight = windowHeight - navbarHeight;
-        sidebar.style.height = `${sidebarHeight}px`;
-    }
 
-    // 페이지 로드 및 리사이즈 이벤트에 대한 이벤트 핸들러 등록
-    window.addEventListener("load", setSidebarHeight);
-    window.addEventListener("resize", setSidebarHeight);
-</script>
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>
