@@ -95,6 +95,7 @@ public class UserController {
         	
             UsernamePasswordAuthenticationToken authentication = 
             	    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
+            
             SecurityContextHolder.getContext().setAuthentication(authentication);
             
             HttpSession session = req.getSession();

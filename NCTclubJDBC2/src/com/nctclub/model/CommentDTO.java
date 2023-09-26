@@ -1,21 +1,24 @@
 package com.nctclub.model;
 
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.List;
 
 import com.nctclub.model.NCTmemberDTO.NCTmemberDTOBuilder;
+import com.nctclub.utils.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 
 @Data
-@Builder
-@NoArgsConstructor
+@ToString
 @AllArgsConstructor
-public class CommentDTO {
+@NoArgsConstructor
+public class CommentDTO implements Serializable{
 	
 	private Long commentid;
     private Long nctmember_id;
@@ -25,4 +28,7 @@ public class CommentDTO {
     private Date regdate;
     private int depth;
     private int is_deleted;
+    
+  
+    
 }

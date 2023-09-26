@@ -10,13 +10,13 @@ var replyFunc = (function(){
 			type:'post',
 			// 서버에 전송하는 데이터 형식
 			data: JSON.stringify(reply), // JSON객체를 문자열(텍스트)로 변환
-			contentType: "application/json; charset=utf8",
+            contentType: "application/json; charset=utf-8", // JSON 데이터로 설정
 			success:function(result){
 				if(cb){
 					cb(result);
 				}
 			},
-			error:function(){alert("요청실패!!")}
+  			error:function(){alert("요청실패!!")}
 		});
 	}
 	
