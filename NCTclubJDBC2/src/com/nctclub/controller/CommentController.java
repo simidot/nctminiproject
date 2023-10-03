@@ -2,9 +2,7 @@ package com.nctclub.controller;
 
 import static java.lang.Class.forName;
 
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +27,14 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 	
-//	// 댓글조회
-//	@RequestMapping(value = "/{commentid}", method = RequestMethod.GET)
-//	@ResponseBody
-//	public CommentDTO get(@PathVariable("commentid") int commentid) {
-//
-//	}
-//	
+	// 댓글조회
+    @RequestMapping(value = "/list/{nctmember_id}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<CommentDTO> showList(@PathVariable("nctmember_id") int nctmember_id) {
+        List<CommentDTO> comments = commentService.getCommentsByMemberId(nctmember_id);
+		return comments;
+	}
+	
 	// 댓글추가
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody

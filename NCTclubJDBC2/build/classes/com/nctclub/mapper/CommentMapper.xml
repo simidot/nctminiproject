@@ -14,5 +14,22 @@
         VALUES (USERS_SEQ.NEXTVAL, #{userId}, #{password}, #{username}, #{nickname}, #{birthdate}, #{phone}, #{email}, #{address}, #{userrole}, SYSDATE)
 >>>>>>> branch 'youshin' of https://github.com/simidot/nctminiproject.git
     </insert>
+    
+    <select id="selectAll" resultType="commentDTO">
+    SELECT 
+        commentid, 
+        nctmember_id, 
+        userid, 
+        parents_id, 
+        contents, 
+        depth, 
+        is_deleted, 
+        regdate 
+    FROM comments 
+    WHERE nctmember_id = #{nctmember_id} AND is_deleted = 0
+    ORDER BY regdate DESC
+	</select>
+    
+    
  
  </mapper>
