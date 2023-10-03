@@ -29,6 +29,4 @@ public class CommentDTO implements Serializable{
     private int depth;
     private int is_deleted;
     
-  
-    
 }

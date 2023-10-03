@@ -26,8 +26,8 @@ import com.nctclub.service.UserService;
 public class CommentController {
 
 
-//	@Autowired
-//	CommentService commentService;
+    @Autowired
+    CommentService commentService;
 	
 //	// 댓글조회
 //	@RequestMapping(value = "/{commentid}", method = RequestMethod.GET)
@@ -39,10 +39,9 @@ public class CommentController {
 	// 댓글추가
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody
-
 	public String create(@RequestBody CommentDTO commentDTO)  {
-		System.out.println(commentDTO.toString());
-		//System.out.println(commentDto.toString());
+		System.out.println("commentDTO = "+commentDTO.toString());
+		int result = commentService.register(commentDTO);
 		return "success"; 
 	}
 	

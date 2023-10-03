@@ -85,14 +85,15 @@ $(document).ready(function() {
         }
         var urlParams = new URLSearchParams(window.location.search);
         var memberId = urlParams.get('memberId');
-        var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getUserId() %>';
+        var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getId()%>' ;
 
         var reply = {
         		"contents":replyContent,
-        	    "nctmember_id" : memberId,
         	    "userid" : userId,
-        	    "parents_id" : 3
+        	    "nctmember_id" : memberId,
+        	    "depth" : 1
         };
+        
        	replyFunc.register(reply, function(result) {
        	    if (result === "success") {
        	        alert('댓글이 성공적으로 등록되었습니다.');

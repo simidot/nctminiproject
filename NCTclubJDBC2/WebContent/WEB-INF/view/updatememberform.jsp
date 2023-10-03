@@ -1,11 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<!-- header html -->
+
+
+
 <%@ include file="inc/header.jsp" %>
 
+<div class="container-fluid">
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
-            <h2>멤버 상세정보 수정하기</h2>
+            <h2>MEMBER DETAIL UPDATE</h2>
         </div>
     </div>
     
@@ -23,7 +26,7 @@
                 <!-- 세부사항 -->
                 <div class="card">
                     <div class="card-header">
-                        세부사항
+                        DETAIL.
                     </div>
                     <div class="card-body">
                         <!-- 세부사항 내용 -->
@@ -118,10 +121,11 @@
 			            </div>
 			        </div>
                     </div>
+                    </form>
                 </div>
             </div>
-        </div>
-    </form>
+    
+    
 
     
 

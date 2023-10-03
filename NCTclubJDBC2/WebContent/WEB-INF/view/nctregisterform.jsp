@@ -2,11 +2,10 @@
     pageEncoding="UTF-8"%>
     
 
-<!-- header html -->
 <%@ include file="inc/header.jsp" %>
 
+<div class="container-fluid">
 
-<!-- main html -->
 <div class="container shadow py-5 w-50 rounded p-5 my-auto">
 <h2 class="text-center mb-3">엔시티 멤버 등록</h2>
 	<form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
@@ -106,11 +105,8 @@
       <button type="submit" class="btn btn-dark d-block mx-auto" >등록하기</button>
     </form>
 </div>
+</div>
 
-<%-- <script>
-    var idCheckURL = "<c:url value='/user/idCheck.do'/>";
-</script>
-<script src="${ctxPath}/resources/js/registerCheck.js"></script> --%>
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

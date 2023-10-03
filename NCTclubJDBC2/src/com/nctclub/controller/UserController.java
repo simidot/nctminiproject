@@ -71,6 +71,7 @@ public class UserController {
             
             CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
             session.setAttribute("loginDto", customUserDetails.getUserDto());
+            System.out.println(customUserDetails.getUserDto());
             return "redirect:/user/main";
         } else {
             model.addAttribute("errorMessage", "아이디 또는 비밀번호가 틀렸습니다.");
@@ -113,7 +114,7 @@ public class UserController {
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String selectAllMembers (Model model) {
 		List<NCTmemberDTO> nctmembers = userService.selectAllMembers();
-		System.out.println(nctmembers.get(1));
+		//System.out.println(nctmembers.get(1));
 		model.addAttribute("nctmemberList", nctmembers);
 		return "main";
 	}
@@ -123,8 +124,10 @@ public class UserController {
 	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
 		NCTmemberDTO dto = userService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
+		
 		//여기에 COMMENTS 리스트 가져오기
-		System.out.println(dto);
+		
+		
 		return "nctdetailform";
 	}
 	

@@ -4,12 +4,11 @@
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
 
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/styles.css">
-
+<div class="container-fluid">
 
 <!-- main html -->
 <div class="container shadow py-5 w-25 rounded p-5 my-auto">
-<h2 class="text-center mb-3">로그인</h2>
+<h2 class="text-center mb-3">Login</h2>
     <form action="${ctxPath}/user/login" method="post">
         <div class="form-group row">
             <label for="userId" class="col-sm-3 col-form-label text-nowrap">아이디:</label>
@@ -27,6 +26,7 @@
 		<p class="text-danger">${errorMessage}</p>	
         <button type="submit" class="btn btn-dark d-block mx-auto">로그인하기</button>
     </form>
+</div>
 </div>
 
 
