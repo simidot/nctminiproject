@@ -21,22 +21,24 @@
 		        <div class="col-md-12">
 		    </c:otherwise>
 		</c:choose>
-			<div class = "container">
-			    <form action ='${ctxPath}/admin/userlist' method = 'get'>
+		
+<div class = "container">
 			        <div class="container">
-			            <h2 class="mb-3 text-center">MEMBER LIST</h2>
-			            <table class="table">
-			                <thead>
-			                    <tr>
-			                        <th>사용자 아이디</th>
-			                        <th>이름</th>
-			                        <th>닉네임</th>
-			                        <th>생년월일</th>
-			                        <th>휴대폰번호</th>
-			                        <th>이메일</th>
-			                        <th>주소</th>
-			                        <th>등록일</th>
-			                        <th>삭제</th>
+			            <h2 class="mb-3 text-center">ALL USERS</h2>
+			        </div>
+			
+			<table class="table">
+			     <thead>
+			        <tr>
+			                        <th>USER ID.</th>
+			                        <th>NAME.</th>
+			                        <th>NICKNAME.</th>
+			                        <th>BIRTHDATE.</th>
+			                        <th>PHONE.</th>
+			                        <th>EMAIL.</th>
+			                        <th>ADDRESS.</th>
+			                        <th>REGDATE.</th>
+			                        <th>DELETE USER.</th>
 			                    </tr>
 			                </thead>
 			                <tbody>
@@ -50,12 +52,17 @@
 			                            <td>${member.email}</td>
 			                            <td>${member.address}</td>
 			                            <td>${member.regdate}</td>
-			                            <td><button type="button" class="btn btn-dark d-block mx-auto delete-button" data-user-id="${member.userId}">회원 삭제</button></td>
-			                        </tr>
-			                    </c:forEach>
-			                </tbody>
-			            </table>
-			        </div>
+								<c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
+	                            	<!-- 삭제하기 버튼 -->
+	                            	<td><button data-user-id="${member.userId}" class="delete-button btn btn-dark d-block btn-sm">삭제하기
+	                            	</button></td>
+	                        	
+	                        	</c:if>			                        
+	                        		</tr>
+			                	</c:forEach>
+			      </tbody>
+			   </table>
+</div>
 			        
 			       <div class="container">
 					    <div class="row justify-content-start"> 
@@ -95,91 +102,75 @@
 									</div>
 								</div>
 							</div>
-						</div>
-			    </form>
-    		</div>
-    	</div>
-    </div>
-   
-    
-    	<!-- 모달 창 -->
-        <div id="myModal" class="modal">
-            <div class="modal-content">
-                <span class="close">&times;</span>
-                <p>정말 삭제하시겠습니까?</p>
-                <button id="confirmDelete">삭제</button>
-            </div>
-        </div>
-        
+						</div>	
+				
+   		
+   		
+<div class="modal fade" id="deletenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+				    <div class="modal-dialog" role="document">
+				        <div class="modal-content">
+				            <div class="modal-header">
+				                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
+				                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				                    <span aria-hidden="true">&times;</span>
+				                </button>
+				            </div>
+				            <div class="modal-body">
+				                <p id="notificationMessage">정말 삭제하시겠습니까?</p>
+				            </div>
+				            <div class="modal-footer">
+				                <button id = "confirmDeleteButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+				            </div>
+				        </div>
+				    </div>
+				</div>
+   		
+
+	</div>
+</div>
 
 <script>
-// JavaScript 코드
-	document.addEventListener("DOMContentLoaded", function () {
-    const deleteButtons = document.querySelectorAll(".delete-button");
-    const modal = document.getElementById("myModal");
-    const confirmDeleteButton = document.getElementById("confirmDelete");
-    const closeButton = document.querySelector(".close");
 
-    let userIdToDelete = null;
-
-    // 각 버튼 클릭 시 해당 유저 ID를 저장하고 모달 창을 엽니다.
-    deleteButtons.forEach(function (button) {
-        button.addEventListener("click", function () {
-            userIdToDelete = button.getAttribute("data-user-id");
-            console.log(userIdToDelete);
-            modal.style.display = "block";
-        });
+//이벤트 핸들러 등록은 한 번만 수행되도록 수정
+$(document).ready(function () {
+    // 삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
+    $(".delete-button").on("click", function () {
+        // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
+        const userId = $(this).data("user-id");
+        console.log(userId);
+        
+        // 삭제하기 확인 모달을 띄웁니다.
+        deleteUserConfirmation(userId);
     });
+});
 
-    // 모달 닫기 버튼 클릭 시 모달을 닫습니다.
-    closeButton.addEventListener("click", function () {
-        modal.style.display = "none";
-    });
+//삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
+function deleteUserConfirmation(userId) {
+    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
+    const userIdToDelete = userId;
+    console.log(userIdToDelete);
+
+    // 모달 창을 띄웁니다.
+    $("#deletenotificationModal").modal("show");
 
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    confirmDeleteButton.addEventListener("click", function () {
-    	// "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
-    	    if (userIdToDelete) {
-    	        // AJAX 요청을 보낼 URL을 설정합니다.
-			const deleteUrl = '<c:url value="/admin/deleteuser"/>' + "?userId=" + userIdToDelete;
-		     console.log(deleteUrl);
-    	        $.ajax({
-    	            type: "GET", // HTTP 요청 메서드 선택 (GET 또는 POST)
-    	            url: deleteUrl, // 요청을 보낼 URL
-    	            dataType: "text", // 서버 응답 데이터 유형 (JSON을 기대하면 json으로 설정)
-    	            success: function (response) {
-    	                // 성공적으로 응답을 받았을 때 처리할 코드
-    	                if (response =="yes") {
-    	                    // 삭제가 성공했을 경우 추가 로직을 작성하세요.
-    	                    // 예를 들어, 화면에서 해당 행을 삭제하거나 다시 로드할 수 있습니다.
-    	                    window.location.reload();
-
-    	                    console.log("회원 삭제 성공");
-    	                } else if (response == "no"){
-    	                    console.error("회원 삭제 실패");
-    	                }
-    	                modal.style.display = "none"; // 모달 닫기
-    	            },
-    	            error: function () {
-    	                // 요청이 실패했을 때 처리할 코드
-    	                console.error("요청 실패");
-    	                //modal.style.display = "none"; // 모달 닫기
-    	            }
-                
-
-    	        });
-    	    }
-    	});
+    $("#confirmDeleteButton").on("click", function () {
+        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
+        if (userIdToDelete) {
+            const deleteUrl = '<c:url value="/admin/deleteuser"/>' + "?userId=" + userIdToDelete;
+            console.log(deleteUrl);
+            // 삭제 동작 수행 또는 다른 작업 수행
+            window.location.href = '<c:url value="/admin/deleteuser"/>' + "?userId=" + userIdToDelete;
+       
+            
+            // 모달 닫기
+            $("#deletenotificationModal").modal("hide");
+   }
+    });
+}
 
 
-     // 모달 외부를 클릭하면 모달을 닫습니다.
-    window.addEventListener("click", function (event) {
 
-        if (event.target === modal) {
-            modal.style.display = "none";
-        }
-    }); 
-});
 
 </script>
 
