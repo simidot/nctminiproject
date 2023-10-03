@@ -16,5 +16,9 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/tomcat 7.0/apache-tomcat-7.0.47/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="C:/tomcat 7.0/apache-tomcat-7.0.47/lib/servlet-api.jar"/>
+<<<<<<< HEAD
+=======
+	<classpathentry kind="lib" path="C:/Users/gram/Desktop/새싹/projects/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/NCTclubJDBC2/WEB-INF/lib/jackson-mapper-asl-1.9.13.jar"/>
+>>>>>>> branch 'youshin' of https://github.com/simidot/nctminiproject.git
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
