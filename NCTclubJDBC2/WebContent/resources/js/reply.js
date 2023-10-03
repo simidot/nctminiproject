@@ -34,11 +34,9 @@ var replyFunc = (function(){
 		});
 	}
 	
-	// 댓글 조회
-	// $.get() : get방식조회
-	// $.post() : post방식조회
-	function get(rno, cb){
-		$.get('/jomaltwo/replies/'+rno+'.json', function(result){
+	// 댓글 전체 조회
+	function get(nctmember_id, cb){
+		$.get('/NCTclubJDBC2/comment/list/'+nctmember_id, function(result){
 			if(cb) cb(result);
 		}).fail(function(){
 			alert('요청실패!!');

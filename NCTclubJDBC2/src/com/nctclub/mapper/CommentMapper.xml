@@ -9,5 +9,22 @@
   	 INSERT INTO comments (commentid, nctmember_id, userid, parents_id, contents, depth, is_deleted, regdate)
 	 VALUES (comments_seq.NEXTVAL, #{nctmember_id}, #{userid}, #{parents_id, jdbcType=NUMERIC}, #{contents}, #{depth}, #{is_deleted}, SYSDATE)
     </insert>
+    
+    <select id="selectAll" resultType="commentDTO">
+    SELECT 
+        commentid, 
+        nctmember_id, 
+        userid, 
+        parents_id, 
+        contents, 
+        depth, 
+        is_deleted, 
+        regdate 
+    FROM comments 
+    WHERE nctmember_id = #{nctmember_id} AND is_deleted = 0
+    ORDER BY regdate DESC
+	</select>
+    
+    
  
  </mapper>
