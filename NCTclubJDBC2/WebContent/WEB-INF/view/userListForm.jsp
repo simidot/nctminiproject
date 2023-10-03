@@ -1,94 +1,108 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    
 
+<c:set var="ctxPath" value="${pageContext.request.contextPath}"/>
+<c:set var="userRole" value="${sessionScope.loginDto.userrole.name()}"/>
 
 <!-- header html -->
 <%@ include file="inc/header.jsp" %>
-<c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
-<%@ include file="inc/sidebar.jsp" %>
-</c:if>
 
-<link rel="stylesheet" type="text/css" href="<%= request.getContextPath() %>/resources/css/styles.css">
-
-
-<!-- main html -->
-<body class="d-flex flex-column vh-100" style="overflow-y: auto;">
-
-    <form action ='${ctxPath}/admin/userlist' method = 'get'>
-        <div class="container">
-            <h2 class="mb-3">회원 리스트</h2>
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>사용자 아이디</th>
-                        <th>이름</th>
-                        <th>닉네임</th>
-                        <th>생년월일</th>
-                        <th>휴대폰번호</th>
-                        <th>이메일</th>
-                        <th>주소</th>
-                        <th>등록일</th>
-                        <th>삭제</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <c:forEach var="member" items="${memberList}">
-                        <tr>
-                            <td>${member.userId}</td>
-                            <td>${member.username}</td>
-                            <td>${member.nickname}</td>
-                            <td>${member.birthdate}</td>
-                            <td>${member.phone}</td>
-                            <td>${member.email}</td>
-                            <td>${member.address}</td>
-                            <td>${member.regdate}</td>
-                            <td><button type="button" class="btn btn-dark d-block mx-auto delete-button" data-user-id="${member.userId}">회원 삭제</button></td>
-                        </tr>
-                    </c:forEach>
-                </tbody>
-            </table>
-        </div>
-        
-
-<div class="pagination-container">
-    <ul class="pagination">        
-   <tr>
-	<td align="center">
-		<!-- 처음 이전 링크 -->
-		<c:if test="${pg>block}">  <!-- 5>10 : false / 15>10 : true -->
-			[<a href="${ctxPath}/admin/userlist?pg=1">◀◀</a>]
-			[<a href="${ctxPath}/admin/userlist?pg=${fromPage-1}">◀</a>]		
-		</c:if>
-		<c:if test="${pg<=block}"> <!-- 5<=10 :true / 15<=10:false -->
-			[<span style="color:gray">◀◀</span>]	
-			[<span style="color:gray">◀</span>]
-		</c:if>
-		
-		<!-- 블록 범위 찍기 -->
-		<c:forEach begin="${fromPage}" end="${toPage}" var="i">
-			<c:if test="${i==pg}">[${i}]</c:if>
-			<c:if test="${i!=pg}">
-				[<a href="${ctxPath}/admin/userlist?pg=${i}">${i}</a>]
-			</c:if>
-		</c:forEach>
-		
-		<!-- 다음, 이후 -->
-		<c:if test="${toPage<allPage}"> <!-- 20<21 : true -->
-				[<a href="${ctxPath}/admin/userlist?pg=${toPage+1}">▶</a>]
-				[<a href="${ctxPath}/admin/userlist?pg=${allPage}">▶▶</a>]
-		
-		</c:if>	
-		<c:if test="${toPage>=allPage}"> <!-- 21>=21 :true -->
-				[<span style="color:gray">▶</span>]
-				[<span style="color:gray">▶▶</span>]
-		
-		</c:if>			
-		
-	</td>
-</tr>
-    </ul>
-</div>
-        <!-- 모달 창 -->
+<div class="container-fluid">
+    <div class="row">
+	    <c:choose>
+		    <c:when test="${userRole == 'ADMIN'}">
+		        <%@ include file="inc/sidebar.jsp" %>
+		        <div class="col-md-9">
+		    </c:when>
+		    <c:otherwise>
+		        <div class="col-md-12">
+		    </c:otherwise>
+		</c:choose>
+			<div class = "container">
+			    <form action ='${ctxPath}/admin/userlist' method = 'get'>
+			        <div class="container">
+			            <h2 class="mb-3 text-center">MEMBER LIST</h2>
+			            <table class="table">
+			                <thead>
+			                    <tr>
+			                        <th>사용자 아이디</th>
+			                        <th>이름</th>
+			                        <th>닉네임</th>
+			                        <th>생년월일</th>
+			                        <th>휴대폰번호</th>
+			                        <th>이메일</th>
+			                        <th>주소</th>
+			                        <th>등록일</th>
+			                        <th>삭제</th>
+			                    </tr>
+			                </thead>
+			                <tbody>
+			                    <c:forEach var="member" items="${memberList}">
+			                        <tr>
+			                            <td>${member.userId}</td>
+			                            <td>${member.username}</td>
+			                            <td>${member.nickname}</td>
+			                            <td>${member.birthdate}</td>
+			                            <td>${member.phone}</td>
+			                            <td>${member.email}</td>
+			                            <td>${member.address}</td>
+			                            <td>${member.regdate}</td>
+			                            <td><button type="button" class="btn btn-dark d-block mx-auto delete-button" data-user-id="${member.userId}">회원 삭제</button></td>
+			                        </tr>
+			                    </c:forEach>
+			                </tbody>
+			            </table>
+			        </div>
+			        
+			       <div class="container">
+					    <div class="row justify-content-start"> 
+					        <div class="col-md-12">  
+								<div class="pagination-container text-center">
+								   		 <ul class="pagination justify-content-center">        
+												<!-- 처음 이전 링크 -->
+												<c:if test="${pg>block}">  <!-- 5>10 : false / 15>10 : true -->
+													[<a href="${ctxPath}/admin/userlist?pg=1">◀◀</a>]
+													[<a href="${ctxPath}/admin/userlist?pg=${fromPage-1}">◀</a>]		
+												</c:if>
+												<c:if test="${pg<=block}"> <!-- 5<=10 :true / 15<=10:false -->
+													[<span style="color:gray">◀◀</span>]	
+													[<span style="color:gray">◀</span>]
+												</c:if>
+												
+												<!-- 블록 범위 찍기 -->
+												<c:forEach begin="${fromPage}" end="${toPage}" var="i">
+													<c:if test="${i==pg}">[${i}]</c:if>
+													<c:if test="${i!=pg}">
+														[<a href="${ctxPath}/admin/userlist?pg=${i}">${i}</a>]
+													</c:if>
+												</c:forEach>
+												
+												<!-- 다음, 이후 -->
+												<c:if test="${toPage<allPage}"> <!-- 20<21 : true -->
+														[<a href="${ctxPath}/admin/userlist?pg=${toPage+1}">▶</a>]
+														[<a href="${ctxPath}/admin/userlist?pg=${allPage}">▶▶</a>]
+												
+												</c:if>	
+												<c:if test="${toPage>=allPage}"> <!-- 21>=21 :true -->
+														[<span style="color:gray">▶</span>]
+														[<span style="color:gray">▶▶</span>]
+												
+												</c:if>			
+									    </ul>
+									</div>
+								</div>
+							</div>
+						</div>
+			    </form>
+    		</div>
+    	</div>
+    </div>
+   
+    
+    	<!-- 모달 창 -->
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
@@ -96,15 +110,8 @@
                 <button id="confirmDelete">삭제</button>
             </div>
         </div>
-    </form>
-    
-    
+        
 
-<!-- <script>
-	const deleteUrl = '<c:url value="/admin/deleteuser"/>' + "?userId=" + confirmDelete.getAttribute("data-user-id");
-</script>  -->
-<%-- <script src="${ctxPath}/resources/js/deleteUser.js"></script>
- --%>
 <script>
 // JavaScript 코드
 	document.addEventListener("DOMContentLoaded", function () {
@@ -174,8 +181,7 @@
     }); 
 });
 
-	</script>
-
+</script>
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

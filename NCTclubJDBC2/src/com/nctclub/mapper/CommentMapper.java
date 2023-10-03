@@ -1,5 +1,8 @@
 package com.nctclub.mapper;
 
-public class CommentMapper {
+import com.nctclub.model.CommentDTO;
+
+public interface CommentMapper {
+	public int insert(CommentDTO commentDto);
 
 }

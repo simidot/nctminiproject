@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+ <mapper namespace="com.nctclub.mapper.CommentMapper">
+  	 <insert id="insert" parameterType="commentDTO">
+  	 INSERT INTO comments (commentid, nctmember_id, userid, parents_id, contents, depth, is_deleted, regdate)
+	 VALUES (comments_seq.NEXTVAL, #{nctmember_id}, #{userid}, #{parents_id, jdbcType=NUMERIC}, #{contents}, #{depth}, #{is_deleted}, SYSDATE)
+    </insert>
+ 
+ </mapper>
