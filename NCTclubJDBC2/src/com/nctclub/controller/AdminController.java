@@ -88,14 +88,13 @@ public class AdminController {
 	
 	// 회원정보 삭제 기능
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.GET)
-	@ResponseBody
 	public String deleteUser(@RequestParam("userId") String userId) {
 		System.out.println(userId);
 		int result = adminService.deleteUser(userId);
 		if (result ==1) {
-			return "yes";
+			return "redirect:/admin/userlist";
 		} else {
-			return "no";
+			return "no"; //여기 에러페이지로 이동하도록 수정하기**
 		}
 	}
 	
@@ -109,6 +108,23 @@ public class AdminController {
 		model.addAttribute("nctmemberDTO", dto);
 		System.out.println(dto);
 		return "nctdetailform";
+	}
+	
+	// 엔시티 멤버 중복 확인
+	@RequestMapping("nameCheck.do")	
+	@ResponseBody
+	public String nameCheck(@RequestParam("name") String name) {
+		
+		NCTmemberDTO dto = adminService.nameCheck(name);
+		
+		System.out.println("name" +name);
+		System.out.println("dto" +dto);
+		
+		if(dto != null || "".equals(name)) {
+			return "no"; // 사용불가
+		}
+		
+		return "yes"; // 사용가능 
 	}
 
 	// 엔시티 멤버 등록 폼으로 이동

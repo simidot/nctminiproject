@@ -6,8 +6,13 @@
   
  <mapper namespace="com.nctclub.mapper.CommentMapper">
   	 <insert id="insert" parameterType="commentDTO">
+<<<<<<< HEAD
   	 INSERT INTO comments (commentid, nctmember_id, userid, parents_id, contents, depth, is_deleted, regdate)
 	 VALUES (comments_seq.NEXTVAL, #{nctmember_id}, #{userid}, #{parents_id, jdbcType=NUMERIC}, #{contents}, #{depth}, #{is_deleted}, SYSDATE)
+=======
+        INSERT INTO comments (id, userId, password, username, nickname, birthdate, phone, email, address, userrole, regdate)
+        VALUES (USERS_SEQ.NEXTVAL, #{userId}, #{password}, #{username}, #{nickname}, #{birthdate}, #{phone}, #{email}, #{address}, #{userrole}, SYSDATE)
+>>>>>>> branch 'youshin' of https://github.com/simidot/nctminiproject.git
     </insert>
     
     <select id="selectAll" resultType="commentDTO">

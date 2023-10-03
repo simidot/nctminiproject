@@ -19,6 +19,7 @@
 		        <div class="col-md-12">
 		    </c:otherwise>
 		</c:choose>
+		
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -46,9 +47,9 @@
 
                         <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
                             <!-- 수정하기 버튼 -->
-                            <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-secondary btn-sm">수정하기</a>
+                            <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-dark btn-sm">수정하기</a>
                             <!-- 삭제하기 버튼 -->
-                            <button data-member-id="${nctmemberDTO.memberId}" class="delete-button btn btn-secondary btn-sm">삭제하기</button>
+                            <button data-member-id="${nctmemberDTO.memberId}" class="delete-button btn btn-dark btn-sm">삭제하기</button>
                         </c:if>
                     </div>
                 </div>
@@ -133,7 +134,6 @@ function deleteMemberConfirmation(memberId) {
     $("#confirmDeleteButton").on("click", function () {
         // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
         if (memberIdToDelete) {
-            // AJAX 요청을 보낼 URL을 설정합니다.
             const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
             console.log(deleteUrl);
             
@@ -142,8 +142,6 @@ function deleteMemberConfirmation(memberId) {
             
         }
     });
-
-
 
 }
 
