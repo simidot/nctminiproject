@@ -31,9 +31,10 @@
 	            <div class="col-sm-9">
 	                <input type="password" class="form-control" id="passwordconfirm" name="passwordconfirm" required onInput="checkPasswordMatch()">
 	                 <small id="passwordConfirmMsg" class="form-text"></small> <!-- 이 부분을 추가 -->
+	                
+	                
 	            </div>
 	        </div>
-	        
 	        <div class="form-group row">
 	            <label for="username" class="col-sm-3 col-form-label text-nowrap">(한글) 이름:<span class="text-danger">*</span></label>
 	            <div class="col-sm-9">
@@ -49,14 +50,14 @@
 	        </div>
 	
 	        <div class="form-group row">
-	            <label for="birthdate" class="col-sm-3 col-form-label text-nowrap">생년월일:<span class="text-danger">*</span></label>
+	            <label for="birthdate" class="col-sm-3 col-form-label text-nowrap">생년월일:</label>
 	            <div class="col-sm-9">
 	                <input type="date" class="form-control" id="birthdate" name="birthdate">
 	            </div>
 	        </div>
 	
 	        <div class="form-group row">
-	            <label for="phone" class="col-sm-3 col-form-label text-nowrap">핸드폰번호: <span class="text-danger">*</span></label>
+	            <label for="phone" class="col-sm-3 col-form-label text-nowrap">핸드폰번호:</label>
 	            <div class="col-sm-9">
 	                <input type="tel" class="form-control" id="phone" name="phone" placeholder="전화번호는 '-'를 제외하고 11자">
 	            </div>

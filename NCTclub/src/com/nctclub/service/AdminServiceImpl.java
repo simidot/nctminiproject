@@ -38,7 +38,6 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public int deleteUser(String userId) {
-		System.out.println(userId);
 		return mapper.deleteUser(userId);
 	}
 
@@ -154,12 +153,6 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int getUserCount() {
 		return mapper.getUserCount();
-	}
-
-	@Override
-	public NCTmemberDTO nameCheck(String name) {
-		System.out.println(name);
-		return mapper.nameCheck(name);
 	}
 
 	/*

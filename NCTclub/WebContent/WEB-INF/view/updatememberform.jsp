@@ -1,24 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-<c:set var="ctxPath" value="${pageContext.request.contextPath}"/>
-<c:set var="userRole" value="${sessionScope.loginDto.userrole.name()}"/>
 
 <%@ include file="inc/header.jsp" %>
 
 <div class="container-fluid">
-	<div class="row">
-	    <c:choose>
-		    <c:when test="${userRole == 'ADMIN'}">
-		        <%@ include file="inc/sidebar.jsp" %>
-		        <div class="col-md-9">
-		    </c:when>
-		    <c:otherwise>
-		        <div class="col-md-12">
-		    </c:otherwise>
-		</c:choose>
-		
 <div class="container mt-5">
     <div class="row">
         <div class="col-md-12 text-center">
@@ -138,8 +124,16 @@
                     </form>
                 </div>
             </div>
-        </div>
     
+    
+
+    
+
+<!-- Bootstrap JS 및 jQuery 스크립트 링크 추가 -->
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+</body>
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>
