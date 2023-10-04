@@ -113,6 +113,11 @@
  	 <select id = "getUserCount" resultType = "Integer">
  	 	SELECT count(*) FROM users
  	 </select>
+ 	 
+ 	 	<!-- nct 멤버 이름 체크하기 -->
+	<select id="nameCheck" resultType="NCTmemberDTO">
+		SELECT name FROM nctmembers WHERE name = #{name}
+	</select>
 
   	
   	

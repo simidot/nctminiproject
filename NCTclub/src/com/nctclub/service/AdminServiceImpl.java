@@ -154,6 +154,12 @@ public class AdminServiceImpl implements AdminService {
 	public int getUserCount() {
 		return mapper.getUserCount();
 	}
+	
+	@Override
+	public NCTmemberDTO nameCheck(String name) {
+		System.out.println(name);
+		return mapper.nameCheck(name);
+	}
 
 	/*
 	 * @Override public int updateMember(NCTmemberDTO dto) { return
