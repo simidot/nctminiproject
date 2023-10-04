@@ -6,7 +6,7 @@ var replyFunc = (function(){
 	// 댓글 등록
 	function register(reply, cb){
 		$.ajax({
-			url:'/NCTclubJDBC2/comment/new',
+			url:'/NCTclub/comment/new',
 			type:'post',
 			// 서버에 전송하는 데이터 형식
 			data: JSON.stringify(reply), // JSON객체를 문자열(텍스트)로 변환
