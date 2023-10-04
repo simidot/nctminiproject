@@ -33,6 +33,8 @@ public interface AdminService {
 
 	public ArrayList<String> getAllGroups();
 	
+	public NCTmemberDTO nameCheck(String name);
+	
 	
 
 

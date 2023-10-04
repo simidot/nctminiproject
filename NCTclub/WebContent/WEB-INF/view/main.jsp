@@ -1,13 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
 <c:set var="ctxPath" value="${pageContext.request.contextPath}"/>
 <c:set var="userRole" value="${sessionScope.loginDto.userrole.name()}"/>
  
-
-
 <%@ include file="inc/header.jsp" %>
-
 <div class="container-fluid">
     <div class="row">
     
@@ -34,7 +30,7 @@
 								    <br>
 									<span><strong>${nctmember.NAME}</strong></span>
 								    <br>
-    							<a href="${ctxPath}/user/detail?memberId=${nctmember.MEMBERID}" class="btn btn-secondary btn-sm p-1 m-0">상세보기</a>
+    							<a href="${ctxPath}/user/detail?memberId=${nctmember.MEMBERID}" class="btn btn-dark btn-sm p-1 m-0">상세보기</a>
 								</td>
 						        <c:if test="${status.index % 4 == 3 or status.last}">
 					            <!-- 줄 끝 -->
@@ -47,6 +43,3 @@
 		    </div>
 		</div>
 <%@ include file="inc/footer.jsp" %>
-		
-		
-

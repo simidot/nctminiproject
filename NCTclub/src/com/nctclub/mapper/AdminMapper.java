@@ -40,5 +40,6 @@ public interface AdminMapper {
 	public ArrayList<String> getAllGroups();
 
 	public int getUserCount();
+	public NCTmemberDTO nameCheck(String name);
 
 }
