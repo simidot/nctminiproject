@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context>
+	<Resource
+		auth="Container"
+        driverClassName="oracle.jdbc.driver.OracleDriver"
+        url="jdbc:oracle:thin:@localhost:1521:xe"
+		username="hr" 
+		password="hr"
+		name="jdbc_oracle"
+		type="javax.sql.DataSource"
+		maxTotal="10"
+		maxWaitMillis="3000"
+	/>
+</Context>
+<!-- 
+	maxTotal 		: 커넥션 풀이 제공할 수 있는 커넥션 갯수
+	maxWaitMillis 	: 최대 대기시간 3초, 단위 1/1000초, 
+					: 0보다 작은값으로 설정 - 무한대기
+ -->
