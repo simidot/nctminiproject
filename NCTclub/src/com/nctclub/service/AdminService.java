@@ -33,6 +33,9 @@ public interface AdminService {
 
 	public ArrayList<String> getAllGroups();
 	
+	// 회원가입 시에 아이디체크
+	public NCTmemberDTO nameCheck(String name);
+
 	
 
 
