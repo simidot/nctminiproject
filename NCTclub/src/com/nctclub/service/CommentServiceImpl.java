@@ -1,5 +1,7 @@
 package com.nctclub.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +20,11 @@ public class CommentServiceImpl implements CommentService {
 		
 		
 		return mapper.insert(commentDto);
+	}
+	@Override
+	public List<CommentDTO> getCommentsByMemberId(int nctmember_id) {
+
+		return mapper.selectAll(nctmember_id);
 	}
 	
 

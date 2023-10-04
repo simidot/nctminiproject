@@ -6,7 +6,7 @@ var replyFunc = (function(){
 	// 댓글 등록
 	function register(reply, cb){
 		$.ajax({
-			url:'/NCTclubJDBC2/comment/new',
+			url:'/NCTclub/comment/new',
 			type:'post',
 			// 서버에 전송하는 데이터 형식
 			data: JSON.stringify(reply), // JSON객체를 문자열(텍스트)로 변환
@@ -34,11 +34,9 @@ var replyFunc = (function(){
 		});
 	}
 	
-	// 댓글 조회
-	// $.get() : get방식조회
-	// $.post() : post방식조회
-	function get(rno, cb){
-		$.get('/jomaltwo/replies/'+rno+'.json', function(result){
+	// 댓글 전체 조회
+	function get(nctmember_id, cb){
+		$.get('/NCTclub/comment/list/'+nctmember_id, function(result){
 			if(cb) cb(result);
 		}).fail(function(){
 			alert('요청실패!!');
