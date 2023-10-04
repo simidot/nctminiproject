@@ -10,16 +10,12 @@
 			                <ul class="nav flex-column">
 			                    <li class="nav-item">
 			                        <a class="nav-link active" href="${ctxPath}/user/main" style="color: black;">
-			                            <b>ALL NCT MEMBERS</b>			                        </a>
-			                    </li>
-			                    <li class="nav-item">
-			                        <a class="nav-link" href="${ctxPath}/admin/userlist" style="color: black;">
-			                            <b>ALL USERS</b>			                        
+			                            엔시티 멤버 보기
 			                        </a>
 			                    </li>
 			                    <li class="nav-item">
-			                        <a class="nav-link" href="${ctxPath}/admin/nctregisterform" style="color: black;">	
-			                        	<b>NCT REGISTER</b>		                        
+			                        <a class="nav-link" href="${ctxPath}/admin/userlist" style="color: black;">
+			                            회원 정보 보기
 			                        </a>
 			                    </li>
 			                </ul>

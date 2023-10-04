@@ -1,42 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
-<c:set var="ctxPath" value="${pageContext.request.contextPath}"/>
-<c:set var="userRole" value="${sessionScope.loginDto.userrole.name()}"/>
 
 <%@ include file="inc/header.jsp" %>
 
 <div class="container-fluid">
 
-<div class="row">
-	    <c:choose>
-		    <c:when test="${userRole == 'ADMIN'}">
-		        <%@ include file="inc/sidebar.jsp" %>
-		        <div class="col-md-9">
-		    </c:when>
-		    <c:otherwise>
-		        <div class="col-md-12">
-		    </c:otherwise>
-		</c:choose>
-
-<div class="container shadow py-5 w-50 rounded p-5 mt-5">
-<h2 class="text-center mb-3">NCT MEMBER REGISTER</h2>
-
+<div class="container shadow py-5 w-50 rounded p-5 my-auto">
+<h2 class="text-center mb-3">엔시티 멤버 등록</h2>
 	<form action="${ctxPath}/admin/nctregister" method="post" enctype="multipart/form-data">
     	<!-- 멤버 이름 등록 -->
         <div class="form-group row">
           <label for="name" class="col-sm-3 col-form-label text-nowrap">멤버 이름: <span class="text-danger">*</span></label>
             <div class="col-sm-9">
                 <input type="text" class="form-control mb-2" id="name" name="name" required>
-                <small id="nameWarning" class="text-danger"></small>
+                <small id="idWarning" class="text-danger"></small>
             </div>
         </div>
 
       <!-- 생년월일 정보 등록 -->
         <div class="form-group row">
-            <label for="birthdate" class="col-sm-3 col-form-label text-nowrap">생년월일: <span class="text-danger">*</span></label>
+            <label for="birthdate" class="col-sm-3 col-form-label text-nowrap">생년월일:</label>
             <div class="col-sm-9">
                 <input type="date" class="form-control" id="birthdate" name="birthdate">
             </div>
@@ -78,7 +62,7 @@
         
         <!-- 이미지 파일 등록 -->
         <div class="form-group row">
-            <label for="image" class="col-sm-3 col-form-label text-nowrap">이미지파일 <span class="text-danger">*</span></label>
+            <label for="image" class="col-sm-3 col-form-label text-nowrap">이미지파일 등록</label>
             <div class="col-sm-9">
                 <input type="file" class="form-control text-right" id="file" name="file">
             </div>
@@ -122,12 +106,7 @@
     </form>
 </div>
 </div>
-</div>
 
-<script>
-    var nameCheckURL = "<c:url value='/admin/nameCheck.do'/>";
-</script>
-<script src="${ctxPath}/resources/js/nctRegisterCheck.js"></script> 
 
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

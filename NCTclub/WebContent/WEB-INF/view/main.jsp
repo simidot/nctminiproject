@@ -34,7 +34,7 @@
 								    <br>
 									<span><strong>${nctmember.NAME}</strong></span>
 								    <br>
-    							<a href="${ctxPath}/user/detail?memberId=${nctmember.MEMBERID}" class="btn btn-dark btn-sm p-1 m-0">상세보기</a>
+    							<a href="${ctxPath}/user/detail?memberId=${nctmember.MEMBERID}" class="btn btn-secondary btn-sm p-1 m-0">상세보기</a>
 								</td>
 						        <c:if test="${status.index % 4 == 3 or status.last}">
 					            <!-- 줄 끝 -->
