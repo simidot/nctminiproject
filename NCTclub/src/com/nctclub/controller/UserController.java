@@ -168,4 +168,5 @@ public class UserController {
 		
 		return "yes"; // 사용가능 
 	}
+	
 }
