@@ -2,6 +2,7 @@ package com.nctclub.model;
 
 import java.io.Serializable;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.List;
 
 import com.nctclub.model.NCTmemberDTO.NCTmemberDTOBuilder;
@@ -25,7 +26,7 @@ public class CommentDTO implements Serializable{
     private Long userid;
     private Long parents_id;
     private String contents;
-    private Date regdate;
+    private Timestamp  regdate;
     private int depth;
     private int is_deleted;
     
