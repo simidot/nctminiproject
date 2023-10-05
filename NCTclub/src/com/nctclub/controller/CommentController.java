@@ -43,24 +43,29 @@ public class CommentController {
 	@ResponseBody
 	public String create(@RequestBody CommentDTO commentDTO)  {
 		System.out.println("commentDTO = "+commentDTO.toString());
-		int result = commentService.register(commentDTO);
-		return "success"; 
+		int resultCnt = commentService.register(commentDTO);
+		return resultCnt > 0 ? "success" : "fail"; 
 	}
 	
 	// 댓글삭제
-	@RequestMapping(value = "/delete/{commentid}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/delete", method = RequestMethod.POST)
 	@ResponseBody
-	public String remove(@PathVariable("commentid") int commentid) {
-		System.out.println(commentid);
-	    int resultCnt = commentService.removeComment(commentid); 
-	    return "success";
+	public String remove(@RequestBody CommentDTO commentDTO) {
+	    Long commentid = commentDTO.getCommentid();
+	    int depth = commentDTO.getDepth();
+//	    System.out.println("Comment ID: " + commentid);
+//	    System.out.println("Depth: " + depth);
+	    int resultCnt = commentService.removeComment(commentDTO); 
+	    return resultCnt > 0 ? "success" : "fail"; 
 	}
 
-//	
-//	// 댓글수정
-//	@RequestMapping(value="/{commentid}", method= {RequestMethod.PUT})
-//	@ResponseBody
-//	public String modify(@PathVariable("commentid") int commentid, @RequestBody CommentDTO rDto) {		
-//		return resultCnt == 1 ? "success" : "fail"; 
-//	}
+	// 댓글수정
+	@RequestMapping(value="/update/{commentid}", method= RequestMethod.PUT)
+	@ResponseBody
+	public String modify(@PathVariable("commentid") int commentid, @RequestBody CommentDTO commentDTO) {		
+		System.out.println(commentDTO.toString());
+		int resultCnt = commentService.updateComment(commentDTO);
+		System.out.println(resultCnt);
+		return resultCnt > 0 ? "success" : "fail"; 
+	}
 }

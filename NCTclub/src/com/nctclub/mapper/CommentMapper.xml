@@ -12,25 +12,44 @@
     
 <select id="selectAll" resultType="commentDTO">
     SELECT 
-        commentid, 
-        nctmember_id, 
-        userid, 
-        parents_id, 
-        contents, 
-        depth, 
-        is_deleted, 
-        regdate 
-    FROM comments 
-    WHERE nctmember_id = #{nctmember_id}
+        c.commentid, 
+        c.nctmember_id, 
+        c.userid, 
+        c.parents_id, 
+        c.contents, 
+        c.depth, 
+        c.is_deleted, 
+        c.regdate,
+        u.username
+    FROM comments c
+    JOIN USERS u ON c.userid = u.id
+    WHERE c.nctmember_id = #{nctmember_id}
     ORDER BY
-        CASE WHEN depth = 2 THEN regdate END ASC, 
-        regdate DESC
+        CASE WHEN c.depth = 2 THEN c.regdate END ASC, 
+        c.regdate DESC
 </select>
 
-<update id="delete" parameterType="int">
+<update id="delete" parameterType="commentDTO">
+    <!-- depth가 2인 경우, 댓글을 완전히 삭제 -->
+    <if test="depth == 2">
+        DELETE FROM comments
+        WHERE commentid = #{commentid}
+    </if>
+
+    <!-- depth가 1인 경우, is_deleted만 1로 업데이트 -->
+    <if test="depth == 1">
+        UPDATE comments
+        SET is_deleted = 1
+        WHERE commentid = #{commentid}
+    </if>
+</update>
+
+<update id="update" parameterType="commentDTO">    
     UPDATE comments
-    SET is_deleted = 1
+    SET 
+    	contents = #{contents}
     WHERE commentid = #{commentid}
 </update>
+
  
 </mapper>
