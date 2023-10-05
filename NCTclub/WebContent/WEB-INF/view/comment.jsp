@@ -60,18 +60,18 @@
 <script>
 
 $(document).ready(function() {
-	
-	//사용자 이름 
-	var userName = '<%= ((UserDTO)session.getAttribute("loginDto")).getUsername() %>';
-	var urlParams = new URLSearchParams(window.location.search);
-	//nctmemberId
+   
+   //사용자 이름 
+   var userName = '<%= ((UserDTO)session.getAttribute("loginDto")).getUsername() %>';
+   var urlParams = new URLSearchParams(window.location.search);
+   //nctmemberId
     var nctmemberId = urlParams.get('memberId');
-	//사용자 아이
+   //사용자 아이
     var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getId()%>' ;
     
     //댓글 불러오기
-	loadComments();
-	
+   loadComments();
+   
     $('.btn-primary').click(function() {
         var replyContent = $(this).closest('.card').find('textarea').val();
         if (!replyContent) {
@@ -79,20 +79,20 @@ $(document).ready(function() {
             return;
         }
         var reply = {
-        		"contents":replyContent,
-        	    "userid" : userId,
-        	    "nctmember_id" : nctmemberId,
-        	    "depth" : 1
+              "contents":replyContent,
+               "userid" : userId,
+               "nctmember_id" : nctmemberId,
+               "depth" : 1
         };
-       	replyFunc.register(reply, function(result) {
-       	    if (result === "success") {
-       	        alert('댓글이 성공적으로 등록되었습니다.');
-       	        location.reload();
-       	    } else {
-       	        console.error("댓글 등록 실패:", result.error);
-       	        alert("댓글 등록에 실패했습니다. 다시 시도해 주세요.");
-       	    }
-       	});
+          replyFunc.register(reply, function(result) {
+              if (result === "success") {
+                  alert('댓글이 성공적으로 등록되었습니다.');
+                  location.reload();
+              } else {
+                  console.error("댓글 등록 실패:", result.error);
+                  alert("댓글 등록에 실패했습니다. 다시 시도해 주세요.");
+              }
+          });
 
     });
     
@@ -102,23 +102,24 @@ $(document).ready(function() {
             alert('댓글 내용을 입력해주세요.');
             return;
         }
+
         var parentId = $(this).closest('.card').data('parent-comment-id');        
         var reply = {
-        		"contents":replyContent,
-        	    "userid" : userId,
-        	    "nctmember_id" : nctmemberId,
-        	    "depth" : 2,
+              "contents":replyContent,
+               "userid" : userId,
+               "nctmember_id" : nctmemberId,
+               "depth" : 2,
                 "parents_id": parentId 
         };
-       	replyFunc.register(reply, function(result) {
-       	    if (result === "success") {
-       	        alert('댓글이 성공적으로 등록되었습니다.');
-       	        location.reload();
-       	    } else {
-       	        console.error("댓글 등록 실패:", result.error);
-       	        alert("댓글 등록에 실패했습니다. 다시 시도해 주세요.");
-       	    }
-       	});
+          replyFunc.register(reply, function(result) {
+              if (result === "success") {
+                  alert('댓글이 성공적으로 등록되었습니다.');
+                  location.reload();
+              } else {
+                  console.error("댓글 등록 실패:", result.error);
+                  alert("댓글 등록에 실패했습니다. 다시 시도해 주세요.");
+              }
+          });
 
     });
     
@@ -168,7 +169,6 @@ function loadComments() {
 
 function generateCommentHtml(comment, userName) {
     var html = '';
-
     // 답글에 대한 depth 확인
     var paddingLeftValue = 15 + (comment.depth - 1) * 20; // 기본값은 15, depth가 증가할 때마다 20px씩 추가
 
@@ -203,7 +203,7 @@ function generateCommentHtml(comment, userName) {
 }
 
 });
-	
+   
 
 $(document).on('click', '.reply-button', function() {
     // 원본 댓글의 data-comment-id 값을 가져옵니다.
