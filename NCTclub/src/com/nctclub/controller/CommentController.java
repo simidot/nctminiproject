@@ -47,13 +47,15 @@ public class CommentController {
 		return "success"; 
 	}
 	
-//
-//	// 댓글삭제
-//	@RequestMapping(value = "/{commentid}", method = RequestMethod.DELETE)
-//	@ResponseBody
-//	public String remove(@PathVariable("rno") int rno) {		
-//		return resultCnt == 1 ? "success" : "fail"; 
-//	}
+	// 댓글삭제
+	@RequestMapping(value = "/delete/{commentid}", method = RequestMethod.DELETE)
+	@ResponseBody
+	public String remove(@PathVariable("commentid") int commentid) {
+		System.out.println(commentid);
+	    int resultCnt = commentService.removeComment(commentid); 
+	    return "success";
+	}
+
 //	
 //	// 댓글수정
 //	@RequestMapping(value="/{commentid}", method= {RequestMethod.PUT})
