@@ -10,6 +10,8 @@ public interface CommentService {
 	
 	public List<CommentDTO> getCommentsByMemberId(int nctmember_id);
 	
-	public int removeComment(int commentid);
+	public int removeComment(CommentDTO commentDto);
+	
+	public int updateComment(CommentDTO commentDto);
 
 }

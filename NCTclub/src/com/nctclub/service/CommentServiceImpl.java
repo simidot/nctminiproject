@@ -17,8 +17,6 @@ public class CommentServiceImpl implements CommentService {
 
 	@Override
 	public int register(CommentDTO commentDto) {
-		
-		
 		return mapper.insert(commentDto);
 	}
 	@Override
@@ -27,8 +25,13 @@ public class CommentServiceImpl implements CommentService {
 		return mapper.selectAll(nctmember_id);
 	}
 	@Override
-	public int removeComment(int commentid) {
-		return mapper.delete(commentid);
+	public int removeComment(CommentDTO commentDto) {
+		return mapper.delete(commentDto);
+	}
+	@Override
+	public int updateComment(CommentDTO commentDto) {
+	
+		return mapper.update(commentDto);
 	}
 	
 
