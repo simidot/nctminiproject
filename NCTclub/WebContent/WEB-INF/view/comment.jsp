@@ -5,6 +5,7 @@
 
 <c:set var="userRole" value="${sessionScope.loginDto.userrole.name()}"/>
 
+
 <div class="container mt-3">
     <div class="col-md-12 text-center">
         <h2>COMMENTS</h2>
@@ -25,7 +26,7 @@
 		                <div class="card-body">
 		                    <textarea class="form-control mb-2" rows="3" placeholder="답글 내용을 입력하세요"></textarea>
 		                    <div class="d-flex justify-content-end">
-		                        <button class="btn btn-success btn-sm">등록</button>
+		                        <button id="replyCommentBtn" class="btn btn-dark btn-sm mr-1">등록</button>
 		                    </div>
 		                </div>
 		            </div>
@@ -40,9 +41,9 @@
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header d-flex justify-content-between">
-                        <span>글쓰기</span>                        
+                        <span><strong>글쓰기</strong></span>                        
                         <div>
-                            <button class="btn btn-primary btn-sm mr-1">등록하기</button>
+                            <button id="registerCommentBtn" class="btn btn-dark btn-sm mr-1">등록하기</button>
                         </div>
                     </div>
                     <div class="card-body">
@@ -72,7 +73,7 @@ $(document).ready(function() {
     //댓글 불러오기
    loadComments();
    
-    $('.btn-primary').click(function() {
+    $('#registerCommentBtn').click(function() {
         var replyContent = $(this).closest('.card').find('textarea').val();
         if (!replyContent) {
             alert('댓글 내용을 입력해주세요.');
@@ -96,7 +97,7 @@ $(document).ready(function() {
 
     });
     
-    $(document).on('click', '.btn-success', function() {
+    $(document).on('click', '#replyCommentBtn', function() {
         var replyContent = $(this).closest('.card').find('textarea').val();
         if (!replyContent) {
             alert('댓글 내용을 입력해주세요.');
@@ -126,10 +127,17 @@ $(document).ready(function() {
     $(document).on('click', '.btn-danger', function() {
         // 해당 댓글의 comment-id 값을 가져옵니다.
         var commentId = $(this).closest('.comment-box').data('comment-id');
+        var depth = $(this).closest('.comment-box').data('depth');
+        
+        var reply = {
+                "commentid":commentId,
+                "depth" : depth
+          };
+
 
         // 사용자에게 삭제 확인을 물어봅니다.
         if (confirm('댓글을 삭제하시겠습니까?')) {
-            replyFunc.remove(commentId, function(result) {
+            replyFunc.remove(reply, function(result) {
                 if (result === "success") {
                     alert('댓글이 성공적으로 삭제되었습니다.');
                     location.reload();
@@ -168,43 +176,53 @@ function loadComments() {
 
 
 function generateCommentHtml(comment, userName) {
-    var html = '';
-    // 답글에 대한 depth 확인
-    var paddingLeftValue = 15 + (comment.depth - 1) * 20; // 기본값은 15, depth가 증가할 때마다 20px씩 추가
+	    var html = '';
+	    var paddingLeftValue = 15 + (comment.depth - 1) * 20;
+	    html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" data-depth="' + comment.depth + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
 
-    html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
+	    if (comment.depth == 2) {
+	        html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
+	    }
+	    html += '<div class="comment-header d-flex justify-content-between">';
+	    html += '<strong class="comment-username">' + comment.username + '</strong>';
 
-    if (comment.depth == 2) {
-        html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
-    }
-    html += '<div class="comment-header d-flex justify-content-between">';
-    html += '<strong class="comment-username">' + userName + '</strong>';
-    html += '<div class="comment-actions">';
-    html += '<button class="btn btn-primary btn-sm mr-1">수정</button>';
-    html += '<button class="btn btn-danger btn-sm">삭제</button>';
-    if (comment.depth == 1) {
-        html += '<button class="btn btn-secondary btn-sm mr-1 reply-button">댓글달기</button>';
-    }
-    html += '</div>';
-    html += '</div>';
+	    var showDropdown = false;
+	    var dropdownHtml = '<div class="dropdown">';
+	    dropdownHtml += '<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>';
+	    dropdownHtml += '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: auto !important; padding-left: 5px !important; padding-right: 5px !important;">';
+
+	    if (comment.userid == userId) {
+	        dropdownHtml += '<a class="dropdown-item edit-button" style="padding-top: 3px; padding-bottom: 3px;">수정</a>';
+	        dropdownHtml += '<a class="dropdown-item delete-button btn-danger" style="padding-top: 3px; padding-bottom: 3px;">삭제</a>';
+	        showDropdown = true;
+	    }
+	    if (comment.depth == 1) {
+	        dropdownHtml += '<a class="dropdown-item reply-button">댓글달기</a>';
+	        showDropdown = true;
+	    }
+	    dropdownHtml += '</div>'; // end of dropdown-menu
+	    dropdownHtml += '</div>'; // end of dropdown
+
+	    if (showDropdown) {
+	        html += dropdownHtml;
+	    }
+	    
+	    html += '</div>'; // end of comment-header
     html += '<div class="comment-content">';
-
-    // is_deleted가 1이면 '삭제된 댓글입니다' 출력
     if (comment.is_deleted == 1) {
         html += '<p>삭제된 댓글입니다</p>';
     } else {
         html += '<p>' + comment.contents + '</p>';
     }
-
     html += '</div>';
     html += '<div class="comment-time">' + replyFunc.showDateTime(comment.regdate) + '</div>';
-    html += '</div>';
+    html += '</div>'; // end of comment-box
+
     return html;
-}
+	}
 
 });
    
-
 $(document).on('click', '.reply-button', function() {
     // 원본 댓글의 data-comment-id 값을 가져옵니다.
     var parentId = $(this).closest('.comment-box').data('comment-id');
@@ -221,6 +239,64 @@ $(document).on('click', '.reply-button', function() {
     replyForm.find('.card').data('parent-comment-id', parentId);
     // 현재 댓글 카드의 바로 다음에 댓글 입력 양식 추가
     $(this).closest('.comment-box').after(replyForm);
+});
+
+
+$(document).on('click', '.edit-button', function() {
+    var commentBox = $(this).closest('.comment-box');
+    var commentContent = commentBox.find('.comment-content p').text();
+    
+    // 이미 textarea가 존재한다면 아무런 동작을 하지 않음
+    if (commentBox.find('.edit-textarea').length) {
+        return;
+    }
+
+    // 원본 댓글 내용을 숨김
+    commentBox.find('.comment-content').hide();
+
+    // textarea 생성 및 원본 내용을 넣음
+    var textarea = $('<textarea class="form-control edit-textarea mb-2"></textarea>').val(commentContent);  // 여기에 mb-2를 추가
+    commentBox.find('.comment-content').after(textarea);
+
+    // '저장' 및 '취소' 버튼 추가
+    var buttonContainer = $('<div class="d-flex justify-content-end"></div>');
+    var saveBtn = $('<button class="btn btn-sm btn-dark save-edit mr-2">저장</button>');
+    var cancelBtn = $('<button class="btn btn-sm btn-secondary cancel-edit">취소</button>');
+
+
+    buttonContainer.append(saveBtn).append(cancelBtn);
+    textarea.after(buttonContainer);
+});
+
+
+
+$(document).on('click', '.save-edit', function() {
+    var commentBox = $(this).closest('.comment-box');
+    var updatedContent = commentBox.find('.edit-textarea').val();
+    // 댓글의 고유 ID를 가져옵니다. 예를 들어, data-id 속성을 사용한다고 가정합니다.
+	var commentId = commentBox.data('comment-id');
+    // 수정된 내용과 댓글의 ID를 포함하는 객체를 생성합니다.
+	var reply = {
+	    commentid: commentId,
+	    contents: updatedContent  
+	};
+    // update 함수를 호출하여 수정된 댓글 내용을 서버에 전송합니다.
+    replyFunc.update(reply, function(result) {
+        if (result === "success") {
+            commentBox.find('.comment-content p').text(updatedContent);
+            commentBox.find('.comment-content').show();
+            commentBox.find('.edit-textarea, .save-edit, .cancel-edit').remove();
+        } else {
+            alert('댓글 수정 실패!');
+        }
+    });
+});
+
+
+$(document).on('click', '.cancel-edit', function() {
+    var commentBox = $(this).closest('.comment-box');
+    commentBox.find('.comment-content').show();
+    commentBox.find('.edit-textarea, .save-edit, .cancel-edit').remove();
 });
 
 

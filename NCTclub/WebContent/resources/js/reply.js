@@ -19,21 +19,21 @@ var replyFunc = (function(){
   			error:function(){alert("요청실패!!")}
 		});
 	}
-	
 	// 댓글 삭제
-	function remove(commentid, cb){
-		$.ajax({
-			type:'delete',
-			url:'/NCTclub/comment/delete/'+commentid,
-			success:function(result){
-				if(cb){
-					cb(result);
-				}
-			},
-			error:function(){alert("요청실패!!")}
-		});
-	}
-	
+	function remove(reply, cb){
+    $.ajax({
+        type:'post',  // 변경: POST로 설정
+        url:'/NCTclub/comment/delete', // 변경: URL 수정
+        data: JSON.stringify(reply),
+        contentType: "application/json; charset=utf-8", // JSON 데이터로 설정
+        success:function(result){
+            if(cb){
+                cb(result);
+            }
+        },
+        error:function(){alert("요청실패!!")}
+    });
+}
 	// 댓글 전체 조회
 	function get(nctmember_id, cb){
 		$.get('/NCTclub/comment/list/'+nctmember_id, function(result){
@@ -46,7 +46,7 @@ var replyFunc = (function(){
 	// 댓글 수정
 	function update(reply, cb){
 		$.ajax({
-			url:'/jomaltwo/replies/'+reply.rno,
+			url:'/NCTclub/comment/update/'+reply.commentid,
 			type:'put',
 			data:JSON.stringify(reply),
 			contentType: "application/json; charset=utf-8",
@@ -95,7 +95,7 @@ var replyFunc = (function(){
 	    var mi = rDate.getMinutes();    // 분
 	
 	    // 날짜와 함께 시간과 분도 표시 
-	    return [yy, '/', (mm > 9 ? '' : '0') + mm, '/', (dd > 9 ? '' : '0') + dd, '/', (hh > 9 ? '' : '0') + hh, '/', (mi > 9 ? '' : '0') + mi].join('');
+	    return [yy, '.', (mm > 9 ? '' : '0') + mm, '.', (dd > 9 ? '' : '0') + dd, ' ', (hh > 9 ? '' : '0') + hh, '.', (mi > 9 ? '' : '0') + mi].join('');
 	}
 
 		

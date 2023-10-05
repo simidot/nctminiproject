@@ -22,6 +22,7 @@ import lombok.ToString;
 public class CommentDTO implements Serializable{
 	
 	private Long commentid;
+	private String username;
     private Long nctmember_id;
     private Long userid;
     private Long parents_id;
