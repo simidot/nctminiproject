@@ -33,7 +33,7 @@
     </resultMap>
 	
 	<!-- 엔시티 멤버 전체 선택하기 -->
-	<select id="selectAllMembers" resultType="java.util.HashMap">
+	<select id="selectAllMembers" resultMap="NCTmemberResultMap">
   		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, listagg(groupName, ', ') within group(order by groupName) AS groupName
 		FROM nctmembers
    		JOIN nctgroups ON (nctmembers.memberId = nctgroups.memberRefId)

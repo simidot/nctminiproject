@@ -97,8 +97,8 @@
             <label class="form-check-label" for="nctDREAM">NCT DREAM</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="wayV" name="groupList" value="Way V">
-            <label class="form-check-label" for="wayV">Way V</label>
+            <input class="form-check-input" type="checkbox" id="wayV" name="groupList" value="WAY V">
+            <label class="form-check-label" for="wayV">WAY V</label>
         </div>
         <br>
         <div class="form-check form-check-inline">
@@ -106,8 +106,8 @@
             <label class="form-check-label" for="nct127">NCT 127</label>
         </div>
         <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="superM" name="groupList" value="SuperM">
-            <label class="form-check-label" for="superM">SuperM</label>
+            <input class="form-check-input" type="checkbox" id="superM" name="groupList" value="SUPERM">
+            <label class="form-check-label" for="superM">SUPERM</label>
         </div>
         <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="dojaejung" name="groupList" value="NCT 도재정">
