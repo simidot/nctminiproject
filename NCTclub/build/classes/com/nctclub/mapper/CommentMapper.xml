@@ -10,7 +10,7 @@
 	 VALUES (comments_seq.NEXTVAL, #{nctmember_id}, #{userid}, #{parents_id, jdbcType=NUMERIC}, #{contents}, #{depth}, #{is_deleted}, SYSDATE)
     </insert>
     
-        <select id="selectAll" resultType="commentDTO">
+<select id="selectAll" resultType="commentDTO">
     SELECT 
         commentid, 
         nctmember_id, 
@@ -21,8 +21,16 @@
         is_deleted, 
         regdate 
     FROM comments 
-    WHERE nctmember_id = #{nctmember_id} AND is_deleted = 0
-    ORDER BY regdate DESC
-	</select>
+    WHERE nctmember_id = #{nctmember_id}
+    ORDER BY
+        CASE WHEN depth = 2 THEN regdate END ASC, 
+        regdate DESC
+</select>
+
+<update id="delete" parameterType="int">
+    UPDATE comments
+    SET is_deleted = 1
+    WHERE commentid = #{commentid}
+</update>
  
- </mapper>
+</mapper>

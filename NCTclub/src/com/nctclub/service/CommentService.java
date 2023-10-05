@@ -9,5 +9,7 @@ public interface CommentService {
 	public int register(CommentDTO commentDto);
 	
 	public List<CommentDTO> getCommentsByMemberId(int nctmember_id);
+	
+	public int removeComment(int commentid);
 
 }

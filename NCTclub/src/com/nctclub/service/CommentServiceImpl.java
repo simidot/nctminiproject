@@ -26,6 +26,10 @@ public class CommentServiceImpl implements CommentService {
 
 		return mapper.selectAll(nctmember_id);
 	}
+	@Override
+	public int removeComment(int commentid) {
+		return mapper.delete(commentid);
+	}
 	
 
 }
