@@ -17,9 +17,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nctclub.model.AddressDTO;
+import com.nctclub.model.CommentDTO;
 import com.nctclub.model.CustomUserDetails;
 import com.nctclub.model.NCTmemberDTO;
 import com.nctclub.model.UserDTO;
+import com.nctclub.service.CommentService;
 import com.nctclub.service.CustomUserDetailsService;
 import com.nctclub.service.UserService;
 
@@ -34,6 +37,9 @@ public class UserController {
 	@Autowired
 	UserService userService;
 	
+	@Autowired
+	CommentService commentService;
+	
 	// 회원가입 폼으로 이동
 	@RequestMapping(value = "/registerform", method = RequestMethod.GET)
 	public String registerform() {
@@ -42,9 +48,13 @@ public class UserController {
 	
 	// 회원가입 기능 (회원가입 후 메인 페이지로 이동)
     @RequestMapping(value="/register", method = RequestMethod.POST)
-    public String userRegister(@ModelAttribute UserDTO dto) {
-    	int result = userService.userRegister(dto);
-    	// System.out.println(result);
+    public String userRegister(@ModelAttribute UserDTO dto, AddressDTO addressdto) {
+    	System.out.println(dto);
+    	System.out.println(addressdto);
+    	dto.setAddress(addressdto.getRoadAddress()+" "+ addressdto.getDetailAddress());
+		int result = userService.userRegister(dto); 
+		System.out.println(result);
+		 
         return "redirect:/user/main";
     }
     
@@ -124,7 +134,7 @@ public class UserController {
 	public String selectMember (@RequestParam("memberId") int memberId, Model model) {
 		NCTmemberDTO dto = userService.selectMember(memberId);
 		model.addAttribute("nctmemberDTO", dto);
-		
+		List<CommentDTO> commentdto = commentService.getCommentsByMemberId(memberId);
 		//여기에 COMMENTS 리스트 가져오기
 		
 		
