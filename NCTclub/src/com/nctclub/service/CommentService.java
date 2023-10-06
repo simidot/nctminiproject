@@ -13,5 +13,6 @@ public interface CommentService {
 	public int removeComment(CommentDTO commentDto);
 	
 	public int updateComment(CommentDTO commentDto);
-
+	
+	public int getCommentCountByMemberId(int nctmember_id);
 }

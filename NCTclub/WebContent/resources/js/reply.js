@@ -59,27 +59,13 @@ var replyFunc = (function(){
 		});
 	}
 	
-
-/*
-	// 특정 게시글에 대한 댓글 리스트
-	function getList(param, cb){
-		var bid= param.bid;
-		
-		// data: 전송타입 설정 속성, dataType: 응답타입 설정 속성 
-		// dataType을 JSON형태로 설정 
-		$.getJSON("/bbs/replies/list/"+bid+".json",
-			function(result){
-				if(cb) cb(result);
-			}).fail(function(){alert("요청실패!!!"); }); 
-	}
-*/
 	function getList(param, cb){
 		var bid= param.bid;
 		var viewPage = param.viewPage;
 		
 		// data: 전송타입 설정 속성, dataType: 응답타입 설정 속성 
 		// dataType을 JSON형태로 설정 
-		$.getJSON("/jomaltwo/replies/list/"+bid+"/"+viewPage+".json",
+		$.getJSON("/NCTclub/comment/list/"+bid+"/"+viewPage+".json",
 			function(result){
 				if(cb) cb(result);
 			}).fail(function(){alert("요청실패!!!"); }); 
@@ -97,8 +83,6 @@ var replyFunc = (function(){
 	    // 날짜와 함께 시간과 분도 표시 
 	    return [yy, '.', (mm > 9 ? '' : '0') + mm, '.', (dd > 9 ? '' : '0') + dd, ' ', (hh > 9 ? '' : '0') + hh, '.', (mi > 9 ? '' : '0') + mi].join('');
 	}
-
-		
 	return{
 		register : register,
 		remove : remove,

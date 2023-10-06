@@ -33,7 +33,7 @@
 		        </div>
 		    </div>
 		</div>
-
+		<%@ include file="paging/paging.jsp" %>
 		<hr>
         <!-- 새로운 댓글 작성 폼 -->
 		<c:if test="${userRole == 'ADMIN' or userRole == 'USER'}">
@@ -55,6 +55,8 @@
         </c:if>
     </div>
 </div>
+
+
 
 <script src="${ctxPath}/resources/js/reply.js"></script>
 

@@ -61,45 +61,8 @@
 					   </table>
 				</div>
 
-			       <div class="container">
-					    <div class="row justify-content-start"> 
-					        <div class="col-md-12">  
-								<div class="pagination-container text-center">
-								   		 <ul class="pagination justify-content-center">        
-												<!-- 처음 이전 링크 -->
-												<c:if test="${pg>block}">  <!-- 5>10 : false / 15>10 : true -->
-													[<a href="${ctxPath}/admin/userlist?pg=1">◀◀</a>]
-													[<a href="${ctxPath}/admin/userlist?pg=${fromPage-1}">◀</a>]		
-												</c:if>
-												<c:if test="${pg<=block}"> <!-- 5<=10 :true / 15<=10:false -->
-													[<span style="color:gray">◀◀</span>]	
-													[<span style="color:gray">◀</span>]
-												</c:if>
-												
-												<!-- 블록 범위 찍기 -->
-												<c:forEach begin="${fromPage}" end="${toPage}" var="i">
-													<c:if test="${i==pg}">[${i}]</c:if>
-													<c:if test="${i!=pg}">
-														[<a href="${ctxPath}/admin/userlist?pg=${i}">${i}</a>]
-													</c:if>
-												</c:forEach>
-												
-												<!-- 다음, 이후 -->
-												<c:if test="${toPage<allPage}"> <!-- 20<21 : true -->
-														[<a href="${ctxPath}/admin/userlist?pg=${toPage+1}">▶</a>]
-														[<a href="${ctxPath}/admin/userlist?pg=${allPage}">▶▶</a>]
-												
-												</c:if>	
-												<c:if test="${toPage>=allPage}"> <!-- 21>=21 :true -->
-														[<span style="color:gray">▶</span>]
-														[<span style="color:gray">▶▶</span>]
-												
-												</c:if>			
-									    </ul>
-									</div>
-								</div>
-							</div>
-						
+		      <%@ include file="paging/paging.jsp" %>
+		     
 
 <div class="modal fade" id="deletenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 				    <div class="modal-dialog" role="document">
