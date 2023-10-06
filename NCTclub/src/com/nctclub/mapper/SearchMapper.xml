@@ -26,10 +26,10 @@
    FROM nctmembers m
    LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
    <if test='option == "n"'>
-       WHERE m.name = #{search}
+       WHERE m.name = #{search} AND is_deleted = 0
    </if> 
    <if test='option == "g"'>
-       WHERE g.groupname = #{search}
+       WHERE g.groupname = #{search} AND is_deleted = 0
    </if>      
 	</select>
 

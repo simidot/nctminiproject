@@ -45,8 +45,15 @@
                         <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
                             <!-- 수정하기 버튼 -->
                             <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-dark btn-sm">수정하기</a>
-                            <!-- 삭제하기 버튼 -->
-                            <button data-member-id="${nctmemberDTO.memberId}" class="delete-button btn btn-dark btn-sm">삭제하기</button>
+                            <c:choose>
+	                            <c:when test = "${nctmemberDTO.is_deleted=='0'}">
+	                            <!-- 숨기기 버튼 -->
+	                            <button data-member-id="${nctmemberDTO.memberId}" class="hide-button btn btn-dark btn-sm">숨기기</button>
+	                        	</c:when>
+	                        	<c:otherwise>
+	                        	<button data-member-id="${nctmemberDTO.memberId}" class="unhide-button btn btn-dark btn-sm">숨김 해제</button>
+	                        	</c:otherwise>
+                        	</c:choose>
                         </c:if>
                     </div>
                 </div>
@@ -55,7 +62,7 @@
     </div>
     
     
-	    <div class="modal fade" id="deletenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		        <div class="modal-content">
 		            <div class="modal-header">
@@ -65,7 +72,7 @@
 		                </button>
 		            </div>
 		            <div class="modal-body">
-		                <p id="notificationMessage">정말 삭제하시겠습니까?</p>
+		                <p id="notificationMessage">멤버 정보가 메인 화면에서 숨겨집니다. 정말 숨기시겠습니까?</p>
 		            </div>
 		            <div class="modal-footer">
 		                <button id = "confirmDeleteButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
@@ -73,6 +80,26 @@
 		        </div>
 		    </div>
 		</div>
+		
+		<div class="modal fade" id="unhideNotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body">
+		                <p id="notificationMessage">멤버 정보가 메인 화면에서 다시 표시됩니다. 정말 숨김 해제하시겠습니까?</p>
+		            </div>
+		            <div class="modal-footer">
+		                <button id="confirmUnhideButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+		
 		
     <%@ include file="comment.jsp" %>
     
@@ -101,8 +128,40 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
+
 //삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
-$(".delete-button").on("click", function () {
+$(".hide-button").on("click", function () {
+    // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
+    const memberId = $(this).data("member-id");
+    console.log(memberId);
+    
+    // 삭제하기 확인 모달을 띄웁니다.
+    deleteMemberConfirmation(memberId);
+});
+//삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
+function deleteMemberConfirmation(memberId) {
+    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
+    const memberIdToDelete = memberId;
+    console.log(memberId);
+    
+    // 모달 창을 띄웁니다.
+    $("#deletenotificationModal").modal("show");
+    
+    // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
+    $("#confirmDeleteButton").on("click", function () {
+        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
+        if (memberIdToDelete) {
+            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
+            console.log(deleteUrl);
+            
+            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
+            
+        }
+    });
+}   
+      
+//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
+$(".unhide-button").on("click", function () {
     // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
     const memberId = $(this).data("member-id");
     console.log(memberId);

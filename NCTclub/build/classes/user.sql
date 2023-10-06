@@ -65,3 +65,8 @@ CREATE SEQUENCE comments_seq
     START WITH 1
     INCREMENT BY 1
     NOMAXVALUE;
+    
+ALTER TABLE users ADD is_deleted NUMBER DEFAULT 0;
+
+ALTER TABLE nctmembers ADD is_deleted NUMBER DEFAULT 0;
+
