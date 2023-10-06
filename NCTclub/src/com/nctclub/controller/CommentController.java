@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.github.pagehelper.PageInfo;
 import com.nctclub.model.CommentDTO;
 import com.nctclub.model.PaginationDTO;
 import com.nctclub.model.UserDTO;
