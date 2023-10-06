@@ -35,30 +35,30 @@ public class CommentController {
     @Autowired
     CommentService commentService;
 	
-	// 댓글조회
-    @RequestMapping(value = "/list/{nctmember_id}", method = RequestMethod.GET)
-	@ResponseBody
-	public List<CommentDTO> showList(@PathVariable("nctmember_id") int nctmember_id) {
-        List<CommentDTO> comments = commentService.getCommentsByMemberId(nctmember_id);
-		return comments;
-	}
-    
+//	// 댓글조회
 //    @RequestMapping(value = "/list/{nctmember_id}", method = RequestMethod.GET)
-//    @ResponseBody
-//    public Map<String, Object> showList(@PathVariable("nctmember_id") int nctmember_id,
-//                                        @RequestParam(value = "pg", defaultValue = "1") int pg,
-//                                        @RequestParam(value = "cntPerPage", defaultValue = "10") int cntPerPage) {
-//        PaginationDTO pagination = PaginationDTO.builder()
-//                .pg(pg)
-//                .total(commentService.getCommentCountByMemberId(nctmember_id))
-//                .build();
-//        pagination.calculatePages(cntPerPage, 10);
-//        List<CommentDTO> comments = commentService.getCommentsByMemberIdWithPagination(nctmember_id, pagination.getRangeMap(cntPerPage));
-//        Map<String, Object> responseMap = new HashMap<>();
-//        responseMap.put("comments", comments);
-//        responseMap.put("pagination", pagination);
-//        return responseMap;
-//    }
+//	@ResponseBody
+//	public List<CommentDTO> showList(@PathVariable("nctmember_id") int nctmember_id) {
+//        List<CommentDTO> comments = commentService.getCommentsByMemberId(nctmember_id);
+//		return comments;
+//	}
+    
+    @RequestMapping(value = "/list/{nctmemberId}", method = RequestMethod.GET)
+    @ResponseBody
+    public Map<String, Object> showList(@PathVariable("nctmemberId") int nctmember_id,
+                                        @RequestParam(value = "pg", defaultValue = "1") int pg,
+                                        @RequestParam(value = "cntPerPage", defaultValue = "10") int cntPerPage) {
+        PaginationDTO pagination = PaginationDTO.builder()
+                .pg(pg)
+                .total(commentService.getCommentCountByMemberId(nctmember_id))
+                .build();
+        pagination.calculatePages(cntPerPage, 10);
+        List<CommentDTO> comments = commentService.getCommentsByMemberIdWithPagination(nctmember_id, pagination.getRangeMap(cntPerPage));
+        Map<String, Object> responseMap = new HashMap<>();
+        responseMap.put("comments", comments);
+        responseMap.put("pagination", pagination);
+        return responseMap;
+    }
 
 	// 댓글추가
 	@RequestMapping(value = "/new", method = RequestMethod.POST)

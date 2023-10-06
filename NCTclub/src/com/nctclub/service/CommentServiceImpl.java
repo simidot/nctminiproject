@@ -1,5 +1,6 @@
 package com.nctclub.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,10 @@ public class CommentServiceImpl implements CommentService {
 	@Override
 	public int getCommentCountByMemberId(int nctmember_id) {
 		return mapper.totalCnt(nctmember_id);
+	}
+	@Override
+	public List<CommentDTO> getCommentsByMemberIdWithPagination(int nctmember_id, HashMap<String, Integer> map) {
+	    return mapper.getCommentsByMemberIdWithPagination(nctmember_id, map);
 	}
 	
 
