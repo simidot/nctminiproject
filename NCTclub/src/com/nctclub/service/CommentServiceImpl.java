@@ -33,6 +33,10 @@ public class CommentServiceImpl implements CommentService {
 	
 		return mapper.update(commentDto);
 	}
+	@Override
+	public int getCommentCountByMemberId(int nctmember_id) {
+		return mapper.totalCnt(nctmember_id);
+	}
 	
 
 }

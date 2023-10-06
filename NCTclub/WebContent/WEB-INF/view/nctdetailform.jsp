@@ -73,9 +73,9 @@
 		        </div>
 		    </div>
 		</div>
-	
-     
+		
     <%@ include file="comment.jsp" %>
+    
     </div>
   
   </div>

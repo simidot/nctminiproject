@@ -51,5 +51,11 @@
     WHERE commentid = #{commentid}
 </update>
 
+    <select id="totalCnt" resultType="int">
+        SELECT COUNT(*)
+        FROM comments
+        WHERE nctmember_id = #{nctmember_id}
+    </select>
+
  
 </mapper>

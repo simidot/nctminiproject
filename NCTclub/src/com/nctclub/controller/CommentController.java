@@ -7,17 +7,22 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.codehaus.jackson.map.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-
 import com.nctclub.model.CommentDTO;
+import com.nctclub.model.PaginationDTO;
+import com.nctclub.model.UserDTO;
 import com.nctclub.service.CommentService;
 import com.nctclub.service.UserService;
 
@@ -38,6 +43,23 @@ public class CommentController {
 		return comments;
 	}
     
+//    @RequestMapping(value = "/list/{nctmember_id}", method = RequestMethod.GET)
+//    @ResponseBody
+//    public Map<String, Object> showList(@PathVariable("nctmember_id") int nctmember_id,
+//                                        @RequestParam(value = "pg", defaultValue = "1") int pg,
+//                                        @RequestParam(value = "cntPerPage", defaultValue = "10") int cntPerPage) {
+//        PaginationDTO pagination = PaginationDTO.builder()
+//                .pg(pg)
+//                .total(commentService.getCommentCountByMemberId(nctmember_id))
+//                .build();
+//        pagination.calculatePages(cntPerPage, 10);
+//        List<CommentDTO> comments = commentService.getCommentsByMemberIdWithPagination(nctmember_id, pagination.getRangeMap(cntPerPage));
+//        Map<String, Object> responseMap = new HashMap<>();
+//        responseMap.put("comments", comments);
+//        responseMap.put("pagination", pagination);
+//        return responseMap;
+//    }
+
 	// 댓글추가
 	@RequestMapping(value = "/new", method = RequestMethod.POST)
 	@ResponseBody
@@ -68,4 +90,7 @@ public class CommentController {
 		System.out.println(resultCnt);
 		return resultCnt > 0 ? "success" : "fail"; 
 	}
+	
+
+	
 }

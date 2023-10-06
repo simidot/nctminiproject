@@ -28,6 +28,8 @@
 	
 	    <!-- URL 보안 규칙: /admin/** 경로는 ROLE_ADMIN 권한을 가진 사용자만 접근 가능 -->
 	    <intercept-url pattern="/admin/**" access="ROLE_ADMIN" />
+	    <intercept-url pattern="/user/detail/**" access="ROLE_ADMIN , ROLE_USER" />
+	    
 	    
 	    <!-- URL 보안 규칙: /user/** 경로는 ROLE_USER 권한을 가진 사용자만 접근 가능 -->
 	    <!--<intercept-url pattern="/user/main" access="ROLE_USER" /> -->
