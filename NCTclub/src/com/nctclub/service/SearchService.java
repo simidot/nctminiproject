@@ -11,5 +11,7 @@ public interface SearchService {
 
 	public List<NCTmemberDTO> searchMember(Map<String, Object> parameterMap);
 
+	public List<NCTmemberDTO> searchHiddenMember(Map<String, Object> parameterMap);
+
 
 }

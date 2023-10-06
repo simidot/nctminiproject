@@ -37,7 +37,8 @@
 	                <c:if test="${userRole == 'ADMIN'}">
 					    <div class="col-md-5 text-right">
 					        <input type="checkbox" id="hiddenMemberCheckbox" class="form-check-input"
-					        <c:if test="${check == 'yes'}">checked</c:if>>
+					        <c:if test="${param.check == 'checked'}">checked</c:if>>
+					        <input type="hidden" name="check" id="checkHiddenField" value="">
 					        <label class="hidden-member-check-label" for="hiddenMemberCheckbox">숨긴 멤버 보기</label>
 					    </div>
 					</c:if>
@@ -67,13 +68,16 @@
 
 <script>
     const checkbox = document.getElementById("hiddenMemberCheckbox");
+    const checkHiddenField = document.getElementById("checkHiddenField");
 
     checkbox.addEventListener("change", function () {
     	const ischecked = checkbox.checked;
     	
         if (checkbox.checked) {
+            checkHiddenField.value = "checked";
         	location.href = "${ctxPath}/admin/hiddenmember";
         } else {
+            checkHiddenField.value = ""; // 체크 해제된 경우 값을 비웁니다.
         	location.href = "${ctxPath}/user/main";
         }
     });

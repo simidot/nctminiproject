@@ -75,7 +75,7 @@
 		                <p id="notificationMessage">멤버 정보가 메인 화면에서 숨겨집니다. 정말 숨기시겠습니까?</p>
 		            </div>
 		            <div class="modal-footer">
-		                <button id = "confirmDeleteButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		                <button id = "confirmHideButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 		            </div>
 		        </div>
 		    </div>
@@ -136,26 +136,24 @@ $(".hide-button").on("click", function () {
     console.log(memberId);
     
     // 삭제하기 확인 모달을 띄웁니다.
-    deleteMemberConfirmation(memberId);
+    hideMemberConfirmation(memberId);
 });
 //삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
-function deleteMemberConfirmation(memberId) {
-    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
-    const memberIdToDelete = memberId;
+function hideMemberConfirmation(memberId) {
+    // memberIdToHide 변수에 삭제할 멤버의 아이디를 저장
+    const memberIdToHide = memberId;
     console.log(memberId);
     
     // 모달 창을 띄웁니다.
-    $("#deletenotificationModal").modal("show");
+    $("#hidenotificationModal").modal("show");
     
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    $("#confirmDeleteButton").on("click", function () {
-        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
-        if (memberIdToDelete) {
-            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
+    $("#confirmHideButton").on("click", function () {
+        if (memberIdToHide) {
+            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToHide;
             console.log(deleteUrl);
             
-            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
-            
+            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToHide;
         }
     });
 }   
@@ -167,26 +165,25 @@ $(".unhide-button").on("click", function () {
     console.log(memberId);
     
     // 삭제하기 확인 모달을 띄웁니다.
-    deleteMemberConfirmation(memberId);
+    unhideMemberConfirmation(memberId);
 });
 //삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
-function deleteMemberConfirmation(memberId) {
+function unhideMemberConfirmation(memberId) {
     // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
-    const memberIdToDelete = memberId;
+    const memberIdToUnhide = memberId;
     console.log(memberId);
     
     // 모달 창을 띄웁니다.
-    $("#deletenotificationModal").modal("show");
+    $("#unhideNotificationModal").modal("show");
     
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    $("#confirmDeleteButton").on("click", function () {
+    $("#confirmUnhideButton").on("click", function () {
         // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
-        if (memberIdToDelete) {
-            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
+        if (memberIdToUnhide) {
+            const deleteUrl = '<c:url value="/admin/unhidemember"/>' + "?memberId=" + memberIdToUnhide;
             console.log(deleteUrl);
             
-            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
-            
+            window.location.href = '<c:url value="/admin/unhidemember"/>' + "?memberId=" + memberIdToUnhide;    
         }
     });
 }

@@ -20,5 +20,10 @@ public class SearchServiceImpl implements SearchService {
 	public List<NCTmemberDTO> searchMember(Map<String, Object> parameterMap) {
 		return mapper.searchMember(parameterMap);
 	}
+	
+	@Override
+	public List<NCTmemberDTO> searchHiddenMember(Map<String, Object> parameterMap) {
+		return mapper.searchHiddenMember(parameterMap);
+	}
 
 }

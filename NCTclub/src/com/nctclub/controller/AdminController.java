@@ -214,9 +214,21 @@ public class AdminController {
 		List<NCTmemberDTO> nctmembers = adminService.selectHiddenMembers();
 		System.out.println(nctmembers.toString());
 		model.addAttribute("nctmemberList", nctmembers);
-		model.addAttribute("check", "yes");
 		return "main";
 	}
+	
+	// 숨겨진 엔시티 멤버 숨김 해제
+	 @RequestMapping(value ="/unhidemember", method = RequestMethod.GET)
+	 public String unhidemember(@RequestParam("memberId") int memberId) {
+	     int result = adminService.unhideMember(memberId);
+	     if (result ==1) {
+				return "redirect:/user/main";
+			} else {
+				return "no"; //여기 에러페이지로 이동하도록 수정하기**
+			}
+	 }
+	
+	
 	
 
 }
