@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+ <mapper namespace="com.nctclub.mapper.SearchMapper">
+ 
+	<resultMap id="searchResultMap" type="NCTmemberDTO">
+        <id property="memberId" column="memberId" />
+        <result property="name" column="name" />
+        <result property="birthdate" column="birthdate" />
+        <result property="nationality" column="nationality" />
+        <result property="position" column="position" />
+        <result property="mbti" column="mbti" />
+        <result property="image" column="image" />
+        <result property="regdate" column="regdate" />
+        <collection property="groupList" ofType="java.lang.String">
+       		<result property="groupName" column="groupName" />
+    	</collection>
+    </resultMap>
+    
+   <select id="searchMember" parameterType="Map" resultMap="searchResultMap">
+   SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
+   FROM nctmembers m
+   LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
+   <if test='option == "n"'>
+       WHERE m.name = #{search}
+   </if> 
+   <if test='option == "g"'>
+       WHERE g.groupname = #{search}
+   </if>      
+	</select>
+
+   
+ </mapper>
+

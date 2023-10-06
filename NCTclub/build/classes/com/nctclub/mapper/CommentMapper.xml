@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  
+ <mapper namespace="com.nctclub.mapper.CommentMapper">
+  	 <insert id="insert" parameterType="commentDTO">
+  	 INSERT INTO comments (commentid, nctmember_id, userid, parents_id, contents, depth, is_deleted, regdate)
+	 VALUES (comments_seq.NEXTVAL, #{nctmember_id}, #{userid}, #{parents_id, jdbcType=NUMERIC}, #{contents}, #{depth}, #{is_deleted}, SYSDATE)
+    </insert>
+    
+<select id="selectAll" resultType="commentDTO">
+    SELECT 
+        c.commentid, 
+        c.nctmember_id, 
+        c.userid, 
+        c.parents_id, 
+        c.contents, 
+        c.depth, 
+        c.is_deleted, 
+        c.regdate,
+        u.username
+    FROM comments c
+    JOIN USERS u ON c.userid = u.id
+    WHERE c.nctmember_id = #{nctmember_id}
+    ORDER BY
+        CASE WHEN c.depth = 2 THEN c.regdate END ASC, 
+        c.regdate DESC
+</select>
+
+<update id="delete" parameterType="commentDTO">
+    <!-- depth가 2인 경우, 댓글을 완전히 삭제 -->
+    <if test="depth == 2">
+        DELETE FROM comments
+        WHERE commentid = #{commentid}
+    </if>
+
+    <!-- depth가 1인 경우, is_deleted만 1로 업데이트 -->
+    <if test="depth == 1">
+        UPDATE comments
+        SET is_deleted = 1
+        WHERE commentid = #{commentid}
+    </if>
+</update>
+
+<update id="update" parameterType="commentDTO">    
+    UPDATE comments
+    SET 
+    	contents = #{contents}
+    WHERE commentid = #{commentid}
+</update>
+
+ 
+</mapper>
