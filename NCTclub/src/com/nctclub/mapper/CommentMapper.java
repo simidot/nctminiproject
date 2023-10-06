@@ -9,4 +9,5 @@ public interface CommentMapper {
 	public List<CommentDTO> selectAll(int nctmember_id);
 	public int delete(CommentDTO commentDto);
 	public int update(CommentDTO commentDto);
+	public int totalCnt(int nctmember_id);
 }

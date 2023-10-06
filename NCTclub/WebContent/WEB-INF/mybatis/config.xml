@@ -8,7 +8,6 @@
 		<typeAlias type= "com.nctclub.model.NCTmemberDTO" alias="NCTmemberDTO" />
 		<typeAlias type= "com.nctclub.model.CommentDTO" alias="commentDTO" />
 		<typeAlias type= "com.nctclub.model.AddressDTO" alias="addressDTO" />
-		
 	</typeAliases>
   
 </configuration>

@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.nctclub.model.NCTmemberDTO;
+import com.nctclub.model.PaginationDTO;
 import com.nctclub.model.UserDTO;
 import com.nctclub.service.AdminService;
 import com.nctclub.service.CustomUserDetailsService;
@@ -46,45 +47,26 @@ public class AdminController {
 	// 회원 관련 기능
 	
 	// 모든 회원 정보 조회 + 페이징 처리
-	@RequestMapping(value = "/userlist", method = RequestMethod.GET)
-	public String selectallusers(HttpServletRequest request, Model model) {
-		int pg=1;
-		String strPg = request.getParameter("pg"); 
-		if(strPg!=null){
-			pg = Integer.parseInt(strPg);			
-		}
-		int rowSize = 10;
-		int start = (pg*rowSize)-(rowSize -1);
-		int end = pg*rowSize;
-		
-		int total = adminService.getUserCount(); //총 회원 수
-		System.out.println("시작 : "+start +" 끝: "+end);
-		System.out.println("회원 수 : "+total);
-		
-		int allPage = (int) Math.ceil(total/(double)rowSize); //페이지수
-		System.out.println("페이지수 : "+ allPage);
-		
-		int block = 10; //한페이지에 보여줄  범위 << [1] [2] [3] [4] [5] [6] [7] [8] [9] [10] >>
-		int fromPage = ((pg-1)/block*block)+1;  //보여줄 페이지의 시작
-		//((1-1)/10*10)
-		int toPage = ((pg-1)/block*block)+block; //보여줄 페이지의 끝
-		if(toPage> allPage){ // 예) 20>17
-			toPage = allPage;
-		}
-		
-		HashMap<String, Integer> map = new HashMap<>();
-		map.put("start", start);
-		map.put("end", end);
-		
-		List<UserDTO> members = adminService.selectAllUsers(map);
-		model.addAttribute("memberList", members);
-		request.setAttribute("pg",pg);
-		request.setAttribute("allPage",allPage);
-		request.setAttribute("block",block);
-		request.setAttribute("fromPage",fromPage);
-		request.setAttribute("toPage",toPage);	
-		return "userListForm";
-	}
+	 @RequestMapping(value = "/userlist", method = RequestMethod.GET)
+	    public String selectallusers(HttpServletRequest request, Model model) {
+	        int pg = 1;
+	        String strPg = request.getParameter("pg");
+	        if (strPg != null) {
+	            pg = Integer.parseInt(strPg);
+	        }
+	        int itemsPerPage = 10; // 한 페이지에 표시될 아이템(데이터) 수
+	        int pagesPerBlock = 10; // 화면에 한 번에 표시될 페이지 번호의 개수
+	        
+	        PaginationDTO pagination = PaginationDTO.builder()
+                    .pg(pg)
+                    .total(adminService.getUserCount())
+                    .build();
+	        pagination.calculatePages(itemsPerPage, pagesPerBlock);
+	        List<UserDTO> members = adminService.selectAllUsers(pagination.getRangeMap(itemsPerPage));
+	        model.addAttribute("memberList", members);
+	        model.addAttribute("pagination", pagination);
+	        return "userListForm";
+	    }
 	
 	// 회원정보 삭제 기능
 	@RequestMapping(value = "/deleteuser", method = RequestMethod.GET)
