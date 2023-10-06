@@ -44,18 +44,48 @@
     </if>
 </update>
 
-<update id="update" parameterType="commentDTO">    
-    UPDATE comments
-    SET 
-    	contents = #{contents}
-    WHERE commentid = #{commentid}
-</update>
+	<update id="update" parameterType="commentDTO">    
+	    UPDATE comments
+	    SET 
+	    	contents = #{contents}
+	    WHERE commentid = #{commentid}
+	</update>
 
     <select id="totalCnt" resultType="int">
         SELECT COUNT(*)
         FROM comments
         WHERE nctmember_id = #{nctmember_id}
     </select>
+    
+	<select id="getCommentsByMemberIdWithPagination" resultType="commentDTO">
+	    SELECT * FROM
+	    (
+	        SELECT A.*, ROWNUM r 
+	        FROM 
+	        (
+	            SELECT 
+	                c.commentid, 
+	                c.nctmember_id, 
+	                c.userid, 
+	                c.parents_id, 
+	                c.contents, 
+	                c.depth, 
+	                c.is_deleted, 
+	                c.regdate,
+	                u.username
+	            FROM comments c
+	            JOIN USERS u ON c.userid = u.id
+	            WHERE c.nctmember_id = #{nctmember_id}
+	            ORDER BY
+	                CASE WHEN c.depth = 2 THEN c.regdate END ASC, 
+	                c.regdate DESC
+	        ) A
+	    )
+	    WHERE r BETWEEN #{pagination.start} AND #{pagination.end}
+	</select>
+
+
+    
 
  
 </mapper>

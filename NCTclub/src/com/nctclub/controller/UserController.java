@@ -67,6 +67,7 @@ public class UserController {
     // 로그인하기 기능 
     @RequestMapping(value="/login", method = RequestMethod.POST)
     public String loginProcess(UserDTO dto, HttpServletRequest req, Model model) {
+    	
     	UserDetails userDetails = userService.userLogin(dto); // userDetails는 로그인한 정보를 가져옴
     	
         if(userDetails != null) {
@@ -74,12 +75,12 @@ public class UserController {
             UsernamePasswordAuthenticationToken authentication = 
             	    new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
 
-            
             SecurityContextHolder.getContext().setAuthentication(authentication);
             
             HttpSession session = req.getSession();
             
             CustomUserDetails customUserDetails = (CustomUserDetails) userDetails;
+            
             session.setAttribute("loginDto", customUserDetails.getUserDto());
             System.out.println(customUserDetails.getUserDto());
             return "redirect:/user/main";

@@ -35,7 +35,6 @@ public class AdminController {
 	
 	@Autowired
 	AdminService adminService;
-	
 
 	/*
 	 * @RequestMapping(value = "/main", method = RequestMethod.GET) public String
@@ -61,6 +60,7 @@ public class AdminController {
                     .pg(pg)
                     .total(adminService.getUserCount())
                     .build();
+	        
 	        pagination.calculatePages(itemsPerPage, pagesPerBlock);
 	        List<UserDTO> members = adminService.selectAllUsers(pagination.getRangeMap(itemsPerPage));
 	        model.addAttribute("memberList", members);

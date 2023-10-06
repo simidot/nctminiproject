@@ -1,5 +1,6 @@
 package com.nctclub.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.nctclub.model.CommentDTO;
@@ -15,4 +16,6 @@ public interface CommentService {
 	public int updateComment(CommentDTO commentDto);
 	
 	public int getCommentCountByMemberId(int nctmember_id);
+	
+    public List<CommentDTO> getCommentsByMemberIdWithPagination(int nctmember_id, HashMap<String, Integer> map);
 }
