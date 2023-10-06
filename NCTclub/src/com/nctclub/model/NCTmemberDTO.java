@@ -23,4 +23,5 @@ public class NCTmemberDTO {
     private String image;
     private Date regdate;
     private List<String> groupList; 
+    private int is_deleted;
 }

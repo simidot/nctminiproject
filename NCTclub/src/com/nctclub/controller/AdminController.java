@@ -54,8 +54,8 @@ public class AdminController {
 	        if (strPg != null) {
 	            pg = Integer.parseInt(strPg);
 	        }
-	        int itemsPerPage = 10; // 한 페이지에 표시될 아이템(데이터) 수
-	        int pagesPerBlock = 10; // 화면에 한 번에 표시될 페이지 번호의 개수
+	        int itemsPerPage = 5; // 한 페이지에 표시될 아이템(데이터) 수
+	        int pagesPerBlock = 5; // 화면에 한 번에 표시될 페이지 번호의 개수
 	        
 	        PaginationDTO pagination = PaginationDTO.builder()
                     .pg(pg)
@@ -176,7 +176,7 @@ public class AdminController {
         // 그 후 수정된 정보를 저장
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
-        model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");
+        model.addAttribute("successMessage", "멤버 정보 수정.");
 
 		return "redirect:detail?memberId="+dto.getMemberId();
     }
@@ -207,5 +207,16 @@ public class AdminController {
 
 		return "yes"; // 사용가능 
 	}
+	
+	// 숨겨진 엔시티 멤버 조회 
+	@RequestMapping(value = "/hiddenmember", method = RequestMethod.GET)
+	public String selectHiddenMember (Model model) {
+		List<NCTmemberDTO> nctmembers = adminService.selectHiddenMembers();
+		System.out.println(nctmembers.toString());
+		model.addAttribute("nctmemberList", nctmembers);
+		model.addAttribute("check", "yes");
+		return "main";
+	}
+	
 
 }

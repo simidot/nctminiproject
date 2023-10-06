@@ -27,4 +27,6 @@ public class UserDTO implements Serializable  {
        private String address;
        private UserRole userrole;  // Enum for 'USER' and 'ADMIN'
        private Date regdate;
+       private int is_deleted;
+
 }

@@ -51,12 +51,12 @@
 			                            <td>${member.regdate}</td>
 			                           
 			                            <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
-	                            	<!-- 삭제하기 버튼 -->
-	                            	<td><button data-user-id="${member.userId}" class="delete-button btn btn-dark d-block btn-sm">삭제하기
-	                            	</button></td>
-		                        	</c:if>			                        
-		                        		</tr>
-				                	</c:forEach>
+			                            	<!-- 삭제하기 버튼 -->
+			                            	<td><button data-user-id="${member.userId}" class="delete-button btn btn-dark d-block btn-sm">삭제하기
+			                            	</button></td>
+		                        		</c:if>			                        
+		                        	</tr>
+				                </c:forEach>
 					      </tbody>
 					   </table>
 				</div>

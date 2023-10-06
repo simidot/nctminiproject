@@ -161,6 +161,11 @@ public class AdminServiceImpl implements AdminService {
 		return mapper.nameCheck(name);
 	}
 
+	@Override
+	public List<NCTmemberDTO> selectHiddenMembers() {
+		return mapper.selectHiddenMembers();
+	}
+
 	/*
 	 * @Override public int updateMember(NCTmemberDTO dto) { return
 	 * mapper.updateMember(dto); }

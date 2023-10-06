@@ -42,4 +42,6 @@ public interface AdminMapper {
 	public int getUserCount();
 	public NCTmemberDTO nameCheck(String name);
 
+	public List<NCTmemberDTO> selectHiddenMembers();
+
 }

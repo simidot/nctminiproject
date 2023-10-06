@@ -27,6 +27,7 @@
         <result property="mbti" column="mbti" />
         <result property="image" column="image" />
         <result property="regdate" column="regdate" />
+        <result property="is_deleted" column="is_deleted" />
         <collection property="groupList" ofType="java.lang.String">
        		<result property="groupName" column="groupName" />
     	</collection>
@@ -34,15 +35,16 @@
 	
 	<!-- 엔시티 멤버 전체 선택하기 -->
 	<select id="selectAllMembers" resultMap="NCTmemberResultMap">
-  		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, listagg(groupName, ', ') within group(order by groupName) AS groupName
+  		SELECT memberId, name, birthdate, nationality, position, mbti, image, regdate, is_deleted, listagg(groupName, ', ') within group(order by groupName) AS groupName
 		FROM nctmembers
    		JOIN nctgroups ON (nctmembers.memberId = nctgroups.memberRefId)
-   		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate
+   		WHERE is_deleted = 0
+   		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate, is_deleted
   	</select> 
   	
   	<!-- 엔시티 멤버 멤버아이디로 선택하기 -->
 	 <select id="selectMember" resultMap="NCTmemberResultMap">
-        SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
+        SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, m.is_deleted, g.groupName
         FROM nctmembers m
         LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
         WHERE m.memberId = #{memberId}

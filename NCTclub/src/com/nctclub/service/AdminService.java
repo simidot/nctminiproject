@@ -35,7 +35,8 @@ public interface AdminService {
 	
 	public NCTmemberDTO nameCheck(String name);
 	
-	
+	// 숨긴 엔시티 멤버 정보 보기
+	public List<NCTmemberDTO> selectHiddenMembers();
 
 
 
