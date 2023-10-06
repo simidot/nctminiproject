@@ -17,27 +17,32 @@
 
         <!-- 답글의 답글 -->
         <div id="replyTemplate" class="d-none"> <!-- d-none으로 숨김 -->
-		    <div class="row mb-3">
-		        <div class="col-md-12">
-		            <div class="card bg-light mb-2">
-		                <div class="card-header d-flex justify-content-between">
-							<span>${sessionScope.loginDto.username}</span>
-		                </div>
-		                <div class="card-body">
-		                    <textarea class="form-control mb-2" rows="3" placeholder="답글 내용을 입력하세요"></textarea>
-		                    <div class="d-flex justify-content-end">
-		                        <button id="replyCommentBtn" class="btn btn-dark btn-sm mr-1">등록</button>
-		                    </div>
-		                </div>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-		<%@ include file="paging/paging.jsp" %>
-		<hr>
+          <div class="row mb-3">
+              <div class="col-md-12">
+                  <div class="card bg-light mb-2">
+                      <div class="card-header d-flex justify-content-between">
+                     <span>${sessionScope.loginDto.username}</span>
+                      </div>
+                      <div class="card-body">
+                          <textarea class="form-control mb-2" rows="3" placeholder="답글 내용을 입력하세요"></textarea>
+                          <div class="d-flex justify-content-end">
+                              <button id="replyCommentBtn" class="btn btn-dark btn-sm mr-1">등록</button>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+     
+      <hr>
         <!-- 새로운 댓글 작성 폼 -->
-		<c:if test="${userRole == 'ADMIN' or userRole == 'USER'}">
-		<div class="row mb-3">
+      <div id="paginationSection">
+      	<h2>페이징</h2>
+      </div>
+      
+      
+      <c:if test="${userRole == 'ADMIN' or userRole == 'USER'}">
+      <div class="row mb-3">
             <div class="col-md-12">
                 <div class="card mb-2">
                     <div class="card-header d-flex justify-content-between">
@@ -57,7 +62,6 @@
 </div>
 
 
-
 <script src="${ctxPath}/resources/js/reply.js"></script>
 
 <script>
@@ -68,9 +72,9 @@ $(document).ready(function() {
    var userName = '<%= ((UserDTO)session.getAttribute("loginDto")).getUsername() %>';
    var urlParams = new URLSearchParams(window.location.search);
    //nctmemberId
-    var nctmemberId = urlParams.get('memberId');
+   var nctmemberId = urlParams.get('memberId');
    //사용자 아이
-    var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getId()%>' ;
+   var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getId()%>' ;
     
     //댓글 불러오기
    loadComments();
@@ -152,64 +156,92 @@ $(document).ready(function() {
     });
     
 
-// 댓글 리스트 불러오는 함수
-function loadComments() {
-    var urlParams = new URLSearchParams(window.location.search);
-    var nctmemberId = urlParams.get('memberId');
-    replyFunc.get(nctmemberId, function(comments) {
-        // 댓글을 동적으로 추가하는 코드
-        var commentHtml = '';
-        $.each(comments, function(index, comment) {
-            if (comment.parents_id == null) { // 원본 댓글
-                commentHtml += generateCommentHtml(comment, userName);
-                
-                // 해당 원본 댓글에 달린 답글들을 찾아 추가
-                $.each(comments, function(replyIndex, replyComment) {
-                    if (replyComment.parents_id == comment.commentid) {
-                        commentHtml += generateCommentHtml(replyComment, userName);
-                    }
-                });
-            }
-        });
+    function loadComments(pg = 1, cntPerPage = 10) {
+        var urlParams = new URLSearchParams(window.location.search);
+        var nctmemberId = urlParams.get('memberId');
+        console.log(nctmemberId)
 
-        $('#commentSection').html(commentHtml); // 원본 댓글과 그에 딸린 답글들을 출력
-    });
-}
+        replyFunc.get(nctmemberId, pg, cntPerPage, function(response) {
+            // 응답에서 댓글과 페이지네이션 추출
+            var comments = response.comments;
+            var pagination = response.pagination;
+
+            var commentHtml = '';
+            $.each(comments, function(index, comment) {
+                if (comment.parents_id == null) { 
+                    commentHtml += generateCommentHtml(comment, userName);
+                    
+                    $.each(comments, function(replyIndex, replyComment) {
+                        if (replyComment.parents_id == comment.commentid) {
+                            commentHtml += generateCommentHtml(replyComment, userName);
+                        }
+                    });
+                }
+            });
+
+            $('#commentSection').html(commentHtml);
+            
+            // 페이지네이션 추가
+            var paginationHtml = '';
+
+            // 이전 페이지 버튼
+            if (pg > 1) {
+                paginationHtml += `<a href="javascript:loadComments(${pg - 1}, ${cntPerPage});">이전</a> `;
+            }
+
+            // 페이지 번호 버튼
+            for (var i = 1; i <= pagination.totalPages; i++) {
+                if (i == pg) {
+                    // 현재 페이지에 대한 시각적 피드백 (bold 처리)
+                    paginationHtml += `<a href="javascript:loadComments(${i}, ${cntPerPage});" style="font-weight: bold;">${i}</a> `;
+                } else {
+                    paginationHtml += `<a href="javascript:loadComments(${i}, ${cntPerPage});">${i}</a> `;
+                }
+            }
+
+            // 다음 페이지 버튼
+            if (pg < pagination.totalPages) {
+                paginationHtml += `<a href="javascript:loadComments(${pg + 1}, ${cntPerPage});">다음</a>`;
+            }
+
+            $('#paginationSection').html(paginationHtml);
+        });
+    }
 
 
 function generateCommentHtml(comment, userName) {
-	    var html = '';
-	    var paddingLeftValue = 15 + (comment.depth - 1) * 20;
-	    html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" data-depth="' + comment.depth + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
+       var html = '';
+       var paddingLeftValue = 15 + (comment.depth - 1) * 20;
+       html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" data-depth="' + comment.depth + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
 
-	    if (comment.depth == 2) {
-	        html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
-	    }
-	    html += '<div class="comment-header d-flex justify-content-between">';
-	    html += '<strong class="comment-username">' + comment.username + '</strong>';
+       if (comment.depth == 2) {
+           html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
+       }
+       html += '<div class="comment-header d-flex justify-content-between">';
+       html += '<strong class="comment-username">' + comment.username + '</strong>';
 
-	    var showDropdown = false;
-	    var dropdownHtml = '<div class="dropdown">';
-	    dropdownHtml += '<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>';
-	    dropdownHtml += '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: auto !important; padding-left: 5px !important; padding-right: 5px !important;">';
+       var showDropdown = false;
+       var dropdownHtml = '<div class="dropdown">';
+       dropdownHtml += '<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>';
+       dropdownHtml += '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: auto !important; padding-left: 5px !important; padding-right: 5px !important;">';
 
-	    if (comment.userid == userId) {
-	        dropdownHtml += '<a class="dropdown-item edit-button" style="padding-top: 3px; padding-bottom: 3px;">수정</a>';
-	        dropdownHtml += '<a class="dropdown-item delete-button btn-danger" style="padding-top: 3px; padding-bottom: 3px;">삭제</a>';
-	        showDropdown = true;
-	    }
-	    if (comment.depth == 1) {
-	        dropdownHtml += '<a class="dropdown-item reply-button">댓글달기</a>';
-	        showDropdown = true;
-	    }
-	    dropdownHtml += '</div>'; // end of dropdown-menu
-	    dropdownHtml += '</div>'; // end of dropdown
+       if (comment.userid == userId) {
+           dropdownHtml += '<a class="dropdown-item edit-button" style="padding-top: 3px; padding-bottom: 3px;">수정</a>';
+           dropdownHtml += '<a class="dropdown-item delete-button btn-danger" style="padding-top: 3px; padding-bottom: 3px;">삭제</a>';
+           showDropdown = true;
+       }
+       if (comment.depth == 1) {
+           dropdownHtml += '<a class="dropdown-item reply-button">댓글달기</a>';
+           showDropdown = true;
+       }
+       dropdownHtml += '</div>'; // end of dropdown-menu
+       dropdownHtml += '</div>'; // end of dropdown
 
-	    if (showDropdown) {
-	        html += dropdownHtml;
-	    }
-	    
-	    html += '</div>'; // end of comment-header
+       if (showDropdown) {
+           html += dropdownHtml;
+       }
+       
+       html += '</div>'; // end of comment-header
     html += '<div class="comment-content">';
     if (comment.is_deleted == 1) {
         html += '<p>삭제된 댓글입니다</p>';
@@ -221,7 +253,7 @@ function generateCommentHtml(comment, userName) {
     html += '</div>'; // end of comment-box
 
     return html;
-	}
+   }
 
 });
    
@@ -236,7 +268,7 @@ $(document).on('click', '.reply-button', function() {
         return;
     }
     // #replyTemplate의 내용을 복사
-	var replyForm = $('#replyTemplate').clone().removeAttr('id').removeClass('d-none').addClass('reply-form');
+   var replyForm = $('#replyTemplate').clone().removeAttr('id').removeClass('d-none').addClass('reply-form');
     // 새롭게 생성되는 답글 양식에 원본 댓글의 data-comment-id 값을 저장합니다.
     replyForm.find('.card').data('parent-comment-id', parentId);
     // 현재 댓글 카드의 바로 다음에 댓글 입력 양식 추가
@@ -276,12 +308,12 @@ $(document).on('click', '.save-edit', function() {
     var commentBox = $(this).closest('.comment-box');
     var updatedContent = commentBox.find('.edit-textarea').val();
     // 댓글의 고유 ID를 가져옵니다. 예를 들어, data-id 속성을 사용한다고 가정합니다.
-	var commentId = commentBox.data('comment-id');
+   var commentId = commentBox.data('comment-id');
     // 수정된 내용과 댓글의 ID를 포함하는 객체를 생성합니다.
-	var reply = {
-	    commentid: commentId,
-	    contents: updatedContent  
-	};
+   var reply = {
+       commentid: commentId,
+       contents: updatedContent  
+   };
     // update 함수를 호출하여 수정된 댓글 내용을 서버에 전송합니다.
     replyFunc.update(reply, function(result) {
         if (result === "success") {

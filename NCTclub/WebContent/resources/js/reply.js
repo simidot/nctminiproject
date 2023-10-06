@@ -34,13 +34,13 @@ var replyFunc = (function(){
         error:function(){alert("요청실패!!")}
     });
 }
-	// 댓글 전체 조회
-	function get(nctmember_id, cb){
-		$.get('/NCTclub/comment/list/'+nctmember_id, function(result){
-			if(cb) cb(result);
-		}).fail(function(){
-			alert('요청실패!!');
-		});
+
+	function get(nctmember_id, pg, cntPerPage, cb) {
+	    $.get(`/NCTclub/comment/list/${nctmember_id}?pg=${pg}&cntPerPage=${cntPerPage}`, function(result) {
+	        if (cb) cb(result);
+	    }, 'json').fail(function() {
+	        alert('요청실패!!');
+	    });
 	}
 	
 	// 댓글 수정
