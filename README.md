@@ -84,7 +84,7 @@
 
 ## 🚀 참여자 : N사모  
 
-|<img src="https://github.com/simidot/nctminiproject/assets/74632395/ecf8bf55-0b4c-475b-a1b8-01dca131271b" width="120"/><br/>BE 조솔하 <a href="https://github.com/josolha">GitHub</a>|<img src="https://github.com/simidot/nctminiproject/assets/74632395/3a286d21-fc6a-4de6-9028-03e14de66a5a" width="120"/><br/>BE 강유신 <a href="https://github.com/simidot">GitHub</a>|
+|<img src="https://github.com/simidot/nctminiproject/assets/74632395/ecf8bf55-0b4c-475b-a1b8-01dca131271b" width="120"/><br/>BE 조솔하 <a href="https://github.com/josolha">GitHub</a>|<img src="https://github.com/simidot/nctminiproject/assets/74632395/fdd43849-ca33-4c55-ade2-1b362a0959cc" width="120"/><br/>BE 강유신 <a href="https://github.com/simidot">GitHub</a>|
 |:---:|:---:|
 
 
