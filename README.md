@@ -34,7 +34,11 @@
 
 ![로그인 GIF](https://github.com/simidot/nctminiproject/assets/114278754/480eb52c-f311-4422-b51e-f4524ba093e2)
 
+### 시연 영상 
 
+| JO MALONE (모티브 사이트) | JO MALTWO(제작한 사이트) |
+| :--------: | :--------: |
+| <img width="500" height="400" alt="스크린샷 2023-06-02 오후 4 11 10" src="https://github.com/josolha/shoppingMall/assets/74632395/a26b36ec-3a00-47e4-8faf-9d8319dccbfd"> |<img width="500" height="400" alt="스크린샷 2023-06-02 오후 3 57 43" src="https://github.com/josolha/shoppingMall/assets/74632395/d0442b94-1bae-4df2-9bc9-d0a6da859bbc">|
 
 ## 📍 주요 기능
 ### 유저(회원) 권한
