@@ -54,41 +54,28 @@ Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&l
 
 
 ## 💊 트러블 슈팅
+## 데이터베이스 테이블에 여러 개의 레코드 삽입 시, 외래 키 시퀀스 중복 및 무결성 문제 해결 방법
 
-1. 삽입 SQL 시퀀스 데이터 무결성 제약조건 위반
-  1) 문제발생 상황 : nct 멤버 insert 삽입 SQL문에 두 개의 컬럼에 시퀀스 값을 넣어야 함. 그래서 value값에 시퀀스.nextval과 currval을 각각 넣었다.
-	```
-<!-- nctmembers 기본 정보 추가 -->
-	<insert id="insertMember" useGeneratedKeys="true" keyProperty="memberId" keyColumn="memberId">
-	   INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
-	   VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
-	</insert>
-	<!-- nctgroups 그룹 정보 추가 -->
-	<insert id = "insertGroupsForMember" parameterType = "java.util.List">
-	INSERT INTO nctgroups (groupId, memberRefId, groupName) 
-		SELECT NCTGROUPS_SEQ.NEXTVAL, #{memberId}, A.* FROM (
-			<foreach collection = "groupList" item = "group" separator = "UNION ALL">
-			SELECT #{group} FROM DUAL
-			</foreach>) A
-	</insert>
-   ```
-  3) 
-2. 
-3. 
+1. **Foreach 구문 적용**: 먼저, 여러 레코드를 삽입할 때 외래 키 시퀀스 중복 문제를 해결하기 위해 `foreach` 구문을 사용합니다. `foreach`를 사용하여 레코드를 반복적으로 삽입할 수 있습니다.
 
-| 단계  | 설명                                    |
-| ---------- | ---------------------------------------------- |
-| **문제발생 상황** |nct 멤버 insert 삽입 SQL문에 두 개의 컬럼에 시퀀스 값을 넣어야 함. 그래서 value값에 시퀀스.nextval과 currval을 각각 넣었다.<br><!-- Insert member --><br><insert id="insertMember">
-     INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
-     VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
-   </insert>
+2. **시퀀스 `currval` 활용**: 외래 키로 사용되는 `memberId`를 가져올 때, 현재 시퀀스 값인 `currval`을 활용합니다. 이를 통해 현재 삽입된 레코드의 `memberId`를 가져올 수 있습니다.
 
-<!-- Insert groups for member -->
-   <insert id="insertGroupsForMember">
-      <foreach collection="groupList" item="group" index="index" separator=",">
-          INSERT INTO nctgroups (groupId, groupName, memberRefId)
-          VALUES (NCTGROUPS_SEQ.NEXTVAL, #{group}, NCTMEMBERS_SEQ.CURRVAL)
-       </foreach>
-   </insert>
-> 그러나, 지속적으로 DataIntegrityViolationException 혹은 DuplicateKeyException 발생              |
-|**문제발생 원인**   | Show file differences that haven't been staged |
+3. **Generated Keys 사용**: 데이터베이스에서 생성된 키 값을 애플리케이션에서 가져오기 위해 `useGeneratedKeys` 설정을 활용합니다. 이 설정을 통해 데이터베이스가 생성한 `memberId` 값을 애플리케이션에서 쉽게 사용할 수 있습니다.
+
+### 삽입 SQL 문
+
+#### Insert Member
+
+```xml
+<insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
+    INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
+    VALUES (NCTMEMBERS_SEQ.NEXTVAL, #{name}, #{birthdate}, #{nationality}, #{position}, #{mbti}, #{image}, SYSDATE)
+</insert>
+<insert id="insertGroupsForMember" parameterType="java.util.List">
+    INSERT INTO nctgroups (groupId, memberRefId, groupName)
+    SELECT NCTGROUPS_SEQ.NEXTVAL, #{id}, A.* FROM (
+        <foreach collection="groupList" item="group" separator="UNION ALL">
+            SELECT #{group} FROM DUAL
+        </foreach>
+    ) A
+</insert>
