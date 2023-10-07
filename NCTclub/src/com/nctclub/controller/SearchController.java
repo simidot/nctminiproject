@@ -33,11 +33,12 @@ public class SearchController {
 		System.out.println(search);
 		System.out.println(option);
 		List<NCTmemberDTO> searchResult = new ArrayList<>();
-		if (check.equals("checked")) {
-			searchResult = searchService.searchMember(parameterMap);
-			System.out.println(searchResult.toString());
-		} else {
+		if (check.equals("yes")) {
 			searchResult = searchService.searchHiddenMember(parameterMap);
+			System.out.println(searchResult.toString());
+			model.addAttribute("check", "yes");
+		} else if (check.equals("")){
+			searchResult = searchService.searchMember(parameterMap);
 			System.out.println(searchResult.toString());
 		}
 		model.addAttribute("nctmemberList", searchResult);

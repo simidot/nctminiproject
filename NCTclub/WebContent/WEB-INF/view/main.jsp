@@ -37,8 +37,8 @@
 	                <c:if test="${userRole == 'ADMIN'}">
 					    <div class="col-md-5 text-right">
 					        <input type="checkbox" id="hiddenMemberCheckbox" class="form-check-input"
-					        <c:if test="${param.check == 'checked'}">checked</c:if>>
-					        <input type="hidden" name="check" id="checkHiddenField" value="">
+					        <c:if test="${check == 'yes'}">checked</c:if>>
+ 					        <input type="hidden" name="check" id="checkHiddenField" value="">
 					        <label class="hidden-member-check-label" for="hiddenMemberCheckbox">숨긴 멤버 보기</label>
 					    </div>
 					</c:if>
@@ -67,19 +67,31 @@
 
 
 <script>
+//페이지가 로드될 때 초기 상태를 설정합니다.
+window.addEventListener("load", function () {
     const checkbox = document.getElementById("hiddenMemberCheckbox");
-    const checkHiddenField = document.getElementById("checkHiddenField");
-
+     const checkHiddenField = document.getElementById("checkHiddenField");
+    
+    // 페이지 로드 시 체크박스의 상태를 반영합니다.
+    updateHiddenField();
+     
     checkbox.addEventListener("change", function () {
-    	const ischecked = checkbox.checked;
-    	
         if (checkbox.checked) {
-            checkHiddenField.value = "checked";
-        	location.href = "${ctxPath}/admin/hiddenmember";
-        } else {
-            checkHiddenField.value = ""; // 체크 해제된 경우 값을 비웁니다.
-        	location.href = "${ctxPath}/user/main";
+            location.href = "${ctxPath}/admin/hiddenmember?checked=yes";
+        } 
+        else {
+            location.href = "${ctxPath}/user/main";
         }
     });
+    
+    // hidden 필드 값을 업데이트하는 함수
+    function updateHiddenField() {
+        checkHiddenField.value = checkbox.checked ? "yes" : "";
+    } 
+});
+
+
 </script>
+
+
 <%@ include file="inc/footer.jsp" %>
