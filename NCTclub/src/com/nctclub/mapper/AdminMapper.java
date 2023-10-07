@@ -44,4 +44,6 @@ public interface AdminMapper {
 
 	public List<NCTmemberDTO> selectHiddenMembers();
 
+	public int unhideMember(int memberId);
+
 }

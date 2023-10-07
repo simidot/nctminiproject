@@ -20,7 +20,8 @@
        		<result property="groupName" column="groupName" />
     	</collection>
     </resultMap>
-    
+   
+   <!-- 멤버 검색하기 -->
    <select id="searchMember" parameterType="Map" resultMap="searchResultMap">
    SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
    FROM nctmembers m
@@ -30,6 +31,19 @@
    </if> 
    <if test='option == "g"'>
        WHERE g.groupname = #{search} AND is_deleted = 0
+   </if>      
+	</select>
+	
+	<!-- 숨겨진 멤버 검색하기 -->
+	<select id="searchHiddenMember" parameterType="Map" resultMap="searchResultMap">
+   SELECT m.memberId, m.name, m.birthdate, m.nationality, m.position, m.mbti, m.image, m.regdate, g.groupName
+   FROM nctmembers m
+   LEFT JOIN nctgroups g ON m.memberId = g.memberRefId
+   <if test='option == "n"'>
+       WHERE m.name = #{search} AND is_deleted = 1
+   </if> 
+   <if test='option == "g"'>
+       WHERE g.groupname = #{search} AND is_deleted = 1
    </if>      
 	</select>
 
