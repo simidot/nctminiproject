@@ -24,14 +24,14 @@ IDE <img src="https://img.shields.io/badge/eclipse ide-2C2255?style=for-the-badg
 
 Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 
+## ERD
+![image](https://github.com/simidot/nctminiproject/assets/114278754/54fcc3d5-afed-4b27-9762-2b14da8abea9)
+
 ## 와이어 프레임
 ![image](https://github.com/simidot/nctminiproject/assets/114278754/806cf5d0-b14e-47bc-96bd-64e00adb88f5)
 ![image](https://github.com/simidot/nctminiproject/assets/114278754/d9302fe2-c899-4055-8f0c-1d96dac8d6fb)
 ![image](https://github.com/simidot/nctminiproject/assets/114278754/078e685d-b0c2-4dee-bcb7-00fe2c6c8527)
 
-
-## ERD
-![image](https://github.com/simidot/nctminiproject/assets/114278754/54fcc3d5-afed-4b27-9762-2b14da8abea9)
 
 ## 📍 주요 기능
 ### 유저(회원) 권한
