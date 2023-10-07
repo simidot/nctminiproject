@@ -61,6 +61,7 @@ Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&l
     - 사용자는 다른 회원의 댓글을 조회하고, 자신의 댓글을 작성, 수정, 삭제할 수 있다.
 
 
+
 ### 관리자 권한
 
 1. **전체 NCT멤버 조회 및 관리:**
