@@ -76,6 +76,13 @@ Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&l
       **_(프로필 이미지를 업로드하여 서버에 저장하고 해당 이미지를 멤버 프로필에 표시 가능)_**
 
 
+
+## 🚀 Team N사모
+
+|<img src="https://github.com/simidot/nctminiproject/assets/74632395/ecf8bf55-0b4c-475b-a1b8-01dca131271b" width="120"/><br/>BE 조솔하 <a href="https://github.com/josolha">GitHub</a>|<img src="https://github.com/simidot/nctminiproject/assets/74632395/3a286d21-fc6a-4de6-9028-03e14de66a5a" width="120"/><br/>BE 강유신 <a href="https://github.com/simidot">GitHub</a>|
+|:---:|:---:|
+
+
 ## 💊 트러블 슈팅
 ## 데이터베이스 테이블에 여러 개의 레코드 삽입 시, 외래 키 시퀀스 중복 및 무결성 문제 해결 방법
 
