@@ -31,6 +31,11 @@
 ![image](https://github.com/simidot/nctminiproject/assets/114278754/078e685d-b0c2-4dee-bcb7-00fe2c6c8527)
 
 
+
+![로그인 GIF](https://github.com/simidot/nctminiproject/assets/114278754/480eb52c-f311-4422-b51e-f4524ba093e2)
+
+
+
 ## 📍 주요 기능
 ### 유저(회원) 권한
 
