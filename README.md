@@ -1,10 +1,13 @@
 # 💚nctminiproject💚
 
 # 🚩 Overview
-> NCT가 누구야? 유명한 사람들이지~
-> 
-엔시티를 소개하고 회원들끼리 서로 의견을 나눌 수 있는 사이트를 만들었습니다.
+> NCT 맴버를 좋아하는 사람들의 커뮤니티
 
+아이돌 NCT 그룹의 멤버의 정보를 확인 가능 하고 👀
+
+회원들끼리 서로 의견을 나눌 수 있는 커뮤티니 사이트 입니다~❤
+
+ 
 # 👀 Project
 ## 프로젝트 아키텍쳐
 
@@ -77,7 +80,7 @@ Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&l
 
 
 
-## 🚀 Team N사모
+## 🚀 참여자 : N사모  
 
 |<img src="https://github.com/simidot/nctminiproject/assets/74632395/ecf8bf55-0b4c-475b-a1b8-01dca131271b" width="120"/><br/>BE 조솔하 <a href="https://github.com/josolha">GitHub</a>|<img src="https://github.com/simidot/nctminiproject/assets/74632395/3a286d21-fc6a-4de6-9028-03e14de66a5a" width="120"/><br/>BE 강유신 <a href="https://github.com/simidot">GitHub</a>|
 |:---:|:---:|
