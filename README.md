@@ -25,7 +25,8 @@ IDE <img src="https://img.shields.io/badge/eclipse ide-2C2255?style=for-the-badg
 Design <img src="https://img.shields.io/badge/figma-F24E1E?style=for-the-badge&logo=figma&logoColor=white">
 
 ## ERD
-![image](https://github.com/simidot/nctminiproject/assets/114278754/54fcc3d5-afed-4b27-9762-2b14da8abea9)
+![image](https://github.com/simidot/nctminiproject/assets/74632395/873f2013-46bb-42d4-809b-f65e0355cbe8)
+
 
 ## 와이어 프레임
 ![image](https://github.com/simidot/nctminiproject/assets/114278754/806cf5d0-b14e-47bc-96bd-64e00adb88f5)
