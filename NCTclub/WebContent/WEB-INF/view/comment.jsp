@@ -17,30 +17,26 @@
 
         <!-- 답글의 답글 -->
         <div id="replyTemplate" class="d-none"> <!-- d-none으로 숨김 -->
-          <div class="row mb-3">
-              <div class="col-md-12">
-                  <div class="card bg-light mb-2">
-                      <div class="card-header d-flex justify-content-between">
-                     <span>${sessionScope.loginDto.username}</span>
-                      </div>
-                      <div class="card-body">
-                          <textarea class="form-control mb-2" rows="3" placeholder="답글 내용을 입력하세요"></textarea>
-                          <div class="d-flex justify-content-end">
-                              <button id="replyCommentBtn" class="btn btn-dark btn-sm mr-1">등록</button>
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
+	          <div class="row mb-3">
+	              <div class="col-md-12">
+	                  <div class="card bg-light mb-2">
+	                      <div class="card-header d-flex justify-content-between">
+	                     <span>${sessionScope.loginDto.username}</span>
+	                      </div>
+	                      <div class="card-body">
+	                          <textarea class="form-control mb-2" rows="3" placeholder="답글 내용을 입력하세요"></textarea>
+	                          <div class="d-flex justify-content-end">
+	                              <button id="replyCommentBtn" class="btn btn-dark btn-sm mr-1">등록</button>
+	                          </div>
+	                      </div>
+	                  </div>
+	              </div>
+	          </div>
+      	</div>
+              <!-- 새로운 댓글 작성 폼 -->
+      <div id="paginationSection" ></div>
      
       <hr>
-        <!-- 새로운 댓글 작성 폼 -->
-      <div id="paginationSection">
-      	<h2>페이징</h2>
-      </div>
-      
-      
       <c:if test="${userRole == 'ADMIN' or userRole == 'USER'}">
       <div class="row mb-3">
             <div class="col-md-12">
@@ -66,8 +62,102 @@
 
 <script>
 
+function loadComments(pg = 1, cntPerPage = 10) {
+    var urlParams = new URLSearchParams(window.location.search);
+    var nctmemberId = urlParams.get('memberId');
+    console.log(nctmemberId)
+
+    replyFunc.get(nctmemberId, pg, cntPerPage, function(response) {
+        // 응답에서 댓글과 페이지네이션 추출
+        var comments = response.comments;
+        var pagination = response.pagination;
+        var commentHtml = '';
+        $.each(comments, function(index, comment) {
+            if (comment.parents_id == null) { 
+                commentHtml += generateCommentHtml(comment);
+                
+                $.each(comments, function(replyIndex, replyComment) {
+                    if (replyComment.parents_id == comment.commentid) {
+                        commentHtml += generateCommentHtml(replyComment);
+                    }
+                });
+            }
+        });
+
+        $('#commentSection').html(commentHtml);
+         // 페이지네이션 추가
+         var paginationHtml = '';
+         // 이전 페이지 버튼
+         if (pagination.pg > 1) {
+             paginationHtml += '<a href="javascript:void(0);" onclick="loadComments(' + (pagination.pg - 1) + ');">이전</a> ';
+         }
+         // 페이지 번호 버튼
+         for (var i = 1; i <= pagination.allPage; i++) {
+             if (i == pagination.pg) {
+                 // 현재 페이지에 대한 시각적 피드백 (bold 처리)
+                 paginationHtml += '<a href="javascript:void(0);" style="font-weight: bold;" onclick="loadComments(' + i + ');">' + i + '</a> ';
+             } else {
+                 paginationHtml += '<a href="javascript:void(0);" onclick="loadComments(' + i + ');">' + i + '</a> ';
+             }
+         }
+         // 다음 페이지 버튼
+         if (pagination.pg < pagination.allPage) {
+             paginationHtml += '<a href="javascript:void(0);" onclick="loadComments(' + (pagination.pg + 1) + ');">다음</a>';
+         }
+         $('#paginationSection').html(paginationHtml);
+        });
+}
+
+function generateCommentHtml(comment) {
+	var userId = '<%= ((UserDTO)session.getAttribute("loginDto")).getId()%>' ;
+	
+    var html = '';
+    var paddingLeftValue = 15 + (comment.depth - 1) * 20;
+    html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" data-depth="' + comment.depth + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
+
+    if (comment.depth == 2) {
+        html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
+    }
+    html += '<div class="comment-header d-flex justify-content-between">';
+    html += '<strong class="comment-username">' + comment.username + '</strong>';
+
+    var showDropdown = false;
+    var dropdownHtml = '<div class="dropdown">';
+    dropdownHtml += '<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>';
+    dropdownHtml += '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: auto !important; padding-left: 5px !important; padding-right: 5px !important;">';
+
+    if (comment.userid == userId) {
+        dropdownHtml += '<a class="dropdown-item edit-button" style="padding-top: 3px; padding-bottom: 3px;">수정</a>';
+        dropdownHtml += '<a class="dropdown-item delete-button btn-danger" style="padding-top: 3px; padding-bottom: 3px;">삭제</a>';
+        showDropdown = true;
+    }
+    if (comment.depth == 1) {
+        dropdownHtml += '<a class="dropdown-item reply-button">댓글달기</a>';
+        showDropdown = true;
+    }
+    dropdownHtml += '</div>'; // end of dropdown-menu
+    dropdownHtml += '</div>'; // end of dropdown
+
+    if (showDropdown) {
+        html += dropdownHtml;
+    }
+    
+	    html += '</div>'; // end of comment-header
+	 html += '<div class="comment-content">';
+	 if (comment.is_deleted == 1) {
+	     html += '<p>삭제된 댓글입니다</p>';
+	 } else {
+	     html += '<p>' + comment.contents + '</p>';
+	 }
+	 html += '</div>';
+	 html += '<div class="comment-time">' + replyFunc.showDateTime(comment.regdate) + '</div>';
+	 html += '</div>'; // end of comment-box
+	
+	 return html;
+}
+
+
 $(document).ready(function() {
-   
    //사용자 이름 
    var userName = '<%= ((UserDTO)session.getAttribute("loginDto")).getUsername() %>';
    var urlParams = new URLSearchParams(window.location.search);
@@ -155,106 +245,6 @@ $(document).ready(function() {
         }
     });
     
-
-    function loadComments(pg = 1, cntPerPage = 10) {
-        var urlParams = new URLSearchParams(window.location.search);
-        var nctmemberId = urlParams.get('memberId');
-        console.log(nctmemberId)
-
-        replyFunc.get(nctmemberId, pg, cntPerPage, function(response) {
-            // 응답에서 댓글과 페이지네이션 추출
-            var comments = response.comments;
-            var pagination = response.pagination;
-
-            var commentHtml = '';
-            $.each(comments, function(index, comment) {
-                if (comment.parents_id == null) { 
-                    commentHtml += generateCommentHtml(comment, userName);
-                    
-                    $.each(comments, function(replyIndex, replyComment) {
-                        if (replyComment.parents_id == comment.commentid) {
-                            commentHtml += generateCommentHtml(replyComment, userName);
-                        }
-                    });
-                }
-            });
-
-            $('#commentSection').html(commentHtml);
-            
-            // 페이지네이션 추가
-            var paginationHtml = '';
-
-            // 이전 페이지 버튼
-            if (pg > 1) {
-                paginationHtml += `<a href="javascript:loadComments(${pg - 1}, ${cntPerPage});">이전</a> `;
-            }
-
-            // 페이지 번호 버튼
-            for (var i = 1; i <= pagination.totalPages; i++) {
-                if (i == pg) {
-                    // 현재 페이지에 대한 시각적 피드백 (bold 처리)
-                    paginationHtml += `<a href="javascript:loadComments(${i}, ${cntPerPage});" style="font-weight: bold;">${i}</a> `;
-                } else {
-                    paginationHtml += `<a href="javascript:loadComments(${i}, ${cntPerPage});">${i}</a> `;
-                }
-            }
-
-            // 다음 페이지 버튼
-            if (pg < pagination.totalPages) {
-                paginationHtml += `<a href="javascript:loadComments(${pg + 1}, ${cntPerPage});">다음</a>`;
-            }
-
-            $('#paginationSection').html(paginationHtml);
-        });
-    }
-
-
-function generateCommentHtml(comment, userName) {
-       var html = '';
-       var paddingLeftValue = 15 + (comment.depth - 1) * 20;
-       html += '<div class="comment-box mb-3" data-comment-id="' + comment.commentid + '" data-depth="' + comment.depth + '" style="border-bottom: 1px solid #e5e5e5; padding-left: ' + paddingLeftValue + 'px;">';
-
-       if (comment.depth == 2) {
-           html += '<div class="reply-indicator" style="position: absolute; margin-left: -20px;">ㄴ</div>'; 
-       }
-       html += '<div class="comment-header d-flex justify-content-between">';
-       html += '<strong class="comment-username">' + comment.username + '</strong>';
-
-       var showDropdown = false;
-       var dropdownHtml = '<div class="dropdown">';
-       dropdownHtml += '<button class="btn btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></button>';
-       dropdownHtml += '<div class="dropdown-menu" aria-labelledby="dropdownMenuButton" style="min-width: auto !important; padding-left: 5px !important; padding-right: 5px !important;">';
-
-       if (comment.userid == userId) {
-           dropdownHtml += '<a class="dropdown-item edit-button" style="padding-top: 3px; padding-bottom: 3px;">수정</a>';
-           dropdownHtml += '<a class="dropdown-item delete-button btn-danger" style="padding-top: 3px; padding-bottom: 3px;">삭제</a>';
-           showDropdown = true;
-       }
-       if (comment.depth == 1) {
-           dropdownHtml += '<a class="dropdown-item reply-button">댓글달기</a>';
-           showDropdown = true;
-       }
-       dropdownHtml += '</div>'; // end of dropdown-menu
-       dropdownHtml += '</div>'; // end of dropdown
-
-       if (showDropdown) {
-           html += dropdownHtml;
-       }
-       
-       html += '</div>'; // end of comment-header
-    html += '<div class="comment-content">';
-    if (comment.is_deleted == 1) {
-        html += '<p>삭제된 댓글입니다</p>';
-    } else {
-        html += '<p>' + comment.contents + '</p>';
-    }
-    html += '</div>';
-    html += '<div class="comment-time">' + replyFunc.showDateTime(comment.regdate) + '</div>';
-    html += '</div>'; // end of comment-box
-
-    return html;
-   }
-
 });
    
 $(document).on('click', '.reply-button', function() {
@@ -332,6 +322,7 @@ $(document).on('click', '.cancel-edit', function() {
     commentBox.find('.comment-content').show();
     commentBox.find('.edit-textarea, .save-edit, .cancel-edit').remove();
 });
+
 
 
 </script>
