@@ -118,6 +118,19 @@ $(document).ready(function() {
         $("#updatenotificationModal").modal("show");
     }
 });
+
+
+//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
+  $(".hide-button").on("click", function () {
+      // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
+      const memberId = $(this).data("member-id");
+      console.log(memberId);
+      
+      // 삭제하기 확인 모달을 띄웁니다.
+      deleteMemberConfirmation(memberId);
+  });
+
+
 // URL에서 파라미터를 추출하는 함수
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -129,15 +142,6 @@ function getParameterByName(name, url) {
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
-//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
-$(".hide-button").on("click", function () {
-    // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
-    const memberId = $(this).data("member-id");
-    console.log(memberId);
-    
-    // 삭제하기 확인 모달을 띄웁니다.
-    deleteMemberConfirmation(memberId);
-});
 //삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
 function deleteMemberConfirmation(memberId) {
     // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
@@ -145,7 +149,7 @@ function deleteMemberConfirmation(memberId) {
     console.log(memberId);
     
     // 모달 창을 띄웁니다.
-    $("#deletenotificationModal").modal("show");
+    $("#hidenotificationModal").modal("show");
     
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
     $("#confirmDeleteButton").on("click", function () {
@@ -169,27 +173,7 @@ $(".unhide-button").on("click", function () {
     // 삭제하기 확인 모달을 띄웁니다.
     deleteMemberConfirmation(memberId);
 });
-//삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
-function deleteMemberConfirmation(memberId) {
-    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
-    const memberIdToDelete = memberId;
-    console.log(memberId);
-    
-    // 모달 창을 띄웁니다.
-    $("#deletenotificationModal").modal("show");
-    
-    // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    $("#confirmDeleteButton").on("click", function () {
-        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
-        if (memberIdToDelete) {
-            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
-            console.log(deleteUrl);
-            
-            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
-            
-        }
-    });
-}
+
 </script>
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>
