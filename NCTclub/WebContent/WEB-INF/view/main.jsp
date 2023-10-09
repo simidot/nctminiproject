@@ -35,6 +35,7 @@
 					<div class="col-md-2 text-center form-check">
 					    <input type="checkbox" id="hiddenMemberCheckbox" class="form-check-input"
 					    <c:if test="${check == 'yes'}">checked</c:if>>
+					     <input type="hidden" name="check" id="checkHiddenField" value="">
 					    <label class="hidden-member-check-label form-check-label" for="hiddenMemberCheckbox">숨긴 멤버 보기</label>
 					</div>
                 </c:if>
@@ -69,16 +70,29 @@
 </div>
 
 <script>
+//페이지가 로드될 때 초기 상태를 설정합니다.
+window.addEventListener("load", function () {
     const checkbox = document.getElementById("hiddenMemberCheckbox");
-
+     const checkHiddenField = document.getElementById("checkHiddenField");
+    
+    // 페이지 로드 시 체크박스의 상태를 반영합니다.
+    updateHiddenField();
+     
     checkbox.addEventListener("change", function () {
-        const ischecked = checkbox.checked;
-        
         if (checkbox.checked) {
-            location.href = "${ctxPath}/admin/hiddenmember";
-        } else {
+            location.href = "${ctxPath}/admin/hiddenmember?checked=yes";
+        } 
+        else {
             location.href = "${ctxPath}/user/main";
         }
     });
+    
+    // hidden 필드 값을 업데이트하는 함수
+    function updateHiddenField() {
+        checkHiddenField.value = checkbox.checked ? "yes" : "";
+    } 
+});
 </script>
+
+
 <%@ include file="inc/footer.jsp" %>

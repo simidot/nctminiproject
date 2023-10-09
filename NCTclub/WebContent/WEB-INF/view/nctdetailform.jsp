@@ -41,7 +41,6 @@
                         <p>소속 그룹: ${nctmemberDTO.groupList}</p>
                         <p>포지션: ${nctmemberDTO.position}</p>
                         <p>MBTI: ${nctmemberDTO.mbti}</p>
-
                         <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
                             <!-- 수정하기 버튼 -->
                             <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-dark btn-sm">수정하기</a>
@@ -55,15 +54,33 @@
 	                        	</c:otherwise>
                         	</c:choose>
                         </c:if>
-                    </div>
+          </div>
                 </div>
             </div>
         </div>
     </div>
-    
-    
-	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+
+	    <div class="modal fade" id="updatenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
+		        <div class="modal-content">
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <div class="modal-body">
+		                <p id="notificationMessage">${successMessage}</p> <!-- successMessage를 출력하는 부분 -->
+		            </div>
+		            <div class="modal-footer">
+		                <button id="confirmUpdateButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+
+	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
+		    <div class="modal-dialog" role="document">  
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
@@ -75,11 +92,11 @@
 		                <p id="notificationMessage">멤버 정보가 메인 화면에서 숨겨집니다. 정말 숨기시겠습니까?</p>
 		            </div>
 		            <div class="modal-footer">
-		                <button id = "confirmDeleteButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
+		                <button id = "confirmHideButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
 		            </div>
 		        </div>
 		    </div>
-		</div>
+  		</div>
 		
 		<div class="modal fade" id="unhideNotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
@@ -118,19 +135,6 @@ $(document).ready(function() {
         $("#updatenotificationModal").modal("show");
     }
 });
-
-
-//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
-  $(".hide-button").on("click", function () {
-      // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
-      const memberId = $(this).data("member-id");
-      console.log(memberId);
-      
-      // 삭제하기 확인 모달을 띄웁니다.
-      deleteMemberConfirmation(memberId);
-  });
-
-
 // URL에서 파라미터를 추출하는 함수
 function getParameterByName(name, url) {
     if (!url) url = window.location.href;
@@ -141,29 +145,36 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
+//삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
+$(".hide-button").on("click", function () {
+    // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
+    const memberId = $(this).data("member-id");
+    console.log(memberId);
+    
+    // 삭제하기 확인 모달을 띄웁니다.
+    hideMemberConfirmation(memberId);
+});
 //삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
-function deleteMemberConfirmation(memberId) {
-    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
-    const memberIdToDelete = memberId;
+function hideMemberConfirmation(memberId) {
+    // memberIdToHide 변수에 삭제할 멤버의 아이디를 저장
+    const memberIdToHide = memberId;
     console.log(memberId);
     
     // 모달 창을 띄웁니다.
     $("#hidenotificationModal").modal("show");
     
     // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
-    $("#confirmDeleteButton").on("click", function () {
-        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
-        if (memberIdToDelete) {
-            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
+    $("#confirmHideButton").on("click", function () {
+        if (memberIdToHide) {
+            const deleteUrl = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToHide;
             console.log(deleteUrl);
             
-            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToDelete;
-            
+            window.location.href = '<c:url value="/admin/deletemember"/>' + "?memberId=" + memberIdToHide;
         }
     });
 }   
-      
+
+
 //삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
 $(".unhide-button").on("click", function () {
     // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
@@ -171,9 +182,31 @@ $(".unhide-button").on("click", function () {
     console.log(memberId);
     
     // 삭제하기 확인 모달을 띄웁니다.
-    deleteMemberConfirmation(memberId);
+    unhideMemberConfirmation(memberId);
 });
+//삭제하기 버튼을 클릭했을 때 모달 창을 띄우는 함수
+function unhideMemberConfirmation(memberId) {
+    // memberIdToDelete 변수에 삭제할 멤버의 아이디를 저장
+    const memberIdToUnhide = memberId;
+    console.log(memberId);
+    
+    // 모달 창을 띄웁니다.
+    $("#unhideNotificationModal").modal("show");
+    
+    // 확인 버튼 클릭 시 삭제 동작을 수행합니다.
+    $("#confirmUnhideButton").on("click", function () {
+        // "삭제" 버튼 클릭 시, 삭제 AJAX 요청을 보냅니다.
+        if (memberIdToUnhide) {
+            const deleteUrl = '<c:url value="/admin/unhidemember"/>' + "?memberId=" + memberIdToUnhide;
+            console.log(deleteUrl);
+            
+            window.location.href = '<c:url value="/admin/unhidemember"/>' + "?memberId=" + memberIdToUnhide;    
+        }
+    });
+}
 
+
+  
 </script>
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>

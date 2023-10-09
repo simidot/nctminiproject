@@ -37,6 +37,7 @@ public interface AdminService {
 	
 	// 숨긴 엔시티 멤버 정보 보기
 	public List<NCTmemberDTO> selectHiddenMembers();
+	public int unhideMember(int memberId);
 
 
 

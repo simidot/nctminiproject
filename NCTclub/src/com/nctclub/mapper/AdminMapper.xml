@@ -134,6 +134,12 @@
    		WHERE is_deleted = 1
    		GROUP BY memberId, name, birthdate, nationality, position, mbti, image, regdate, is_deleted
   	</select> 
+  	
+	 <update id="unhideMember">
+  		UPDATE nctmembers 
+ 	 	SET is_deleted = 0
+ 	 	WHERE memberId = #{memberId} 
+  	</update>
 
   	
   	

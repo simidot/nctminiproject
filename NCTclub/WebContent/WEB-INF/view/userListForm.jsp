@@ -27,7 +27,7 @@
 							<table class="table">
 							     <thead>
 							        <tr>
-			                        <th>USER ID.</th>
+			                        <th>ID.</th>
 			                        <th>NAME.</th>
 			                        <th>NICKNAME.</th>
 			                        <th>BIRTHDATE.</th>
@@ -35,7 +35,7 @@
 			                        <th>EMAIL.</th>
 			                        <th>ADDRESS.</th>
 			                        <th>REGDATE.</th>
-			                        <th>DELETE USER.</th>
+			                        <th>DELETE.</th>
 			                    </tr>
 			                </thead>
 			                <tbody>

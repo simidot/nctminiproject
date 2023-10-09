@@ -176,7 +176,7 @@ public class AdminController {
         // 그 후 수정된 정보를 저장
         adminService.updateMemberWithGroups(dto);
         System.out.println("수정완:" + dto.toString());
-        model.addAttribute("successMessage", "멤버 정보 수정.");
+        model.addAttribute("successMessage", "멤버 정보 수정이 완료되었습니다.");
 
 		return "redirect:detail?memberId="+dto.getMemberId();
     }
@@ -210,13 +210,25 @@ public class AdminController {
 	
 	// 숨겨진 엔시티 멤버 조회 
 	@RequestMapping(value = "/hiddenmember", method = RequestMethod.GET)
-	public String selectHiddenMember (Model model) {
+	public String selectHiddenMember (Model model, @RequestParam("checked") String checked) {
 		List<NCTmemberDTO> nctmembers = adminService.selectHiddenMembers();
 		System.out.println(nctmembers.toString());
 		model.addAttribute("nctmemberList", nctmembers);
 		model.addAttribute("check", "yes");
+
 		return "main";
 	}
+
+	// 숨겨진 엔시티 멤버 숨김 해제
+	 @RequestMapping(value ="/unhidemember", method = RequestMethod.GET)
+	 public String unhidemember(@RequestParam("memberId") int memberId) {
+	     int result = adminService.unhideMember(memberId);
+	     if (result ==1) {
+				return "redirect:/user/main";
+			} else {
+				return "no"; //여기 에러페이지로 이동하도록 수정하기**
+			}
+	 }
 	
 
 }
