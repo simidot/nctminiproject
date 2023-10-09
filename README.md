@@ -1,4 +1,4 @@
-
+![멤버 조회및 수정숨김 기능](https://github.com/simidot/nctminiproject/assets/114278754/a7452c12-acdf-4b2f-b9e5-55c89fdf32df)
 #  🍳Overview
 
 > 💚nctminiproject💚 NCT 맴버를 좋아하는 사람들의 커뮤니티
@@ -35,10 +35,17 @@
 
 ### 시연 영상 
 
-| JO MALONE (모티브 사이트) | JO MALTWO(제작한 사이트) |
+| 로그인 기능 | 회원가입 기능|
 | :--------: | :--------: |
-| ![로그인 GIF](https://github.com/simidot/nctminiproject/assets/114278754/480eb52c-f311-4422-b51e-f4524ba093e2)>|![로그인 GIF](https://github.com/simidot/nctminiproject/assets/114278754/480eb52c-f311-4422-b51e-f4524ba093e2)"|
-|||
+| ![로그인 GIF](https://github.com/simidot/nctminiproject/assets/114278754/480eb52c-f311-4422-b51e-f4524ba093e2)|![회원가입 기능](https://github.com/simidot/nctminiproject/assets/114278754/07d203a9-dc42-4ee5-8419-5d8003b94154)|
+|**NCT 멤버 정보 조회**|**NCT 멤버 검색**|
+|![유저 멤버상세보기](https://github.com/simidot/nctminiproject/assets/114278754/a26166d9-4086-447c-b009-f13565ebebbe)|![멤버 검색기능](https://github.com/simidot/nctminiproject/assets/114278754/2a9cde93-b653-4f80-ae83-f59cbe4b7fa5)|
+|**유저별 댓글 조회 및 작성/수정/삭제**|**전체 NCT멤버 조회 및 관리**|
+|![유저 댓글기능](https://github.com/simidot/nctminiproject/assets/114278754/40a427ec-dd87-49d2-8f5a-74e387e10e5b)|![멤버 조회및 수정숨김 기능](https://github.com/simidot/nctminiproject/assets/114278754/36ad3d60-e686-4688-a6ac-9dc0f5c14a6c)|
+|**전체 유저 조회 및 관리**|**NCT멤버 등록**|
+|![유저관리기능](https://github.com/simidot/nctminiproject/assets/114278754/1241ae72-3545-4639-9563-446fa4133c95)|![멤버등록 기능](https://github.com/simidot/nctminiproject/assets/114278754/bcb5d8c6-4867-4d6e-acc3-aa77144b4418)|
+
+
 ## 📍 주요 기능
 ### 유저(회원) 권한
 
