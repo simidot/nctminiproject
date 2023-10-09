@@ -103,10 +103,8 @@
 
 3. **Generated Keys 사용**: 데이터베이스에서 생성된 키 값을 애플리케이션에서 가져오기 위해 `useGeneratedKeys` 설정을 활용합니다. 이 설정을 통해 데이터베이스가 생성한 `memberId` 값을 애플리케이션에서 쉽게 사용할 수 있습니다.
 
-### 삽입 SQL 문
-
-#### Insert Member
-
+#### 삽입 SQL 문
+Insert Member
 ```xml
 <insert id="insertMember" useGeneratedKeys="true" keyProperty="id" keyColumn="memberId">
     INSERT INTO nctmembers (memberId, name, birthdate, nationality, position, mbti, image, regdate)
