@@ -88,13 +88,11 @@
 
 
 
-## 🚀 참여자 : N사모  
+## 🚀 참여자 : N사모 (23.09.18 ~ 23.10.09)
 
 |<img src="https://github.com/simidot/nctminiproject/assets/74632395/69cc536e-5419-4463-85f2-5ef30f2b5feb" width="120" height="160"/><br/>BE 조솔하 <a href="https://github.com/josolha">GitHub</a>|<img src="https://github.com/simidot/nctminiproject/assets/74632395/fdd43849-ca33-4c55-ade2-1b362a0959cc" width="120" height="160"/><br/>BE 강유신 <a href="https://github.com/simidot">GitHub</a>|
 |:---:|:---:|
 
-
-## 기간 : 23.09.18 ~ 23.10.09
 
 ## 💊 트러블 슈팅
 ## [데이터베이스 테이블에 여러 개의 레코드 삽입 시, 외래 키 시퀀스 중복 및 무결성 문제 해결 방법](https://hehesim.tistory.com/41)
