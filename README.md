@@ -1,4 +1,3 @@
-![멤버 조회및 수정숨김 기능](https://github.com/simidot/nctminiproject/assets/114278754/a7452c12-acdf-4b2f-b9e5-55c89fdf32df)
 #  🍳Overview
 
 > 💚nctminiproject💚 NCT 맴버를 좋아하는 사람들의 커뮤니티
