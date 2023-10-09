@@ -1,5 +1,17 @@
+-- Drop sequences
+DROP SEQUENCE USERS_SEQ;
+DROP SEQUENCE nctmembers_seq;
+DROP SEQUENCE nctgroups_seq;
+DROP SEQUENCE comments_seq;
 
--- 사용자
+-- Drop tables
+DROP TABLE comments;
+DROP TABLE nctgroups;
+DROP TABLE nctmembers;
+DROP TABLE USERS;
+
+-- Recreate tables and sequences
+
 CREATE TABLE USERS (
    id NUMBER PRIMARY KEY,
    userId VARCHAR2(50) UNIQUE NOT NULL,
@@ -11,7 +23,8 @@ CREATE TABLE USERS (
    email VARCHAR2(100),
    address VARCHAR2(300),
    userrole VARCHAR2(10) CHECK (userrole IN ('USER', 'ADMIN')),
-   regdate DATE DEFAULT SYSDATE
+   regdate DATE DEFAULT SYSDATE,
+   is_deleted NUMBER DEFAULT 0
 );
 
 CREATE TABLE nctmembers (
@@ -22,7 +35,8 @@ CREATE TABLE nctmembers (
     position VARCHAR2(200) NOT NULL,
     mbti VARCHAR2(4),
     image VARCHAR2(100) NOT NULL,
-    regdate DATE DEFAULT SYSDATE
+    regdate DATE DEFAULT SYSDATE,
+    is_deleted NUMBER DEFAULT 0
 );
 
 CREATE TABLE nctgroups (
@@ -34,12 +48,12 @@ CREATE TABLE nctgroups (
 
 CREATE TABLE comments (
     commentid NUMBER PRIMARY KEY,
-    nctmember_id NUMBER NOT NULL,    -- 댓글의 대상인 nctmembers의 ID
-    userid NUMBER NOT NULL,          -- 댓글을 남긴 사용자의 ID
-    parents_id NUMBER NULL,          -- 상위 댓글 ID (null이면 최상위 댓글)
+    nctmember_id NUMBER NOT NULL,    
+    userid NUMBER NOT NULL,          
+    parents_id NUMBER NULL,          
     contents VARCHAR2(255) NOT NULL,
-    depth  NUMBER DEFAULT 1 CHECK (depth IN (1, 2)),  -- 댓글의 깊이 (1: 최상위, 2: 답글)
-    is_deleted   NUMBER DEFAULT 0,    -- 댓글이 삭제되었는지 여부 (0: 아니오, 1: 예)
+    depth  NUMBER DEFAULT 1 CHECK (depth IN (1, 2)),  
+    is_deleted   NUMBER DEFAULT 0,    
     regdate DATE DEFAULT SYSDATE,
     FOREIGN KEY (nctmember_id) REFERENCES nctmembers(memberId),
     FOREIGN KEY (parents_id) REFERENCES comments(commentid),
@@ -66,7 +80,7 @@ CREATE SEQUENCE comments_seq
     INCREMENT BY 1
     NOMAXVALUE;
     
-ALTER TABLE users ADD is_deleted NUMBER DEFAULT 0;
-
-ALTER TABLE nctmembers ADD is_deleted NUMBER DEFAULT 0;
-
+-- ID = admin 가진 회원 직접 ADMIN 권한 부    
+UPDATE USERS
+SET userrole = 'ADMIN'
+WHERE userId = 'admin';    
