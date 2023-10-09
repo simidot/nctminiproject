@@ -1,10 +1,7 @@
 package com.nctclub.controller;
 
 
-
-
 import java.util.ArrayList;
-
 import java.util.HashMap;
 
 import java.util.List;
@@ -31,6 +28,7 @@ public class SearchController {
 	// 검색 기능 
 
 	// 검색 기능 
+
 		@RequestMapping(value = "/searchmember", method = RequestMethod.GET)
 		public String search(@RequestParam String search, String option, @RequestParam(defaultValue = "") String check , Model model) {
 			Map<String, Object> parameterMap = new HashMap<>();
@@ -53,9 +51,7 @@ public class SearchController {
 
 			return "main";
 			
-		
 		}
 	
-
 	
 }

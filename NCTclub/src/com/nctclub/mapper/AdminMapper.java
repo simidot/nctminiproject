@@ -46,4 +46,6 @@ public interface AdminMapper {
 	
 	public int unhideMember(int memberId);
 
+
+
 }

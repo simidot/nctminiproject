@@ -92,6 +92,7 @@ window.addEventListener("load", function () {
         checkHiddenField.value = checkbox.checked ? "yes" : "";
     } 
 });
+
 </script>
 
 

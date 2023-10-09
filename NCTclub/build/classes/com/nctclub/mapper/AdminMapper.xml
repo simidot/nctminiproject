@@ -141,7 +141,11 @@
  	 	WHERE memberId = #{memberId} 
   	</update>
 
-  	
+  	<update id="unhideMember">
+  		UPDATE nctmembers 
+ 	 	SET is_deleted = 0
+ 	 	WHERE memberId = #{memberId} 
+  	</update>
   	
  </mapper>
  
