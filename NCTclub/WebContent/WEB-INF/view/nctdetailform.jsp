@@ -54,31 +54,13 @@
 	                        	</c:otherwise>
                         	</c:choose>
                         </c:if>
-          </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>    
+    </div>
+
 	    <div class="modal fade" id="updatenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
-		    <div class="modal-dialog" role="document">
-		        <div class="modal-content">
-		            <div class="modal-header">
-		                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
-		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-		                    <span aria-hidden="true">&times;</span>
-		                </button>
-		            </div>
-		            <div class="modal-body">
-		                <p id="notificationMessage">${successMessage}</p> <!-- successMessage를 출력하는 부분 -->
-		            </div>
-		            <div class="modal-footer">
-		                <button id="confirmUpdateButton" type="button" class="btn btn-primary" data-dismiss="modal">확인</button>
-		            </div>
-		        </div>
-		    </div>
-		</div>
-    
-	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		        <div class="modal-content">
 		            <div class="modal-header">
@@ -98,7 +80,7 @@
 		</div>
 
 	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
-		    <div class="modal-dialog" role="document">  
+		    <div class="modal-dialog" role="document">
 		        <div class="modal-content">
 		            <div class="modal-header">
 		                <h5 class="modal-title" id="notificationModalLabel">알림</h5>
@@ -114,7 +96,7 @@
 		            </div>
 		        </div>
 		    </div>
-  		</div>
+		</div>
 		
 		<div class="modal fade" id="unhideNotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
@@ -191,8 +173,7 @@ function hideMemberConfirmation(memberId) {
         }
     });
 }   
-
-
+      
 //삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
 $(".unhide-button").on("click", function () {
     // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.
@@ -222,9 +203,6 @@ function unhideMemberConfirmation(memberId) {
         }
     });
 }
-
-
-  
 </script>
 <!-- footer html -->
 <%@ include file="inc/footer.jsp" %>
