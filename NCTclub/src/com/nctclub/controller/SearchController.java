@@ -25,7 +25,7 @@ public class SearchController {
 
 	// 검색 기능 
 	@RequestMapping(value = "/searchmember", method = RequestMethod.GET)
-	public String search(@RequestParam String search, String option, String check, Model model) {
+	public String search(@RequestParam String search, String option, @RequestParam(value = "check", defaultValue=" ")String check, Model model) {
 		Map<String, Object> parameterMap = new HashMap<>();
 		parameterMap.put("option", option); // option 변수에 검색 옵션 값 설정
 		parameterMap.put("search", search.toUpperCase()); // search 변수에 검색어 값 설정
@@ -37,7 +37,7 @@ public class SearchController {
 			searchResult = searchService.searchHiddenMember(parameterMap);
 			System.out.println(searchResult.toString());
 			model.addAttribute("check", "yes");
-		} else if (check.equals("")){
+		} else {
 			searchResult = searchService.searchMember(parameterMap);
 			System.out.println(searchResult.toString());
 		}
