@@ -3,7 +3,7 @@
 
 
 <%@ include file="../inc/header.jsp" %>
-
+<div class="container-fluid">
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
@@ -18,6 +18,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 <%@ include file="../inc/footer.jsp" %>

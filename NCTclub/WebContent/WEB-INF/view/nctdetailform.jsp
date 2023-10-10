@@ -41,7 +41,6 @@
                         <p>소속 그룹: ${nctmemberDTO.groupList}</p>
                         <p>포지션: ${nctmemberDTO.position}</p>
                         <p>MBTI: ${nctmemberDTO.mbti}</p>
-
                         <c:if test="${sessionScope.loginDto.userrole.name() == 'ADMIN'}">
                             <!-- 수정하기 버튼 -->
                             <a href="${ctxPath}/admin/updatememberform?memberId=${nctmemberDTO.memberId}" class="btn btn-dark btn-sm">수정하기</a>
@@ -60,7 +59,7 @@
             </div>
         </div>
     </div>
-    
+
 	    <div class="modal fade" id="updatenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		        <div class="modal-content">
@@ -79,7 +78,7 @@
 		        </div>
 		    </div>
 		</div>
-    
+
 	    <div class="modal fade" id="hidenotificationModal" tabindex="-1" role="dialog" aria-labelledby="notificationModalLabel" aria-hidden="true">
 		    <div class="modal-dialog" role="document">
 		        <div class="modal-content">
@@ -146,7 +145,6 @@ function getParameterByName(name, url) {
     if (!results[2]) return '';
     return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
-
 //삭제하기 버튼 클릭 이벤트 핸들러를 등록합니다.
 $(".hide-button").on("click", function () {
     // 삭제하기 버튼에 연결된 멤버 아이디를 가져옵니다.

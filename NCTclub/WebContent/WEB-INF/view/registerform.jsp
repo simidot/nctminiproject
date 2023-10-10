@@ -71,8 +71,8 @@
             <div class="form-group row">
                 <label for="address" class="col-sm-3 col-form-label">주소:</label>
                 <div class="col-sm-9">
-                    <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
+                    <input type="text" class="form-control" id="roadAddress" name="roadAddress" placeholder="도로명주소">
+                    <input type="text" class="form-control mt-2" id="detailAddress" name="detailAddress" placeholder="상세주소">
                 </div>
             </div>
 
@@ -82,7 +82,7 @@
                     <input type="hidden" id="sample4_postcode" placeholder="우편번호">
                     <input type="hidden" id="sample4_jibunAddress" placeholder="지번주소">
                     <input type="hidden" id="sample4_extraAddress" placeholder="참고항목">
-                    <input type="button" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
+                    <input type="button"  class="btn btn-secondary" onclick="sample4_execDaumPostcode()" value="우편번호 찾기">
                 </div>
             </div>
 

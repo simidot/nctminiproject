@@ -218,7 +218,7 @@ public class AdminController {
 
 		return "main";
 	}
-	
+
 	// 숨겨진 엔시티 멤버 숨김 해제
 	 @RequestMapping(value ="/unhidemember", method = RequestMethod.GET)
 	 public String unhidemember(@RequestParam("memberId") int memberId) {
@@ -229,6 +229,7 @@ public class AdminController {
 				return "no"; //여기 에러페이지로 이동하도록 수정하기**
 			}
 	 }
+	
 	
 	
 	
